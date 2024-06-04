@@ -1,15 +1,3 @@
-//analytics for google 
-async src="https://www.googletagmanager.com/gtag/js?id=YOUR_TRACKING_ID"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-
-        gtag('config', 'YOUR_TRACKING_ID');
-    
-
-
-//passwords for login and sign up page
 document.addEventListener('DOMContentLoaded', () => {
     const loginForm = document.getElementById('loginForm');
     const signupForm = document.getElementById('signupForm');
@@ -21,6 +9,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Simulate login process
         alert(`Login attempt with username: ${username} and password: ${password}`);
+
+        // Google Analytics Event Tracking
+        gtag('event', 'submit', {
+            'event_category': 'Form',
+            'event_label': 'Login Form',
+            'value': username
+        });
     });
 
     signupForm.addEventListener('submit', function(event) {
@@ -30,5 +25,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Simulate sign-up process
         alert(`Sign-up attempt with username: ${newUsername} and password: ${newPassword}`);
+
+        // Google Analytics Event Tracking
+        gtag('event', 'submit', {
+            'event_category': 'Form',
+            'event_label': 'Sign-Up Form',
+            'value': newUsername
+        });
+    });
+
+    // Initialize Swiper
+    const swiper = new Swiper('.swiper-container', {
+        // Swiper parameters
+        loop: true,
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+        },
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
     });
 });
