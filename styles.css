@@ -14,16 +14,18 @@ body {
 
 /* Header Styles */
 header {
-    background: rgba(0, 0, 0, 0.8); /* Make header slightly transparent */
+    background: rgba(0, 0, 0, 0.8); /* Slightly transparent background */
     color: #fff;
     padding: 10px 0;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    position: absolute; /* Positioned absolutely to be on top of slider */
-    width: 100%; /* Full width to cover the slider */
+    position: fixed; /* Fixed to stay on top */
+    width: 100%; /* Full width */
     z-index: 10; /* Ensure it is on top of other elements */
+    box-sizing: border-box; /* Ensure padding is included in the width */
 }
+
 header h1 {
     margin: 0;
     flex-grow: 1;
@@ -65,6 +67,34 @@ nav ul li a {
     margin: 4px 0;
 }
 
+/* Slider Styles */
+#slider {
+    margin-top: 70px; /* Space for the fixed header */
+    width: 100%; /* Full width to prevent empty spaces */
+    overflow: hidden; /* Hide any overflow */
+    box-sizing: border-box; /* Ensure padding is included in the width */
+}
+
+.swiper-container {
+    width: 100%;
+    height: 300px;
+    box-sizing: border-box; /* Ensure padding is included in the width */
+}
+
+.swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.swiper-slide img {
+    max-width: 100%;
+    max-height: 100%;
+}
+
 /* Responsive Styles */
 @media (max-width: 768px) {
     nav ul {
@@ -86,32 +116,8 @@ nav ul li a {
         margin-left: auto;
         margin-right: auto;
     }
-}
+        }
 
-
-/* Slider Styles */
-#slider {
-    margin-top: 20px;
-}
-
-.swiper-container {
-    width: 100%;
-    height: 300px;
-}
-
-.swiper-slide {
-    text-align: center;
-    font-size: 18px;
-    background: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.swiper-slide img {
-    max-width: 100%;
-    max-height: 100%;
-}
 
 /* Main Content Styles */
 main {
