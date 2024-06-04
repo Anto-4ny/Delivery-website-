@@ -22,8 +22,14 @@
     <header>
         <img src="logo.png" alt="Delivery Service Logo" class="logo">
         <h1>Delivery Service</h1>
+        <!-- Hamburger Menu -->
+        <div class="hamburger-menu" onclick="toggleMenu()">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
         <nav>
-            <ul>
+            <ul class="menu" id="menu">
                 <li><a href="#home">Home</a></li>
                 <li><a href="#services">Services</a></li>
                 <li><a href="#contact">Contact</a></li>
@@ -70,7 +76,8 @@
                 <label for="username">Username:</label>
                 <input type="text" id="username" name="username" required>
                 <label for="password">Password:</label>
-                <input type="password" id="password" name="password" required>
+                <input type="password"
+                     id="password" name="password" required>
                 <button type="submit">Login</button>
             </form>
         </section>
@@ -106,6 +113,12 @@
     <!-- Swiper.js Script -->
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
     <script src="scripts.js"></script>
+
+    <script>
+        function toggleMenu() {
+            var menu = document.getElementById("menu");
+            menu.classList.toggle("show-menu");
+        }
+    </script>
 </body>
-    </html>
-    
+</html>
