@@ -14,15 +14,16 @@ body {
 
 /* Header Styles */
 header {
-    background: #000;
+    background: rgba(0, 0, 0, 0.8); /* Make header slightly transparent */
     color: #fff;
     padding: 10px 0;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    position: relative; /* Added to control child positioning */
+    position: absolute; /* Positioned absolutely to be on top of slider */
+    width: 100%; /* Full width to cover the slider */
+    z-index: 10; /* Ensure it is on top of other elements */
 }
-
 header h1 {
     margin: 0;
     flex-grow: 1;
