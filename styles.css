@@ -21,6 +21,7 @@ header {
     align-items: center;
     justify-content: space-between;
     position: fixed; /* Fixed to stay on top */
+    top: 0; /* Stay at the top of the page */
     width: 100%; /* Full width */
     z-index: 10; /* Ensure it is on top of other elements */
     box-sizing: border-box; /* Ensure padding is included in the width */
@@ -32,28 +33,25 @@ header h1 {
     text-align: center;
 }
 
-header .logo {
+.header-bar {
+    background: rgba(0, 0, 0, 0.8); /* Slightly transparent background */
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: fixed;
+    top: 50px; /* Position below the main header */
+    width: 100%;
+    padding: 10px 20px;
+    box-sizing: border-box; /* Ensure padding is included in the width */
+    z-index: 10; /* Ensure it is on top of the slider */
+}
+
+.header-bar .logo {
     height: 50px;
     margin-left: 10px;
 }
 
-nav ul {
-    list-style: none;
-    padding: 0;
-    margin-right: 20px;
-}
-
-nav ul li {
-    display: inline;
-    margin: 0 10px;
-}
-
-nav ul li a {
-    color: #fff;
-    text-decoration: none;
-}
-
-/* Hamburger Menu Styles */
 .hamburger-menu {
     display: none; /* Hide by default */
     flex-direction: column;
@@ -69,7 +67,7 @@ nav ul li a {
 
 /* Slider Styles */
 #slider {
-    margin-top: 70px; /* Space for the fixed header */
+    margin-top: 130px; /* Space for the fixed header and the bar */
     width: 100%; /* Full width to prevent empty spaces */
     overflow: hidden; /* Hide any overflow */
     box-sizing: border-box; /* Ensure padding is included in the width */
@@ -103,20 +101,23 @@ nav ul li a {
 
     .hamburger-menu {
         display: flex;
-        position: absolute;
-        right: 20px;
     }
 
-    header .logo {
-        position: absolute;
-        left: 10px;
+    .header-bar .logo {
+        position: static;
+        margin-left: 0;
+    }
+
+    .header-bar {
+        justify-content: space-between;
     }
 
     header h1 {
         margin-left: auto;
         margin-right: auto;
     }
-        }
+}
+
 
 
 /* Main Content Styles */
