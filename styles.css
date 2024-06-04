@@ -20,12 +20,13 @@ header {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    position: relative; /* Added to control child positioning */
 }
 
 header h1 {
     margin: 0;
-    text-align: center;
     flex-grow: 1;
+    text-align: center;
 }
 
 header .logo {
@@ -68,12 +69,24 @@ nav ul li a {
     nav ul {
         display: none;
     }
+
     .hamburger-menu {
         display: flex;
         position: absolute;
         right: 20px;
     }
+
+    header .logo {
+        position: absolute;
+        left: 10px;
+    }
+
+    header h1 {
+        margin-left: auto;
+        margin-right: auto;
+    }
 }
+
 
 /* Slider Styles */
 #slider {
