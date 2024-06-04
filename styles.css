@@ -18,7 +18,7 @@ header {
     color: #fff;
     padding: 10px 0;
     display: flex;
-    align-items: right;
+    align-items: center;
     justify-content: space-between;
 }
 
@@ -54,7 +54,6 @@ nav ul li a {
     display: none; /* Hide by default */
     flex-direction: column;
     cursor: pointer;
-    align-items: right;
 }
 
 .bar {
@@ -62,6 +61,18 @@ nav ul li a {
     height: 3px;
     background-color: #fff;
     margin: 4px 0;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    nav ul {
+        display: none;
+    }
+    .hamburger-menu {
+        display: flex;
+        position: absolute;
+        right: 20px;
+    }
 }
 
 /* Slider Styles */
