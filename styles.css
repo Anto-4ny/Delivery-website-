@@ -49,6 +49,20 @@ nav ul li a {
     text-decoration: none;
 }
 
+/* Hamburger Menu Styles */
+.hamburger-menu {
+    display: none; /* Hide by default */
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.bar {
+    width: 25px;
+    height: 3px;
+    background-color: #fff;
+    margin: 4px 0;
+}
+
 /* Slider Styles */
 #slider {
     margin-top: 20px;
@@ -135,6 +149,7 @@ footer p {
 
     nav ul {
         margin: 10px 0;
+        display: none; /* Hide navigation links by default */
     }
 
     nav ul li {
@@ -142,8 +157,22 @@ footer p {
         margin: 10px 0;
     }
 
+    /* Show hamburger menu */
+    .hamburger-menu {
+        display: flex;
+    }
+
+    /* Hide hamburger menu button on larger screens */
+    .hamburger-menu.large-screen {
+        display: none;
+    }
+
+    /* Show navigation links when hamburger menu is clicked */
+    .show-menu {
+        display: block !important;
+    }
+
     main {
         padding: 10px;
     }
-    }
-        
+}
