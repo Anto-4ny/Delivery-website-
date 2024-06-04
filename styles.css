@@ -18,7 +18,7 @@ header {
     color: #fff;
     padding: 10px 0;
     display: flex;
-    align-items: center;
+    align-items: right;
     justify-content: space-between;
 }
 
@@ -54,7 +54,7 @@ nav ul li a {
     display: none; /* Hide by default */
     flex-direction: column;
     cursor: pointer;
-    align: right;
+    align-items: right;
 }
 
 .bar {
