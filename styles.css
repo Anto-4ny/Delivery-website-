@@ -29,8 +29,8 @@ header h1 {
 }
 
 header .logo {
-    height: 40px;
-    margin-left: 20px;
+    height: 50px;
+    margin-left: 10px;
 }
 
 nav ul {
@@ -54,6 +54,7 @@ nav ul li a {
     display: none; /* Hide by default */
     flex-direction: column;
     cursor: pointer;
+    align: right;
 }
 
 .bar {
