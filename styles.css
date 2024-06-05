@@ -61,6 +61,7 @@ nav ul li a {
     display: none; /* Hide by default */
     flex-direction: column;
     cursor: pointer;
+    font-size: 2rem;
 }
 
 .bar {
