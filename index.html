@@ -20,8 +20,16 @@
 </head>
 <body>
     <header>
-        <div class="header-bar">
-            <img src="logo.png" alt="Logo" class="logo">
+    <div class="header-bar">
+        <img src="logo.png" alt="Logo" class="logo">
+        <!-- Menu Icon -->
+        <div class="hamburger-menu" onclick="toggleMenu()">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+        <!-- Navigation Links -->
+        <div id="menu">
             <nav>
                 <ul>
                     <li><a href="#">Home</a></li>
@@ -30,12 +38,8 @@
                     <li><a href="#">Contact</a></li>
                 </ul>
             </nav>
-            <div class="hamburger-menu">
-                <div class="bar"></div>
-                <div class="bar"></div>
-                <div class="bar"></div>
-            </div>
         </div>
+    </div>
     </header>
 
     <!-- Sliders immediately after the header -->
