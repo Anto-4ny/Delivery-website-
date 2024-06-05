@@ -323,7 +323,7 @@ nav {
     position: relative;
     width: 600px;
     height: 400px;
-    background-color: #fff;
+    background-color: #001f3f;
     border-radius: 10px;
     box-shadow: 0 0 20px rgba(0, 123, 255, 0.5);
     overflow: hidden;
@@ -352,7 +352,7 @@ nav {
 }
 
 .right-side {
-    background-color: #fff;
+    background-color: #001f3f;
     color: #333;
     right: 0;
 }
@@ -400,8 +400,8 @@ button:hover {
 .boxforloginpage::before {
     content: '';
     position: absolute;
-    width: 200%;
-    height: 200%;
+    width: 300%;
+    height: 300%;
     top: -50%;
     left: -50%;
     background: linear-gradient(135deg, transparent 50%, #000 50%);
