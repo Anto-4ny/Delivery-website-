@@ -1,3 +1,10 @@
+//hamburger menu 
+document.querySelector('.hamburger-menu').addEventListener('click', () => {
+    document.querySelector('nav ul').classList.toggle('show');
+});
+
+//login and sign up pages
+
 document.addEventListener('DOMContentLoaded', () => {
     const loginForm = document.getElementById('loginForm');
     const signupForm = document.getElementById('signupForm');
@@ -48,3 +55,5 @@ document.addEventListener('DOMContentLoaded', () => {
         },
     });
 });
+
+
