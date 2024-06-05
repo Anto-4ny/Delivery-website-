@@ -8,54 +8,60 @@
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <!-- Swiper.js CSS -->
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
-    <!-- Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=YOUR_TRACKING_ID"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'YOUR_TRACKING_ID');
-    </script>
-    <!-- End Google Analytics -->
 </head>
 <body>
     <header>
-    <div class="header-bar">
-        <img src="logo.png" alt="Logo" class="logo">
-        <!-- Menu Icon -->
-        <div class="hamburger-menu" onclick="toggleMenu()">
-            <div class="bar"></div>
-            <div class="bar"></div>
-            <div class="bar"></div>
+        <div class="header-bar">
+            <img src="logo.png" alt="Logo" class="logo">
+            <!-- Menu Icon -->
+            <div class="hamburger-menu">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </div>
+            <!-- Navigation Links -->
+            <div id="menu">
+                <nav>
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">About</a></li>
+                        <li><a href="#">Services</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </nav>
+            </div>
         </div>
-        <!-- Navigation Links -->
-        <div id="menu">
-            <nav>
-                <ul>
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">About</a></li>
-                    <li><a href="#">Services</a></li>
-                    <li><a href="#">Contact</a></li>
-                </ul>
-            </nav>
-        </div>
-    </div>
     </header>
 
     <!-- Sliders immediately after the header -->
     <section id="slider">
         <div class="swiper-container">
             <div class="swiper-wrapper">
-                <div class="swiper-slide"><img src="src/images (2).jpeg" alt="Image 1"></div>
-                <div class="swiper-slide"><img src="src/images (3).jpeg" alt="Image 2"></div>
-                <div class="swiper-slide"><img src="src/images (4).jpeg" alt="Image 3"></div>
+                <div class="swiper-slide">
+                    <img src="src/images (2).jpeg" alt="Image 1">
+                    <div class="slide-content">
+                        <div class="slide-text">Slide 1 text</div>
+                        <a href="mailto:your.email@gmail.com" class="slide-button">Inquire Now</a>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <img src="src/images (3).jpeg" alt="Image 2">
+                    <div class="slide-content">
+                        <div class="slide-text">Slide 2 text</div>
+                        <a href="mailto:your.email@gmail.com" class="slide-button">Inquire Now</a>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <img src="src/images (4).jpeg" alt="Image 3">
+                    <div class="slide-content">
+                        <div class="slide-text">Slide 3 text</div>
+                        <a href="mailto:your.email@gmail.com" class="slide-button">Inquire Now</a>
+                    </div>
+                </div>
                 <!-- Add more slides as needed -->
             </div>
             <!-- Add Pagination -->
             <div class="swiper-pagination"></div>
-            <!-- Add Navigation -->
-            <div class="swiper-button-next"></div>
-            <div class="swiper-button-prev"></div>
         </div>
     </section>
 
@@ -79,8 +85,7 @@
                 <label for="username">Username:</label>
                 <input type="text" id="username" name="username" required>
                 <label for="password">Password:</label>
-                <input type="password"
-                     id="password" name="password" required>
+                <input type="password" id="password" name="password" required>
                 <button type="submit">Login</button>
             </form>
         </section>
@@ -116,12 +121,6 @@
     <!-- Swiper.js Script -->
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
     <script src="scripts.js"></script>
-
-    <script>
-        function toggleMenu() {
-            var menu = document.getElementById("menu");
-            menu.classList.toggle("show-menu");
-        }
-    </script>
 </body>
-</html>
+        </html>
+        
