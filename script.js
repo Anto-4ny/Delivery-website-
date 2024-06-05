@@ -48,3 +48,18 @@ function openFullScreen(contentId) {
     window.location.href = 'full_screen_page.html?contentId=' + contentId;
 }
 </script>
+
+//login page
+document.getElementById('loginForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
+
+    if (username === 'admin' && password === 'password123') {
+        alert('Login successful!');
+    } else {
+        alert('Invalid username or password.');
+    }
+});
+
