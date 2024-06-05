@@ -1,13 +1,23 @@
 //hamburger menu 
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('DOM fully loaded and parsed');
+    // Hamburger menu toggle
     document.querySelector('.hamburger-menu').addEventListener('click', function() {
-        console.log('Hamburger menu clicked');
         document.querySelector('nav ul').classList.toggle('show');
     });
+
+    // Initialize Swiper
+    const swiper = new Swiper('.swiper-container', {
+        loop: true,
+        autoplay: {
+            delay: 3000, // 3 seconds delay between slides
+            disableOnInteraction: false, // Continue autoplay after interaction
+        },
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+        }
+    });
 });
-
-
 
 //login and sign up pages
 
