@@ -1,9 +1,12 @@
 //hamburger menu 
 document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM fully loaded and parsed');
     document.querySelector('.hamburger-menu').addEventListener('click', function() {
+        console.log('Hamburger menu clicked');
         document.querySelector('nav ul').classList.toggle('show');
     });
 });
+
 
 
 //login and sign up pages
