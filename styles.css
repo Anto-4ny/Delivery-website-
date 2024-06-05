@@ -27,28 +27,34 @@ header {
     box-sizing: border-box; /* Ensure padding is included in the width */
 }
 
-header h1 {
-    margin: 0;
-    flex-grow: 1;
-    text-align: center;
-}
-
 .header-bar {
-    background: rgba(0, 0, 0, 0.8); /* Slightly transparent background */
-    color: #fff;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    position: fixed;
-    top: 50px; /* Position below the main header */
     width: 100%;
-    padding: 10px 20px;
-    box-sizing: border-box; /* Ensure padding is included in the width */
-    z-index: 10; /* Ensure it is on top of the slider */
+    padding: 0 20px;
+    box-sizing: border-box;
 }
 
 .header-bar .logo {
     height: 50px;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+}
+
+nav ul li {
+    margin: 0 15px;
+}
+
+nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
 }
 
 .hamburger-menu {
@@ -66,7 +72,7 @@ header h1 {
 
 /* Slider Styles */
 #slider {
-    margin-top: 130px; /* Space for the fixed header and the bar */
+    margin-top: 70px; /* Space for the fixed header */
     width: 100%; /* Full width to prevent empty spaces */
     overflow: hidden; /* Hide any overflow */
     box-sizing: border-box; /* Ensure padding is included in the width */
@@ -96,27 +102,37 @@ header h1 {
 @media (max-width: 768px) {
     nav ul {
         display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 70px;
+        right: 0;
+        background: rgba(0, 0, 0, 0.8);
+        width: 200px;
+    }
+
+    nav ul.show {
+        display: flex;
     }
 
     .hamburger-menu {
         display: flex;
-        order: 1; /* Ensure hamburger menu is first */
     }
 
     .header-bar .logo {
-        order: 2; /* Ensure logo is second */
-        margin-left: auto; /* Push the logo to the right */
+        order: 1; /* Ensure logo is first */
+    }
+
+    .hamburger-menu {
+        order: 2; /* Ensure hamburger menu is second */
+        margin-left: auto; /* Push the hamburger menu to the right */
     }
 
     .header-bar {
         justify-content: space-between;
     }
+            }
+        
 
-    header h1 {
-        margin-left: auto;
-        margin-right: auto;
-    }
-}
 
 
 /* Main Content Styles */
