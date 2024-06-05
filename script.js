@@ -1,7 +1,10 @@
 //hamburger menu 
-document.querySelector('.hamburger-menu').addEventListener('click', () => {
-    document.querySelector('nav ul').classList.toggle('show');
+document.addEventListener('DOMContentLoaded', function() {
+    document.querySelector('.hamburger-menu').addEventListener('click', function() {
+        document.querySelector('nav ul').classList.toggle('show');
+    });
 });
+
 
 //login and sign up pages
 
