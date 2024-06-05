@@ -91,11 +91,51 @@ nav ul li a {
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative; /* For positioning text and button */
 }
 
 .swiper-slide img {
-    max-width: 100%;
-    max-height: 100%;
+    width: 100%;
+    height: auto;
+}
+
+.slide-content {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    padding: 10px 20px;
+    border-radius: 5px;
+    opacity: 0; /* Initially hidden */
+    animation: fadeInUp 1s forwards 0.5s; /* Fade in and slide up */
+}
+
+.slide-text {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.slide-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #000;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+/* Keyframes for the text animation */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* Responsive Styles */
@@ -130,8 +170,8 @@ nav ul li a {
     .header-bar {
         justify-content: space-between;
     }
-}
-
+    }
+    
 
 
         
