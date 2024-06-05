@@ -4,6 +4,13 @@ document.addEventListener('DOMContentLoaded', function() {
     document.querySelector('.hamburger-menu').addEventListener('click', function() {
         document.querySelector('nav ul').classList.toggle('show');
     });
+    
+    function toggleMenu() {
+        var menu = document.getElementById("menu");
+        menu.classList.toggle("show-menu");
+    }
+
+                          
 
     // Initialize Swiper
     const swiper = new Swiper('.swiper-container', {
