@@ -12,20 +12,21 @@ body {
     padding: 0 20px;
 }
 
-/* Header Styles */
+/* Header styles */
 header {
-    background: rgba(0, 0, 0, 0.8); /* Slightly transparent background */
-    color: #fff;
-    padding: 10px 0;
     display: flex;
-    align-items: center;
     justify-content: space-between;
-    position: fixed; /* Fixed to stay on top */
-    top: 0; /* Stay at the top of the page */
-    width: 100%; /* Full width */
-    z-index: 10; /* Ensure it is on top of other elements */
-    box-sizing: border-box; /* Ensure padding is included in the width */
+    align-items: center;
+    padding: 1rem;
+    background: white;
+    color: black;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000; /* Ensures the header stays on top of other content */
+    height: 60px;
 }
+
 
 .header-bar {
     display: flex;
