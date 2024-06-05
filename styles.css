@@ -130,11 +130,10 @@ nav ul li a {
     .header-bar {
         justify-content: space-between;
     }
-            }
+}
+
+
         
-
-
-
 /* Main Content Styles */
 main {
     padding: 20px 0;
