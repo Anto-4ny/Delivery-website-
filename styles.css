@@ -317,6 +317,113 @@ nav {
     background-color: #0056b3;
 }
 
+/*login and sign up pages*/
+/*login page styles*/
+body {
+    font-family: Arial, sans-serif;
+    background-color: #001f3f;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.containerforloginpage {
+    position: relative;
+    width: 600px;
+    height: 400px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 123, 255, 0.5);
+    overflow: hidden;
+}
+
+.box {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+}
+
+.left-side,
+.right-side {
+    position: absolute;
+    width: 50%;
+    height: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.left-side {
+    background-color: #000;
+    color: #fff;
+    left: 0;
+}
+
+.right-side {
+    background-color: #fff;
+    color: #333;
+    right: 0;
+}
+
+h2 {
+    margin-bottom: 20px;
+}
+
+p {
+    font-size: 14px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    background-color: #001f3f;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #001c3c;
+}
+
+.box::before {
+    content: '';
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    top: -50%;
+    left: -50%;
+    background: linear-gradient(135deg, transparent 50%, #000 50%);
+    z-index: 1;
+}
+
+.left-side,
+.right-side {
+    z-index: 2;
+    }
+    
+
     
 /* Footer styles */
 /* Footer styles */
