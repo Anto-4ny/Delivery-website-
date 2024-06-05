@@ -18,8 +18,8 @@ header {
     justify-content: space-between;
     align-items: center;
     padding: 1rem;
-    background: white;
-    color: black;
+    background: black;
+    color: white;
     position: fixed;
     top: 0;
     width: 100%;
