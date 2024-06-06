@@ -41,13 +41,11 @@ document.querySelectorAll('.box').forEach(box => {
 });
         
 //feature boxes
-<script>
 function openFullScreen(contentId) {
     // You can replace this with your own logic to open a new screen
     // For example, you can redirect to a new page with the full content
     window.location.href = 'full_screen_page.html?contentId=' + contentId;
 }
-</script>
 
 //login page
 document.getElementById('loginForm').addEventListener('submit', function(event) {
@@ -62,4 +60,5 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
         alert('Invalid username or password.');
     }
 });
+                       
 
