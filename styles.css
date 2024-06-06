@@ -317,7 +317,7 @@ nav {
 }
 
 /*login and sign up pages*/
-/*login page styles
+/*login page styles*/
 .content {
     width: 100%;
     margin-top: 80px;
@@ -417,7 +417,7 @@ button:hover {
     z-index: 1;
     transform: rotate(45deg);
     transform-origin: top left;
-}*/
+}
 
     
 /* Footer styles */
