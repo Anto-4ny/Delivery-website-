@@ -1,33 +1,30 @@
-// script.js
-
-document.addEventListener("DOMContentLoaded", () => {
-    
-    // Slider functionality
-    let currentSlide = 0;
+//hamburger and sliders
+document.addEventListener('DOMContentLoaded', function() {
+    const menuIcon = document.getElementById('menu-icon');
+    const navLinks = document.getElementById('nav-links');
     const slides = document.querySelectorAll('.slide');
-    const totalSlides = slides.length;
+    let currentSlide = 0;
 
-    const showSlide = (index) => {
+    menuIcon.addEventListener('click', function() {
+        navLinks.classList.toggle('active');
+    });
+
+    function showSlide(index) {
         slides.forEach((slide, i) => {
             slide.classList.toggle('active', i === index);
         });
-    };
+    }
 
-    const nextSlide = () => {
-        currentSlide = (currentSlide + 1) % totalSlides;
+    function nextSlide() {
+        currentSlide = (currentSlide + 1) % slides.length;
         showSlide(currentSlide);
-    };
+    }
 
-    setInterval(nextSlide, 6000); // Change slide every 3 seconds
+    setInterval(nextSlide, 5000); // Change slide every 5 seconds
 
-    // Hamburger menu functionality
-    const menuIcon = document.getElementById('menu-icon');
-    const navLinks = document.getElementById('nav-links');
-
-    menuIcon.addEventListener('click', () => {
-        navLinks.classList.toggle('active');
-    });
+    showSlide(currentSlide); // Initialize the first slide
 });
+
 
 //website development boxes
 document.querySelectorAll('.box').forEach(box => {
