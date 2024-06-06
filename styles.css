@@ -318,14 +318,14 @@ nav {
 
 /*login and sign up pages*/
 /*login page styles*/
-.content {
+/*.content {
     width: 100%;
     margin-top: 80px;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-grow: 1;
-}
+}*/
 
 .containerforloginpage {
     width: 600px;
@@ -407,7 +407,7 @@ button:hover {
 }
 
 .boxforloginpage::before {
-    content: '';
+   /* content: '';*/
     position: absolute;
     top: 0;
     left: 0;
