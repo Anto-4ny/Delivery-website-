@@ -317,10 +317,10 @@ nav {
 }
 
 /*login and sign up pages*/
-/*login page styles*/
+/*login page styles
 .content {
     width: 100%;
-    margin-top: 80px; /* Space below the navigation bar */
+    margin-top: 80px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -329,7 +329,7 @@ nav {
 
 .containerforloginpage {
     width: 600px;
-    margin: 40px 0; /* Space above and below the box */
+    margin: 40px 0; 
     background-color: #fff;
     border-radius: 10px;
     box-shadow: 0 0 20px rgba(0, 123, 255, 0.5);
@@ -417,7 +417,7 @@ button:hover {
     z-index: 1;
     transform: rotate(45deg);
     transform-origin: top left;
-}
+}*/
 
     
 /* Footer styles */
