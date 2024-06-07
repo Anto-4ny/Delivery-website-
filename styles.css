@@ -318,14 +318,14 @@ nav {
 
 /*login and sign up pages*/
 /*login page styles*/
-/*.content {
+.content {
     width: 100%;
     margin-top: 80px;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-grow: 1;
-}*/
+}
 
 .containerforloginpage {
     width: 600px;
@@ -428,7 +428,7 @@ footer {
     padding: 10px 0;
     text-align: center;
     width: 100%; /* Set width to 100% */
-    position: fixed; /* Fix the footer at the bottom */
+    position: absolute; /* Fix the footer at the bottom */
     bottom: 0; /* Stick it to the bottom */
     z-index: 10;
 }
