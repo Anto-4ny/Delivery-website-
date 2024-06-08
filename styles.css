@@ -318,11 +318,17 @@ nav {
 
 /*login and sign up pages*/
 /*login page styles*/
+.containerforlogin {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+}
 .login-box {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 80%;
+    height: 100%;
 }
 
 .login-box-content {
