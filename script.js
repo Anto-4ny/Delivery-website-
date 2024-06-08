@@ -43,16 +43,38 @@ function openFullScreen(contentId) {
     window.location.href = "full_screen_page.html?contentId=" + contentId;
 }
 
-document.getElementById("loginForm").addEventListener("submit", function (event) {
-    event.preventDefault();
+// script.js
 
-    const username = document.getElementById("username").value;
-    const password = document.getElementById("password").value;
-
-    if (username === "admin" && password === "password123") {
-        alert("Login successful!");
-    } else {
-        alert("Invalid username or password.");
+document.addEventListener("DOMContentLoaded", () => {
+    const username = localStorage.getItem("username");
+    if (username) {
+        displayWelcomeMessage(username);
     }
 });
-                          
+
+function loginUser() {
+    const usernameInput = document.getElementById("username").value;
+    const passwordInput = document.getElementById("password").value;
+
+    // For simplicity, this example does not validate the password.
+    // In a real application, you would send the username and password to a server for validation.
+
+    if (usernameInput && passwordInput) {
+        localStorage.setItem("username", usernameInput);
+        displayWelcomeMessage(usernameInput);
+    } else {
+        alert("Please enter both username and password.");
+    }
+    return false; // Prevent form submission
+}
+
+function displayWelcomeMessage(username) {
+    const loginBoxContent = document.querySelector(".login-box-content");
+    loginBoxContent.innerHTML = `
+        <div class="welcome-message">
+            <h2>Welcome, ${username}!</h2>
+            <p>You are now logged in.</p>
+        </div>
+    `;
+            }
+
