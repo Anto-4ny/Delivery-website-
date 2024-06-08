@@ -428,7 +428,7 @@ footer {
     padding: 10px 0;
     text-align: center;
     width: 100%; /* Set width to 100% */
-    position: absolute; /* Fix the footer at the bottom */
+    position: relative; /* Fix the footer at the bottom */
     bottom: 0; /* Stick it to the bottom */
     z-index: 10;
 }
