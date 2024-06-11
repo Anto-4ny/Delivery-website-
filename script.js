@@ -38,11 +38,9 @@ document.querySelectorAll(".box").forEach((box) => {
             encodeURIComponent(message);
     });
 });
-
-function openFullScreen(contentId) {
-    window.location.href = "full_screen_page.html?contentId=" + contentId;
-}
-
+function sendInquiry(subject, message) {
+            window.location.href = "mailto:antocaptechnologies@gmail.com?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(message);
+        }
 // script.js
 
 document.addEventListener("DOMContentLoaded", () => {
