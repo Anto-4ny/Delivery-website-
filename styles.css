@@ -246,76 +246,66 @@ nav {
         margin: 0 10px;
     }
 }
+  /* Feature boxes */
+        .containerforfeatureboxes {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 20px;
+            margin-bottom: 100px;
+        }
 
-/* Feature boxes */
-.containerforfeatureboxes {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    gap: 20px;
-    margin-bottom: 100px;
-}
+        .feature-box {
+            width: 300px; /* Adjust width as needed */
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            background-color: #f9f9f9;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            margin-bottom: 20px; /* Add margin to separate feature boxes */
+        }
 
-.feature-box {
-    width: 350px;
-    height: 350px;
-    overflow: hidden;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    cursor: pointer;
-    position: relative;
-    background-color: #f9f9f9;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
-}
+        .feature-box:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
 
-.feature-box:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-}
+        .feature-box img {
+            max-width: 100%;
+            display: block; /* Ensure the image behaves as a block element */
+        }
 
-.feature-box img {
-    max-width: 100%;
-    transition: transform 0.3s ease;
-}
+        .feature-box-content {
+            padding: 20px;
+        }
 
-.feature-box:hover img {
-    transform: scale(1.05);
-}
+        .feature-box h3 {
+            margin-top: 0;
+            font-size: 20px; /* Adjust font size as needed */
+        }
 
-.feature-box-content {
-    padding: 20px;
-}
+        .feature-box p {
+            font-size: 16px;
+            color: #666;
+            margin-top: 10px; /* Add margin to separate title and description */
+        }
 
-.feature-box h3 {
-    margin-top: 0;
-    font-size: 24px;
-}
+        .inquire-button {
+            margin-top: 20px; /* Add margin to separate description and button */
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            text-align: center;
+            display: block; /* Ensure the button behaves as a block element */
+        }
 
-.feature-box p {
-    font-size: 16px;
-    color: #666;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.inquire-button {
-    position: absolute;
-    bottom: 20px;
-    left: 20px;
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    cursor: pointer;
-    text-align: center;
-}
-
-.inquire-button:hover {
-    background-color: #0056b3;
-}
+        .inquire-button:hover {
+            background-color: #0056b3;
+        }
 
 /* Login page styles */
 .containerforlogin {
