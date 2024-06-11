@@ -77,4 +77,57 @@ function displayWelcomeMessage(username) {
         </div>
     `;
             }
+// Function to create a new post
+function createPost() {
+    const postContent = document.getElementById('new-post').value;
+    if (postContent.trim() !== "") {
+        const postContainer = document.createElement('div');
+        postContainer.className = 'post';
+        postContainer.innerHTML = `
+            <p>${postContent}</p>
+            <div class="likes" onclick="likePost(this)">Like</div>
+            <div class="comments"></div>
+            <input type="text" class="comment-input" placeholder="Write a comment...">
+            <button onclick="addComment(this)">Comment</button>
+        `;
+        document.getElementById('posts-container').prepend(postContainer);
+        document.getElementById('new-post').value = "";
+    }
+}
+
+// Function to like a post
+function likePost(element) {
+    const likesDiv = element;
+    if (likesDiv.textContent === "Like") {
+        likesDiv.textContent = "Unlike";
+    } else {
+        likesDiv.textContent = "Like";
+    }
+}
+
+// Function to add a comment to a post
+function addComment(element) {
+    const commentInput = element.previousElementSibling;
+    const commentText = commentInput.value;
+    if (commentText.trim() !== "") {
+        const commentContainer = document.createElement('div');
+        commentContainer.className = 'comment';
+        commentContainer.textContent = commentText;
+        element.parentElement.querySelector('.comments').appendChild(commentContainer);
+        commentInput.value = "";
+    }
+}
+
+// Function to send a chat message
+function sendMessage() {
+    const chatInput = document.getElementById('chat-input');
+    const chatMessage = chatInput.value;
+    if (chatMessage.trim() !== "") {
+        const messageContainer = document.createElement('div');
+        messageContainer.className = 'chat-message';
+        messageContainer.textContent = chatMessage;
+        document.getElementById('chat-container').appendChild(messageContainer);
+        chatInput.value = "";
+    }
+}
 
