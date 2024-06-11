@@ -5,12 +5,11 @@
     box-sizing: border-box;
 }
 
-body, html{
+body, html {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
 }
-
 
 /* Header styles */
 header {
@@ -23,12 +22,12 @@ header {
     position: fixed;
     top: 0;
     width: 100%;
-    z-index: 1000; /* Ensures the header stays on top of other content */
+    z-index: 1000;
     height: 60px;
 }
 
 .logo img {
-    height: 50px; /* Adjust size as needed */
+    height: 50px;
 }
 
 nav {
@@ -80,7 +79,7 @@ nav {
 
 /* Social media icons */
 .social-media a img {
-    height: 24px; /* Adjust size as needed */
+    height: 24px;
     margin-left: 10px;
 }
 
@@ -132,7 +131,7 @@ nav {
 .slider {
     position: relative;
     width: 100%;
-    height: 400px; /* Adjust as needed */
+    height: 400px;
     overflow: hidden;
     margin-bottom: 30px;
     margin-top: 60px;
@@ -162,18 +161,19 @@ nav {
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
+/* Section styles */
 .section {
-    text-align: center; 
+    text-align: center;
     margin-left: 10px;
     margin-right: 10px;
-    margin-bottom: 30px
+    margin-bottom: 30px;
 }
 
 .containerforboxes {
     display: flex;
     justify-content: center;
-    overflow: auto; /* Improved UX for overflow content */
-    background-image: url('scr/Featureimages/1000_F_590848595_RSmUDckpXHZkPpF98fLxvAkaNYKF2vw0.jpg');
+    overflow: auto;
+    background-image: url('src/Featureimages/1000_F_590848595_RSmUDckpXHZkPpF98fLxvAkaNYKF2vw0.jpg');
     background-size: cover;
     background-position: center;
     padding: 20px;
@@ -181,18 +181,18 @@ nav {
     box-sizing: border-box;
     height: 500px;
     width: 100%;
-    marigin-bottom: 50px;
+    margin-bottom: 50px;
 }
 
 .box {
-    z-index: 0; /* Ensure it is above other elements if necessary */
+    z-index: 0;
     width: 200px;
     height: 350px;
-    margin: 0 40px; /* Simplified margin */
+    margin: 0 40px;
     background-size: cover;
     position: relative;
     cursor: pointer;
-    overflow: hidden; 
+    overflow: hidden;
     transition: transform 0.3s, box-shadow 0.3s;
     align-items: center;
     justify-content: space-between;
@@ -239,14 +239,15 @@ nav {
     margin: 5px 0;
 }
 
-/* Add media query for responsiveness */
+/* Responsive adjustments */
 @media (max-width: 768px) {
-  .box {
-    width: 80%; /* Adjust box width for smaller screens */
-    margin: 0 10px; /* Adjust margin for smaller screens */
-  }
+    .box {
+        width: 80%;
+        margin: 0 10px;
+    }
 }
 
+/* Feature boxes */
 .containerforfeatureboxes {
     display: flex;
     flex-wrap: wrap;
@@ -316,14 +317,14 @@ nav {
     background-color: #0056b3;
 }
 
-/*login and sign up pages*/
-/*login page styles*/
+/* Login page styles */
 .containerforlogin {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     height: 100%;
 }
+
 .login-box {
     display: flex;
     justify-content: center;
@@ -339,7 +340,8 @@ nav {
     border-radius: 15px;
     box-shadow: 0 0 20px rgba(0, 0, 255, 0.5);
     overflow: hidden;
-    }
+}
+
 .login-box-content::before {
     content: '';
     position: absolute;
@@ -363,6 +365,7 @@ nav {
     left: 0;
     padding: 20px;
 }
+
 .login-form h2 {
     margin-bottom: 20px;
 }
@@ -391,20 +394,19 @@ nav {
 .welcome-message {
     right: 0;
     padding: 20px;
-    color: blue;
+    color:
+    .blue;
 }
 
-    
-/* Footer styles */
 /* Footer styles */
 footer {
     background-color: black;
     color: white;
     padding: 10px 0;
     text-align: center;
-    width: 100%; /* Set width to 100% */
-    position: relative; /* Fix the footer at the bottom */
-    bottom: 0; /* Stick it to the bottom */
+    width: 100%;
+    position: relative;
+    bottom: 0;
     z-index: 10;
 }
 
@@ -441,7 +443,4 @@ footer {
     .footer-logo img {
         max-width: 60px;
     }
-    }
-    
-
-    
+}
