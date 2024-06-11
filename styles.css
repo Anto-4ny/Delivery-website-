@@ -196,7 +196,7 @@ nav {
     transition: transform 0.3s, box-shadow 0.3s;
     align-items: center;
     justify-content: space-between;
-    flex-direction: row;
+    flex-direction: column;
     display: flex;
     flex: 0 0 auto;
     padding: 20px;
