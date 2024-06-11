@@ -257,12 +257,12 @@ nav {
         }
 
         .feature-box {
-            width: 200px; /* Adjust width as needed */
+            width: 400px; /* Adjust width as needed */
             overflow: hidden;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             cursor: pointer;
             position: relative;
-            background-color: transparent;
+            background-color: blur;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             border-radius: 10px;
             margin-bottom: 20px; /* Add margin to separate feature boxes */
