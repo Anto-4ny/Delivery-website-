@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delivery Express</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="src/Photo_1717591968948.png" alt="Antocap Technologies Logo">
+        </div>
+        <nav>
+            <div class="menu-icon" id="menu-icon">&#9776;</div>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="#">Our Services</a>
+                    <ul>
+                        <li><a href="#">Delivery</a></li>
+                        <li><a href="#">Service 2</a></li>
+                        <li><a href="#">Service 3</a></li>
+                    </ul>
+                </li>
+                <li><a href="#">About Us</a></li>
+                <li><a href="#">Contact Us</a></li>
+                <li><a href="#">Sign Up</a></li>
+                <li><a href="login.html">Log in</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="slider" id="slider">
+        <div class="slide active" style="background-image: url('src/images (2).jpeg');">
+            <div class="slide-content">
+                <h2>Welcome to Delivery Express</h2>
+                <p>Leading the way in Delivery services</p>
+            </div>
+        </div>
+        <div class="slide" style="background-image: url('src/images (3).jpeg');">
+            <div class="slide-content">
+                <h2>Expert delivery Solutions in South Africa</h2>
+                <p>Unlock the full potential of your company</p>
+            </div>
+        </div>
+        <div class="slide" style="background-image: url('src/Antocap/slider3.jpg');">
+            <div class="slide-content">
+                <h2>Transforming Businesses Digitally</h2>
+                <p>Stay ahead of the competition with our delivery services</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <p><b>Welcome to Delivery Express, Where Digital Innovation Takes Center Stage!</b></p>
+        <p>Embark on a journey of cutting-edge delivery solutions with Delivery Express. We blend creativity 
+            with technology to craft captivating digital experiences that resonate with our clients. From 
+            sleek designs to robust functionalities, our expertise in delivery services promises a seamless blend of form and function. 
+          In Delivery Express, every click sparks inspiration, and every interaction tells a unique story. 
+             Let's redefine possibilities together.</p>
+    </div>
+
+    <div class="website-development">
+        <h1>DELIVERY SERVICES</h1>
+    </div>
+
+    <div class="containerforboxes">
+        <div class="box basic">
+            <h2>Basic Website</h2>
+            <ul>
+                <li>Responsive Web Design</li>
+                <li>Up to 5 Pages</li>
+                <li>Basic SEO Implementation</li>
+                <li>Standard Contact Form</li>
+                <li>Social Media Links</li>
+                <li>Basic Analytics Setup</li>
+                <li>Stock Image Utilization</li>
+                <li>Basic Security Configuration</li>
+            </ul>
+            <p>Price: $230</p>
+        </div>
+        <div class="box advanced">
+            <h2>Advanced Website</h2>
+            <ul>
+                <li>Up to 10 Pages</li>
+                <li>Blog Integration</li>
+                <li>E-commerce functionality</li>
+                <li>Custom Contact Forms</li>
+                <li>Enhanced SEO Optimization</li>
+                <li>Bespoke Design Elements</li>
+                <li>Image Gallery/Portfolio</li>
+                <li>Social Media Feed Integration</li>
+                <li>Basic Content Management System (CMS)</li>
+            </ul>
+            <p>Price: $420</p>
+        </div>
+        <div class="box premium">
+            <h2>Premium Website</h2>
+            <ul>
+                <li>Unlimited Pages</li>
+                <li>Advanced E-commerce Solutions</li>
+                <li>Custom Functionalities</li>
+                <li>Membership and Subscription Systems</li>
+                <li>Advanced Security Measures</li>
+                <li>Performance Optimization</li>
+                <li>Integration with third-party APIs</li>
+                <li>Advanced Content Management System (CMS)</li>
+                                <li>Multilingual Capabilities</li>
+                <li>Priority Support and Maintenance</li>
+                <li>Advanced Analytics and Reporting</li>
+            </ul>
+            <p>Price: $650</p>
+        </div>
+    </div>
+
+    <div class="social-media">
+        <a href="#"><img src="src/facebook_icon.jpg" alt="Facebook"></a>
+        <a href="#"><img src="src/twitter_logo.png" alt="Twitter"></a>
+        <a href="#"><img src="src/linkedin_logo.webp" alt="LinkedIn"></a>
+    </div>
+
+    <section class="feature-section">
+        <div class="containerforfeatureboxes">
+            <div class="feature-box" onclick="openFullScreen('content1')">
+                <img src="image1.jpg" alt="Image 1">
+                <div class="feature-box-content">
+                    <h3>Title 1</h3>
+                    <p>This is a description for feature 1. This text will be limited to 3 lines.</p>
+                    <button class="inquire-button" onclick="event.stopPropagation(); window.location.href='mailto:antocaptechnologies@gmail.com';">Inquire</button>
+                </div>
+            </div>
+            <div class="feature-box" onclick="openFullScreen('content2')">
+                <img src="image2.jpg" alt="Image 2">
+                <div class="feature-box-content">
+                    <h3>Title 2</h3>
+                    <p>This is a description for feature 2. This text will be limited to 3 lines.</p>
+                    <button class="inquire-button" onclick="event.stopPropagation(); window.location.href='mailto:antocaptechnologies@gmail.com';">Inquire</button>
+                </div>
+            </div>
+            <div class="feature-box" onclick="openFullScreen('content3')">
+                <img src="image3.jpg" alt="Image 3">
+                <div class="feature-box-content">
+                    <h3>Title 3</h3>
+                    <p>This is a description for feature 3. This text will be limited to 3 lines.</p>
+                    <button class="inquire-button" onclick="event.stopPropagation(); window.location.href='mailto:antocaptechnologies@gmail.com';">Inquire</button>
+                </div>
+            </div>
+            <div class="feature-box" onclick="openFullScreen('content4')">
+                <img src="image4.jpg" alt="Image 4">
+                <div class="feature-box-content">
+                    <h3>Title 4</h3>
+                    <p>This is a description for feature 4. This text will be limited to 3 lines.</p>
+                    <button class="inquire-button" onclick="event.stopPropagation(); window.location.href='mailto:antocaptechnologies@gmail.com';">Inquire</button>
+                </div>
+            </div>
+            <div class="feature-box" onclick="openFullScreen('content5')">
+                <img src="image5.jpg" alt="Image 5">
+                <div class="feature-box-content">
+                    <h3>Title 5</h3>
+                    <p>This is a description for feature 5. This text will be limited to 3 lines.</p>
+                    <button class="inquire-button" onclick="event.stopPropagation(); window.location.href='mailto:antocaptechnologies@gmail.com';">Inquire</button>
+                </div>
+            </div>
+            <div class="feature-box" onclick="openFullScreen('content6')">
+                <img src="image6.jpg" alt="Image 6">
+                <div class="feature-box-content">
+                    <h3>Title 6</h3>
+                    <p>This is a description for feature 6. This text will be limited to 3 lines.</p>
+                    <button class="inquire-button" onclick="event.stopPropagation(); window.location.href='mailto:antocaptechnologies@gmail.com';">Inquire</button>
+                </div>
+            </div>
+            <div class="feature-box" onclick="openFullScreen('content7')">
+                <img src="image7.jpg" alt="Image 7">
+                <div class="feature-box-content">
+                    <h3>Title 7</h3>
+                    <p>This is a description for feature 7. This text will be limited to 3 lines.</p>
+                    <button class="inquire-button" onclick="event.stopPropagation(); window.location.href='mailto:antocaptechnologies@gmail.com';">Inquire</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="logo">
+            <img src="src/Photo_1717591968948.png" alt="Antocap Technologies Logo">
+        </div>
+        <ul class="nav-links">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Services</a></li>
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Contact Us</a></li>
+            <li><a href="#">Sign Up</a></li>
+            <li><a href="login.html">Login</a></li>
+        </ul>
+        <div class="social-media">
+            <a href="#"><img src="src/facebook_icon.jpg" alt="Facebook"></a>
+            <a href="#"><img src="src/twitter_logo.png" alt="Twitter"></a>
+            <a href="#"><img src="src/linkedin_logo.webp" alt="LinkedIn"></a>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
+                    
+            
