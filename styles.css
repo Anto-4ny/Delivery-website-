@@ -185,7 +185,7 @@ nav {
 }
 
 .box {
-    z-index: 1; /* Ensure it is above other elements if necessary */
+    z-index: 0; /* Ensure it is above other elements if necessary */
     width: 200px;
     height: 350px;
     margin: 0 40px; /* Simplified margin */
@@ -196,7 +196,7 @@ nav {
     transition: transform 0.3s, box-shadow 0.3s;
     align-items: center;
     justify-content: space-between;
-    flex-direction: column;
+    flex-direction: row;
     display: flex;
     flex: 0 0 auto;
     padding: 20px;
