@@ -131,3 +131,19 @@ function sendMessage() {
     }
 }
 
+// Frontend JavaScript code (script.js)
+
+// Example function to fetch data from the backend
+function fetchDataFromBackend() {
+    // Make an AJAX request to your backend server
+    fetch('/api/data')
+        .then(response => response.json())
+        .then(data => {
+            // Do something with the data received from the backend
+            console.log('Data from backend:', data);
+        })
+        .catch(error => {
+            // Handle errors
+            console.error('Error fetching data:', error);
+        });
+}
