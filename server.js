@@ -30,3 +30,22 @@ io.on('connection', (socket) => {
 
 server.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 
+// Backend Node.js code (server.js)
+
+const express = require('express');
+const app = express();
+const PORT = 3000;
+
+// Example route to handle GET request from frontend
+app.get('/api/data', (req, res) => {
+    // Example data to send to the frontend
+    const data = { message: 'Hello from the backend!' };
+    
+    // Send the data as JSON response
+    res.json(data);
+});
+
+// Start the server
+app.listen(PORT, () => {
+    console.log(`Server is running on http://localhost:${PORT}`);
+});
