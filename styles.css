@@ -17,8 +17,8 @@ header {
     justify-content: space-between;
     align-items: center;
     padding: 1rem;
-    background: white;
-    color: black;
+    background: black;
+    color: white;
     position: fixed;
     top: 0;
     width: 100%;
@@ -400,7 +400,7 @@ footer {
     bottom: 0;
     z-index: 10;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
 }
 
@@ -416,7 +416,7 @@ footer {
     margin: 20px 0;
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: left;
 }
 
 .nav-linksforfooter li {
@@ -434,8 +434,8 @@ footer {
 
 .social-media {
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: right;
+    align-items: right;
     margin-top: 20px;
 }
 
