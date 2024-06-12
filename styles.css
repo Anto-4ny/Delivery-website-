@@ -410,7 +410,7 @@ footer {
     margin: 0 auto;
 }
 
-.nav-links {
+.nav-linksforfooter {
     list-style: none;
     padding: 0;
     margin: 20px 0;
@@ -419,16 +419,16 @@ footer {
     justify-content: center;
 }
 
-.nav-links li {
+.nav-linksforfooter li {
     margin: 0 15px;
 }
 
-.nav-links a {
+.nav-linksforfooter a {
     color: white;
     text-decoration: none;
 }
 
-.nav-links a:hover {
+.nav-linksforfooter a:hover {
     text-decoration: underline;
 }
 
@@ -457,7 +457,7 @@ footer {
         max-width: 80px;
     }
 
-    .nav-links li {
+    .nav-linksforfooter li {
         margin: 0 10px;
     }
 
@@ -475,11 +475,11 @@ footer {
         max-width: 60px;
     }
 
-    .nav-links {
+    .nav-linksforfooter {
         flex-direction: column;
     }
 
-    .nav-links li {
+    .nav-linksforfooter li {
         margin: 10px 0;
     }
 
