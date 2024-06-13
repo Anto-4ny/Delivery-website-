@@ -299,6 +299,7 @@ nav {
         .feature-box img {
             max-width: 100%;
             display: block; /* Ensure the image behaves as a block element */
+            height: auto; /* Maintain aspect ratio*/
         }
 
         .feature-box-content {
@@ -330,6 +331,19 @@ nav {
         .inquire-button:hover {
             background-color: #0056b3;
         }
+
+/* Styles for mobile screens */
+@media (max-width: 767px) {
+  .box {
+    width: 100vw; /* Full viewport width */
+    height: 100vh; /* Full viewport height */
+  }
+
+  .box img {
+    width: 100%; /* Image takes full width of the box */
+    height: auto; /* Maintain aspect ratio */
+  }
+}
 
 /* Login page styles */
 .containerforlogin {
