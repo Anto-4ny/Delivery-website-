@@ -30,7 +30,7 @@ io.on('connection', (socket) => {
 
 server.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 
-// Backend Node.js code (server.js)
+// Backend Node.js code (server.js) for Reviews
 
 const express = require('express');
 const app = express();
@@ -49,3 +49,33 @@ app.get('/api/data', (req, res) => {
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
 });
+
+
+
+const express = require('express');
+const bodyParser = require('body-parser');
+const cors = require('cors');
+
+const app = express();
+const reviews = [];
+
+app.use(cors());
+app.use(bodyParser.json());
+
+// Endpoint to get reviews
+app.get('/api/reviews', (req, res) => {
+  res.json(reviews);
+});
+
+// Endpoint to add a new review
+app.post('/api/reviews', (req, res) => {
+  const { name, profilePic, text } = req.body;
+  reviews.push({ name, profilePic, text });
+  res.status(201).json({ message: 'Review added!' });
+});
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
+
