@@ -337,7 +337,7 @@ nav {
 @media (max-width: 767px) {
   .feature-box {
     width: 100vw; /* Full viewport width */
-    height: 100vh; /* Full viewport height */
+    height: 50vh; /* Full viewport height */
   }
 
   .feature-box img {
