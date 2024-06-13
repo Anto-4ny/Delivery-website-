@@ -335,12 +335,12 @@ nav {
 
 /* Styles for mobile screens */
 @media (max-width: 767px) {
-  .boxforfeatureboxes {
+  .feature-box {
     width: 100vw; /* Full viewport width */
     height: 100vh; /* Full viewport height */
   }
 
-  .boxforfeatureboxes img {
+  .feature-box img {
     width: 100%; /* Image takes full width of the box */
     height: auto; /* Maintain aspect ratio */
   }
