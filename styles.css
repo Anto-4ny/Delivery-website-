@@ -99,8 +99,9 @@ nav {
         position: absolute;
         top: 60px;
         left: 0;
-        background: #75E2FF;
+        background: black;
         z-index: 1;
+        color: white;
     }
 
     .nav-links li {
@@ -110,7 +111,7 @@ nav {
 
     .nav-links ul {
         position: static;
-        background: #75E2FF;
+        background: black;
         padding: 0;
     }
 
