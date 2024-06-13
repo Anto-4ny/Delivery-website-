@@ -145,3 +145,30 @@ function fetchDataFromBackend() {
             console.error('Error fetching data:', error);
         });
 }
+
+//Reviews section
+document.addEventListener('DOMContentLoaded', () => {
+  fetchReviews();
+});
+
+function fetchReviews() {
+  // This function should fetch reviews from your server.
+  // Here we'll use a placeholder array of reviews for demonstration.
+  const reviews = [
+    { name: 'John Doe', profilePic: 'path/to/profile-pic1.jpg', text: 'Great service!' },
+    { name: 'Jane Smith', profilePic: 'path/to/profile-pic2.jpg', text: 'Fast and reliable!' },
+    // Add more reviews as needed
+  ];
+
+  const container = document.querySelector('.reviews-container');
+  reviews.forEach(review => {
+    const reviewBox = document.createElement('div');
+    reviewBox.classList.add('review-box');
+    reviewBox.innerHTML = `
+      <img src="${review.profilePic}" alt="${review.name}'s profile picture">
+      <div class="name">${review.name}</div>
+      <div class="review-text">${review.text}</div>
+    `;
+    container.appendChild(reviewBox);
+  });
+}
