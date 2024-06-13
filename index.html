@@ -161,6 +161,41 @@
         </div>
     </div>
 </section>
+
+    <div class="reviews-section">
+  <h2>Customer Reviews</h2>
+  <div class="reviews-container">
+    <!-- Reviews will be dynamically inserted here -->
+  </div>
+    </div>
+    <form id="review-form">
+  <input type="text" id="name" placeholder="Your Name" required>
+  <input type="url" id="profilePic" placeholder="Profile Picture URL" required>
+  <textarea id="reviewText" placeholder="Your Review" required></textarea>
+  <button type="submit">Submit Review</button>
+</form>
+
+<script>
+document.getElementById('review-form').addEventListener('submit', async (event) => {
+  event.preventDefault();
+  const name = document.getElementById('name').value;
+  const profilePic = document.getElementById('profilePic').value;
+  const reviewText = document.getElementById('reviewText').value;
+
+  const response = await fetch('http://localhost:3000/api/reviews', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ name, profilePic, text: reviewText })
+  });
+
+  if (response.ok) {
+    fetchReviews();  // Refresh reviews
+  } else {
+    console.error('Error adding review');
+  }
+});
+</script>
+    
 <footer>
     <div class="footer-logo">
         <img src="src/Photo_1717591968948.png" alt="Antocap Technologies Logo">
