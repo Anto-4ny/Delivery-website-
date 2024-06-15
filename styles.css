@@ -588,11 +588,11 @@ p.copyright {
   background-color: black; /* Set the background color of the body */
   color: white; /* Set the default text color to white */
   text-align: center; /* Center align text */
-  padding: 20px; /* Add some padding for better readability */
+  padding: 5px; /* Add some padding for better readability */
 }
 
 p.copyright {
-  font-size: 18px; /* Adjust font size as needed */
+  font-size: 12px; /* Adjust font size as needed */
   font-weight: bold; /* Optionally make the text bold */
   margin: 0; /* Remove default margin */
         }
