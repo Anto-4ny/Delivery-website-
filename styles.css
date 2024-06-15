@@ -170,7 +170,7 @@ nav {
 .delivery-services-header {
             color: blue;
             text-align: center;
-            margin-top: 50px;
+            margin-top: 100px;
 }
 
 .containerforboxes {
@@ -320,7 +320,7 @@ nav {
         }
 
         .inquire-button {
-    margin: 20px auto; /* Adds space above and below the button, and centers it horizontally */
+    margin: 10px auto; /* Adds space above and below the button, and centers it horizontally */
     padding: 10px 20px; /* Adds inner spacing inside the button */
     background-color: #007bff; /* Sets the button's background color to a shade of blue */
     color: white; /* Sets the text color to white */
