@@ -584,7 +584,7 @@ footer {
         max-width: 30px;
     }
     }
-.copyright {
+p.copyright {
   background-color: black; /* Set the background color of the body */
   color: white; /* Set the default text color to white */
   text-align: center; /* Center align text */
