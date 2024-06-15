@@ -320,19 +320,21 @@ nav {
         }
 
         .inquire-button {
-            margin-top: 20px; /* Add margin to separate description and button */
-            padding: 10px 20px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            cursor: pointer;
-            text-align: center;
-            display: block; /* Ensure the button behaves as a block element */
-        }
+    margin: 20px auto; /* Adds space above and below the button, and centers it horizontally */
+    padding: 10px 20px; /* Adds inner spacing inside the button */
+    background-color: #007bff; /* Sets the button's background color to a shade of blue */
+    color: white; /* Sets the text color to white */
+    border: none; /* Removes the default border */
+    cursor: pointer;   
+    text-align: center; 
+    display: block; 
+    border-radius: 8px; 
+}
 
-        .inquire-button:hover {
-            background-color: #0056b3;
-        }
+.inquire-button:hover {
+    background-color: #0056b3; /* Changes the button's background color when hovered */
+}
+
 
 /* Styles for mobile screens */
 @media (max-width: 767px) {
