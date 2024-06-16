@@ -350,12 +350,20 @@ nav {
 }
 
 /* Login page styles */
+body, html {
+    height: 100%;
+    margin: 0;
+}
+
 .containerforlogin {
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    height: 400px;
-    width: 400px;
+    justify-content: center;
+    align-items: center;
+    height: calc(100vh - 60px); /* Adjust based on the space you want from top and bottom */
+    padding-top: 30px; /* Adjust based on the space you want from the top */
+    padding-bottom: 30px; /* Adjust based on the space you want from the bottom */
+    width: 100vw;
+    box-sizing: border-box; /* Ensure padding is included in the total height */
 }
 
 .login-box {
@@ -428,9 +436,9 @@ nav {
 .welcome-message {
     right: 0;
     padding: 20px;
-    color:
-    .blue;
+    color: blue;
 }
+
 /*Reviews section*/
 .reviews-section {
   padding: 20px;
