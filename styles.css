@@ -484,7 +484,7 @@ bodyforcontactus {
 }
 
 .contact-container {
-    background-color: white;
+    background-color: transparent;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 20px;
@@ -492,6 +492,8 @@ bodyforcontactus {
     width: 100%;
     overflow-y: auto;
     max-height: 80vh;
+    margin-left: 20px;
+    margin-top: 50px;
 }
 
 .contact-container h2 {
