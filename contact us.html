@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="contact-container">
+        <h2>Contact Us</h2>
+        <div class="contact-option" id="gmail-box">
+            <h3>Contact via Gmail</h3>
+            <input type="text" id="gmail-subject" placeholder="Subject" class="input-field">
+            <textarea id="gmail-message" placeholder="Your message" class="textarea-field"></textarea>
+            <button onclick="sendEmail()">Send Email</button>
+        </div>
+        <div class="contact-option" id="whatsapp-box">
+            <h3>Contact via WhatsApp</h3>
+            <input type="text" id="whatsapp-subject" placeholder="Subject" class="input-field">
+            <textarea id="whatsapp-message" placeholder="Your message" class="textarea-field"></textarea>
+            <button onclick="sendWhatsApp()">Send WhatsApp</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+              </html>
+              
