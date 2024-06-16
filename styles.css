@@ -473,6 +473,97 @@ nav {
 }
 
 
+bodyforcontactus {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.contact-container {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    max-width: 400px;
+    width: 100%;
+    overflow-y: auto;
+    max-height: 80vh;
+}
+
+.contact-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.contact-option {
+    background-color: #e0e0e0;
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.contact-option:hover {
+    background-color: #d5d5d5;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.contact-option h3 {
+    margin-top: 0;
+}
+
+.input-field, .textarea-field {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.textarea-field {
+    height: 100px;
+    resize: none;
+}
+
+.contact-option button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.contact-option button:hover {
+    background-color: #0056b3;
+}
+
+#gmail-box {
+    background-color: #d44638;
+    color: white;
+}
+
+#gmail-box:hover {
+    background-color: #b6382e;
+}
+
+#whatsapp-box {
+    background-color: #25d366;
+    color: white;
+}
+
+#whatsapp-box:hover {
+    background-color: #1ebf55;
+    }
+
+
 /* Footer styles */
 footer {
     background-image: url('src/Service/Delivery plans/delivery background .jpg');
