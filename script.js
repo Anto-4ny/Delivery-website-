@@ -172,3 +172,18 @@ function fetchReviews() {
     container.appendChild(reviewBox);
   });
 }
+
+//contact us form
+function sendEmail() {
+    const subject = document.getElementById('gmail-subject').value;
+    const message = document.getElementById('gmail-message').value;
+    const mailtoLink = `mailto: antocaptechnologies@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(message)}`;
+    window.location.href = mailtoLink;
+}
+
+function sendWhatsApp() {
+    const subject = document.getElementById('whatsapp-subject').value;
+    const message = document.getElementById('whatsapp-message').value;
+    const whatsappLink = `https://wa.me/+254757492614?text=${encodeURIComponent(`Subject: ${subject}\n\n${message}`)}`;
+    window.location.href = whatsappLink;
+}
