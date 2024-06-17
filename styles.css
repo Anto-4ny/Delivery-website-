@@ -271,55 +271,55 @@ nav {
 }
 
 
-  /* Feature boxes */
-        .containerforfeatureboxes {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            gap: 10px;
-            margin-bottom: 50px;
-            background-color: transparent;
-        }
+/* Feature boxes */
+.containerforfeatureboxes {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 50px;
+    background-color: transparent;
+}
 
-        .feature-box {
-            width: 300px; /* Adjust width as needed */
-            overflow: hidden;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            cursor: pointer;
-            position: relative;
-            background-color: transparent;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            border-radius: 10px;
-            margin-bottom: 20px; /* Add margin to separate feature boxes */
-        }
+.feature-box {
+    width: 300px; /* Adjust width as needed */
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    position: relative;
+    background-color: transparent;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    margin-bottom: 20px; /* Add margin to separate feature boxes */
+}
 
-        .feature-box:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-        }
+.feature-box:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
 
-        .feature-box img {
-            max-width: 100%;
-            display: block; /* Ensure the image behaves as a block element */
-            height: auto; /* Maintain aspect ratio*/
-        }
+.feature-box img {
+    max-width: 100%;
+    display: block; /* Ensure the image behaves as a block element */
+    height: auto; /* Maintain aspect ratio */
+}
 
-        .feature-box-content {
-            padding: 20px;
-        }
+.feature-box-content {
+    padding: 20px;
+}
 
-        .feature-box h3 {
-            margin-top: 5px;
-            font-size: 20px; /* Adjust font size as needed */
-        }
+.feature-box h3 {
+    margin-top: 5px;
+    font-size: 20px; /* Adjust font size as needed */
+}
 
-        .feature-box p {
-            font-size: 16px;
-            color: #666;
-            margin-top: 10px; /* Add margin to separate title and description */
-        }
+.feature-box p {
+    font-size: 16px;
+    color: #666;
+    margin-top: 10px; /* Add margin to separate title and description */
+}
 
-        .inquire-button {
+.inquire-button {
     margin: 10px auto; /* Adds space above and below the button, and centers it horizontally */
     padding: 10px 20px; /* Adds inner spacing inside the button */
     background-color: #007bff; /* Sets the button's background color to a shade of blue */
@@ -333,6 +333,31 @@ nav {
 
 .inquire-button:hover {
     background-color: #0056b3; /* Changes the button's background color when hovered */
+}
+
+/* Styles for mobile screens */
+@media (max-width: 767px) {
+    .containerforfeatureboxes {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .feature-box {
+        width: 90vw; /* Adjust width to be responsive */
+        margin-bottom: 20px; /* Maintain bottom margin */
+    }
+
+    .feature-box-content {
+        padding: 15px; /* Adjust padding for mobile */
+    }
+
+    .feature-box h3 {
+        font-size: 18px; /* Adjust font size for mobile */
+    }
+
+    .feature-box p {
+        font-size: 14px; /* Adjust font size for mobile */
+    }
 }
 
 
