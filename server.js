@@ -100,3 +100,39 @@ async function fetchReviews() {
   }
     }
 
+// server.js
+
+const express = require('express');
+const multer = require('multer'); // For handling file uploads
+const path = require('path');
+const app = express();
+const port = 3000;
+
+// Multer configuration for file uploads
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, 'uploads/'); // Destination folder for uploaded files
+    },
+    filename: function (req, file, cb) {
+        cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname)); // Unique filename
+    }
+});
+
+const upload = multer({ storage: storage });
+
+// Handle POST request to create a new post
+app.post('/api/posts', upload.single('image'), (req, res) => {
+    // Extract data from request
+    const { title, content } = req.body;
+    const imagePath = req.file ? req.file.path : ''; // Path to uploaded image (if any)
+
+    // Save post data to database or perform necessary actions
+    // Example: save to MongoDB, MySQL, etc.
+
+    // Respond with success or failure message
+    res.status(200).send('Post created successfully');
+});
+
+app.listen(port, () => {
+    console.log(`Server is running on http://localhost:${port}`);
+});
