@@ -145,7 +145,6 @@ function fetchDataFromBackend() {
             console.error('Error fetching data:', error);
         });
 }
-
 //Reviews section
 document.addEventListener('DOMContentLoaded', () => {
   fetchReviews();
@@ -187,3 +186,34 @@ function sendWhatsApp() {
     const whatsappLink = `https://wa.me/+254757492614?text=${encodeURIComponent(`Subject: ${subject}\n\n${message}`)}`;
     window.location.href = whatsappLink;
 }
+
+// Event listener for form submission
+document.getElementById('postForm').addEventListener('submit', async function(event) {
+    event.preventDefault();
+
+    // Get form data
+    const formData = new FormData();
+    formData.append('title', document.getElementById('title').value);
+    formData.append('content', document.getElementById('content').value);
+    formData.append('image', document.getElementById('image').files[0]);
+
+    try {
+        // Send POST request to backend API endpoint
+        const response = await fetch('http://localhost:3000/api/posts', {
+            method: 'POST',
+            body: formData
+        });
+
+        if (!response.ok) {
+            throw new Error('Error posting content');
+        }
+
+        // Reset form after successful submission
+        document.getElementById('postForm').reset();
+        alert('Post submitted successfully!');
+    } catch (error) {
+        console.error('Error:', error);
+        alert('Failed to submit post. Please try again later.');
+    }
+});
+
