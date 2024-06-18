@@ -187,6 +187,50 @@ function sendWhatsApp() {
     window.location.href = whatsappLink;
 }
 
+
+// script.js
+
+document.addEventListener('DOMContentLoaded', async function() {
+    // Fetch all posts from backend when page loads
+    await fetchPosts();
+});
+
+// Function to fetch all posts from backend
+async function fetchPosts() {
+    try {
+        const response = await fetch('http://localhost:3000/api/posts');
+        if (!response.ok) {
+            throw new Error('Failed to fetch posts');
+        }
+        const posts = await response.json();
+
+        // Display posts in the UI
+        displayPosts(posts);
+    } catch (error) {
+        console.error('Error fetching posts:', error);
+    }
+}
+
+// Function to display posts in the UI
+function displayPosts(posts) {
+    const postsContainer = document.getElementById('postsContainer');
+    postsContainer.innerHTML = ''; // Clear previous content
+
+    posts.forEach(post => {
+        const postElement = document.createElement('div');
+        postElement.classList.add('post');
+
+        // HTML structure for each post (customize as needed)
+        postElement.innerHTML = `
+            <h2>${post.title}</h2>
+            <p>${post.content}</p>
+            ${post.imagePath ? `<img src="${post.imagePath}" alt="Post Image">` : ''}
+        `;
+
+        postsContainer.appendChild(postElement);
+    });
+}
+
 // Event listener for form submission
 document.getElementById('postForm').addEventListener('submit', async function(event) {
     event.preventDefault();
@@ -208,6 +252,9 @@ document.getElementById('postForm').addEventListener('submit', async function(ev
             throw new Error('Error posting content');
         }
 
+        // Refresh posts after successful submission
+        await fetchPosts();
+
         // Reset form after successful submission
         document.getElementById('postForm').reset();
         alert('Post submitted successfully!');
@@ -216,4 +263,3 @@ document.getElementById('postForm').addEventListener('submit', async function(ev
         alert('Failed to submit post. Please try again later.');
     }
 });
-
