@@ -171,7 +171,26 @@ function fetchReviews() {
     container.appendChild(reviewBox);
   });
 }
+<script>
+document.getElementById('review-form').addEventListener('submit', async (event) => {
+  event.preventDefault();
+  const name = document.getElementById('name').value;
+  const profilePic = document.getElementById('profilePic').value;
+  const reviewText = document.getElementById('reviewText').value;
 
+  const response = await fetch('http://localhost:3000/api/reviews', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ name, profilePic, text: reviewText })
+  });
+
+  if (response.ok) {
+    fetchReviews();  // Refresh reviews
+  } else {
+    console.error('Error adding review');
+  }
+});
+</script>
 //contact us form
 function sendEmail() {
     const subject = document.getElementById('gmail-subject').value;
