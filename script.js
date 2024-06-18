@@ -282,3 +282,21 @@ document.getElementById('postForm').addEventListener('submit', async function(ev
         alert('Failed to submit post. Please try again later.');
     }
 });
+
+
+// Example: Writing data to Firebase Realtime Database
+var database = firebase.database();
+var ref = database.ref('path/to/your/data');
+ref.set({
+  key1: 'value1',
+  key2: 'value2'
+});
+
+// Example: Reading data from Firebase Realtime Database
+var ref = database.ref('path/to/your/data');
+ref.once('value')
+  .then(function(snapshot) {
+    var data = snapshot.val();
+    console.log(data);
+  });
+
