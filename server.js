@@ -136,3 +136,58 @@ app.post('/api/posts', upload.single('image'), (req, res) => {
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
 });
+// server.js
+
+const express = require('express');
+const multer = require('multer'); // For handling file uploads
+const path = require('path');
+const app = express();
+const port = 3000;
+
+// In-memory storage for posts (for demonstration)
+let posts = [];
+
+// Multer configuration for file uploads
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, 'uploads/'); // Destination folder for uploaded files
+    },
+    filename: function (req, file, cb) {
+        cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname)); // Unique filename
+    }
+});
+
+const upload = multer({ storage: storage });
+
+// Middleware to parse JSON bodies
+app.use(express.json());
+
+// Handle POST request to create a new post
+app.post('/api/posts', upload.single('image'), (req, res) => {
+    // Extract data from request
+    const { title, content } = req.body;
+    const imagePath = req.file ? req.file.path : ''; // Path to uploaded image (if any)
+
+    // Create new post object
+    const newPost = {
+        id: posts.length + 1,
+        title,
+        content,
+        imagePath  // Store image path for display (if needed)
+    };
+
+    // Add new post to in-memory storage
+    posts.push(newPost);
+
+    // Respond with success message and new post data
+    res.status(200).json({ message: 'Post created successfully', post: newPost });
+});
+
+// Handle GET request to retrieve all posts
+app.get('/api/posts', (req, res) => {
+    res.status(200).json(posts); // Return all posts as JSON
+});
+
+app.listen(port, () => {
+    console.log(`Server is running on http://localhost:${port}`);
+});
