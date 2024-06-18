@@ -203,7 +203,7 @@ input[type="file"] {
 
 button[type="submit"] {
     padding: 10px;
-    background-color: #333;
+    background-color: blue;
     color: #fff;
     border: none;
     border-radius: 3px;
