@@ -22,6 +22,7 @@ body {
 .top-bar {
     background: #f7f7f7;
     border-bottom: 1px solid #ddd;
+    position: fixed;
 }
 
 .top-bar .container {
