@@ -17,7 +17,7 @@ header {
     justify-content: space-between;
     align-items: center;
     padding: 1rem;
-    background: black;
+    background: transparent;
     color: white;
     position: fixed;
     top: 0;
