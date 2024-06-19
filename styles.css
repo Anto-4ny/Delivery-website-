@@ -118,7 +118,8 @@ body {
 .banner p {
     font-size: 24px;
 }
-/* Categories Section */
+
+    /* Categories Section */
 .categories, .featured-products, .popular-products, .promotional, .services {
     padding: 40px 0;
 }
@@ -142,9 +143,10 @@ body {
 .category-item, .product-item, .promo-item, .service-item {
     background: #f4f4f4;
     margin: 10px;
-    padding: 20px;
+    padding: 0;
     border: 1px solid #ddd;
     width: 200px;
+    height: 250px;
     flex-shrink: 0;
     box-sizing: border-box;
     text-align: center;
@@ -155,33 +157,29 @@ body {
 }
 
 .category-item img, .product-item img, .promo-item img {
-    max-width: 100%;
-    height: auto;
-    margin-bottom: 10px;
+    width: 100%;
+    height: 80%;
+    object-fit: cover;
+}
+
+.category-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
 }
 
 .category-item h3, .product-item h3, .promo-item h3, .service-item h3 {
     margin: 10px 0;
-    font-size: 24px;
+    font-size: 18px;
     color: #333;
-}
-
-.category-content {
-    position: absolute;
-    top: 0;
-    left: 0;
+    background: rgba(255, 255, 255, 0.7);
     width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: rgba(0, 0, 0, 0.6);
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-.category-item:hover .category-content {
-    opacity: 1;
+    text-align: center;
+    position: absolute;
+    bottom: 0;
+    padding: 5px 0;
 }
 
 @media (max-width: 768px) {
@@ -192,13 +190,17 @@ body {
 
     .category-item {
         width: 150px;
+        height: 200px;
     }
 
     .category-item img {
-        height: 100px;
-    }
+        height: 70%;
     }
 
+    .category-item h3 {
+        font-size: 16px;
+    }
+}
 .product-item p, .promo-item p, .service-item p {
     margin-bottom: 10px;
     color: #666;
