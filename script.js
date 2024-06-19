@@ -1,3 +1,11 @@
+//categories 
+function navigateToCategory(category) {
+    // Adjust the URL as necessary to match your site's structure
+    window.location.href = `category-${category}.html`;
+}
+
+
+
 document.addEventListener("DOMContentLoaded", () => {
     const menuIcon = document.getElementById("menu-icon");
     const navLinks = document.getElementById("nav-links");
