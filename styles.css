@@ -717,20 +717,6 @@ bodyforcontactus {
     max-width: 30px;
 }
 
-/* Media queries for responsiveness */
-@media (max-width: 768px) {
-    .logo img {
-        max-width: 120px;
-    }
-
-    .footer-logo img {
-        max-width: 80px;
-    }
-
-    .social-media img {
-        max-width: 30px;
-    }
-    }
 
 /* Footer styles */
 footer {
@@ -782,16 +768,62 @@ footer {
     color: #fff;
 }
 
-p.copyright {
-  background-color: black; /* Set the background color of the body */
-  color: white; /* Set the default text color to white */
-  text-align: center; /* Center align text */
-  padding: 5px; /* Add some padding for better readability */
+/* Responsive Styles */
+@media (max-width: 992px) {
+    .navbar nav ul {
+        flex-direction: column;
+        width: 100%;
+    }
+    .search-bar {
+        margin-top: 10px;
+        width: 100%;
+    }
+    .footer-columns {
+        flex-direction: column;
+        align-items: center;
+    }
+    .footer-column {
+        width: 100%;
+        margin-bottom: 20px;
+    }
 }
 
-p.copyright {
-  font-size: 12px; /* Adjust font size as needed */
-  font-weight: bold; /* Optionally make the text bold */
-  margin: 0; /* Remove default margin */
-        }
+@media (max-width: 768px) {
+    .navbar .container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .navbar .logo {
+        margin-bottom: 10px;
+    }
+    .search-bar {
+        flex-direction: column;
+        width: 100%;
+    }
+    .search-bar input {
+        border-radius: 4px;
+        margin-bottom: 10px;
+    }
+    .search-bar button {
+        border-radius: 4px;
+    }
+    .banner h1 {
+        font-size: 36px;
+    }
+    .banner p {
+        font-size: 18px;
+    }
+    .product-item {
+        width: calc(50% - 40px);
+    }
+}
+@media (max-width: 576px) {
+    .product-item {
+        width: calc(100% - 40px);
+    }
+    .footer-column ul {
+        text-align: center;
+    }
+}
+
     
