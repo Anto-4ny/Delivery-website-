@@ -358,8 +358,8 @@ body {
     margin: 10px;
     padding: 0;
     border: 1px solid #ddd;
-    min-width: 220px; /* Adjust width */
-    height: 300px; /* Adjust height to make the box taller */
+    min-width: 300px; /* Adjust width */
+    height: 600px; /* Adjust height to make the box taller */
     box-sizing: border-box;
     text-align: center;
     cursor: pointer;
@@ -380,25 +380,10 @@ body {
     left: 0;
     z-index: 1; /* Position image behind text */
 }
-
-.promo-item h3, .promo-item p, .promo-item a {
+ .promo-item a {
     position: relative;
     z-index: 2; /* Position text above image */
     color: #fff; /* Ensure text is readable over image */
-}
-
-.promo-item h3 {
-    margin: 10px 0;
-    font-size: 16px; /* Adjust font size */
-    padding: 10px;
-    background: rgba(0, 0, 0, 0.5); /* Background to enhance readability */
-}
-
-.promo-item p {
-    font-size: 14px; /* Adjust font size */
-    margin: 10px 0;
-    padding: 5px;
-    background: rgba(0, 0, 0, 0.5); /* Background to enhance readability */
 }
 
 .promo-item a {
@@ -424,14 +409,6 @@ body {
 
     .promo-item img {
         max-height: 100%; /* Ensure image covers the container */
-    }
-
-    .promo-item h3 {
-        font-size: 14px; /* Further adjust font size */
-    }
-
-    .promo-item p {
-        font-size: 12px; /* Further adjust font size */
     }
 }
 
