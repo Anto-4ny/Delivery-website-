@@ -457,28 +457,29 @@ body {
     }
 }
 /* Just For You Section */
+/* Just For You Section */
 .just-for-you {
-    padding: 40px 0;
+    padding: 20px 0;
 }
 
 .just-for-you h2 {
     text-align: center;
     margin-bottom: 20px;
-    font-size: 32px;
+    font-size: 28px;
     color: #333;
 }
 
 .major-boxes {
     display: flex;
     justify-content: space-around;
-    margin-bottom: 40px;
+    margin-bottom: 20px;
 }
 
 .major-box {
     flex: 1;
     margin: 0 10px;
     background: #f4f4f4;
-    padding: 20px;
+    padding: 10px;
     border: 1px solid #ddd;
     box-sizing: border-box;
 }
@@ -486,7 +487,7 @@ body {
 .carousel {
     position: relative;
     overflow: hidden;
-    height: 300px; /* Adjust the height as needed */
+    height: 200px; /* Adjust the height as needed */
 }
 
 .carousel-inner {
@@ -517,9 +518,9 @@ body {
 .product-item {
     background: #fff;
     margin: 10px;
-    padding: 20px;
+    padding: 10px;
     border: 1px solid #ddd;
-    width: calc(50% - 40px); /* Two items per row */
+    width: calc(50% - 20px); /* Two items per row */
     box-sizing: border-box;
     text-align: center;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -532,13 +533,13 @@ body {
 }
 
 .product-item h3 {
-    margin: 10px 0;
-    font-size: 24px;
+    margin: 5px 0;
+    font-size: 18px;
     color: #333;
 }
 
 .product-item p {
-    font-size: 16px;
+    font-size: 14px;
     color: #666;
 }
 
@@ -548,9 +549,10 @@ body {
     }
 
     .product-item {
-        width: calc(100% - 40px); /* One item per row on smaller screens */
+        width: calc(100% - 20px); /* One item per row on smaller screens */
     }
-    }
+}
+
     
 
 /* Services Section */
