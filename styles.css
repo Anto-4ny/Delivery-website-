@@ -417,6 +417,64 @@ body {
     }
 }
 
+/* Services Section */
+.services {
+    padding: 40px 0;
+    text-align: center;
+    background-color: #f8f8f8;
+}
+
+.services h2 {
+    margin-bottom: 20px;
+    font-size: 32px;
+    color: #333;
+}
+
+.service-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding: 0 20px;
+}
+
+.service-item {
+    background: #fff;
+    margin: 10px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    width: calc(33.333% - 40px); /* Three items per row */
+    box-sizing: border-box;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
+}
+
+.service-item:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.service-item h3 {
+    margin: 10px 0;
+    font-size: 24px;
+    color: #333;
+}
+
+.service-item p {
+    font-size: 16px;
+    color: #666;
+}
+
+@media (max-width: 768px) {
+    .service-item {
+        width: calc(50% - 20px); /* Two items per row on smaller screens */
+    }
+}
+
+@media (max-width: 480px) {
+    .service-item {
+        width: 100%; /* One item per row on very small screens */
+    }
+}
 
 
 /* Slider styles */
