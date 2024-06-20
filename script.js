@@ -315,53 +315,93 @@ document.addEventListener('DOMContentLoaded', () => {
         window.location.href = `category-${category}.html`;
     }
 
-    // Function to show product details
-    function showProductDetails(productId) {
-        const productDetails = {
-            product1: {
-                name: 'Original 20W iPhone 14 Pro Max USB-C to Lightning Charger + 2m Cable',
-                price: '$42.56',
-                description: 'This is a high-quality charger for iPhone 14 Pro Max with USB-C to Lightning connection.',
-                image: 'src/Images/product.jpg',
-                similarProducts: [
-                    { name: 'Product 2', price: '$200.00', image: 'images/product2.jpg' },
-                    { name: 'Product 3', price: '$300.00', image: 'images/product3.jpg' },
-                    // Add more similar products as needed
-                ]
-            },
-            // Define other products here
-        };
-
-        const product = productDetails[productId];
-        if (product) {
-            const productDetailsSection = document.getElementById('product-details');
-            productDetailsSection.innerHTML = `
-                <h2>${product.name}</h2>
-                <img src="${product.image}" alt="${product.name}">
-                <p>Price: ${product.price}</p>
-                <p>${product.description}</p>
-                <div class="similar-products">
-                    <h3>Similar Products</h3>
-                    <div class="product-list">
-                        ${product.similarProducts.map(p => `
-                            <div class="product-item">
-                                <img src="${p.image}" alt="${p.name}">
-                                <h3>${p.name}</h3>
-                                <p>${p.price}</p>
-                            </div>
-                        `).join('')}
-                    </div>
-                </div>
-            `;
-            productDetailsSection.style.display = 'block';
+    // scripts.js
+document.addEventListener('DOMContentLoaded', () => {
+    const products = [
+        {
+            id: 'product1',
+            name: 'Original 20W iPhone 14 Pro Max USB-C to Lightning Charger + 2m Cable',
+            price: '$42.56',
+            description: 'This is a high-quality charger for iPhone 14 Pro Max with USB-C to Lightning connection.',
+            image: 'src/Images/product.jpg',
+            similarProducts: [
+                { name: 'Product 2', price: '$200.00', image: 'src/Images/product2.jpg' },
+                { name: 'Product 3', price: '$300.00', image: 'src/Images/product3.jpg' }
+            ]
+        },
+        {
+            id: 'product2',
+            name: 'Product 2',
+            price: '$200.00',
+            description: 'Description for product 2',
+            image: 'src/Images/product2.jpg',
+            similarProducts: [
+                { name: 'Product 1', price: '$42.56', image: 'src/Images/product.jpg' },
+                { name: 'Product 3', price: '$300.00', image: 'src/Images/product3.jpg' }
+            ]
+        },
+        {
+            id: 'product3',
+            name: 'Product 3',
+            price: '$300.00',
+            description: 'Description for product 3',
+            image: 'src/Images/product3.jpg',
+            similarProducts: [
+                { name: 'Product 1', price: '$42.56', image: 'src/Images/product.jpg' },
+                { name: 'Product 2', price: '$200.00', image: 'src/Images/product2.jpg' }
+            ]
         }
-    }
+        // Add more products as needed
+    ];
 
-    // Attach click event listeners to product items
-    document.querySelectorAll('.product-item').forEach(item => {
+    const productItems = document.querySelectorAll('.product-item');
+    const productDetails = document.getElementById('product-details');
+    const suggestions = document.getElementById('suggestions');
+    const searchInput = document.getElementById('search');
+
+    productItems.forEach(item => {
         item.addEventListener('click', () => {
-            const productId = item.getAttribute('data-product-id');
-            showProductDetails(productId);
+            const productId = item.dataset.productId;
+            const product = products.find(p => p.id === productId);
+            showProductDetails(product);
         });
     });
+
+    searchInput.addEventListener('input', showSuggestions);
+
+    function showProductDetails(product) {
+        productDetails.innerHTML = `
+            <h2>${product.name}</h2>
+            <img src="${product.image}" alt="${product.name}">
+            <p>${product.description}</p>
+            <div class="similar-products">
+                <h3>Similar Products</h3>
+                <div class="product-list">
+                    ${product.similarProducts.map(sp => `
+                        <div class="product-item">
+                            <img src="${sp.image}" alt="${sp.name}">
+                            <h3>${sp.name}</h3>
+                            <p>${sp.price}</p>
+                        </div>
+                    `).join('')}
+                </div>
+            </div>
+        `;
+        productDetails.style.display = 'block';
+        window.scrollTo(0, productDetails.offsetTop);
+    }
+
+    function showSuggestions() {
+        const input = searchInput.value.toLowerCase();
+        const matchedProducts = products.filter(product => product.name.toLowerCase().includes(input));
+        suggestions.innerHTML = matchedProducts.map(product => `<li onclick="selectProduct('${product.id}')">${product.name}</li>`).join('');
+    }
+
+    window.selectProduct = function(productId) {
+        const product = products.find(p => p.id === productId);
+        searchInput.value = product.name;
+        suggestions.innerHTML = '';
+        showProductDetails(product);
+    };
 });
+    
