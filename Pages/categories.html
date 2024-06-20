@@ -41,38 +41,125 @@
         </div>
     </header>
     <main>
-        <section class="categories">
-            <div class="container">
-                <h2>Explore Categories</h2>
-                <div class="category-list">
-                    <div class="category-item">
-                        <img src="images/category1.jpg" alt="Category 1">
-                        <h3>Electronics</h3>
-                        <p>Find electronic products from verified suppliers.</p>
-                        <a href="#">View Products</a>
-                    </div>
-                    <div class="category-item">
-                        <img src="images/category2.jpg" alt="Category 2">
-                        <h3>Apparel</h3>
-                        <p>Explore the latest fashion trends and styles.</p>
-                        <a href="#">View Products</a>
-                    </div>
-                    <div class="category-item">
-                        <img src="images/category3.jpg" alt="Category 3">
-                        <h3>Machinery</h3>
-                        <p>Discover industrial machinery and equipment.</p>
-                        <a href="#">View Products</a>
-                    </div>
-                </div>
+        <!-- Categories Section -->
+<section class="categories">
+    <h2>Categories</h2>
+    <div class="category-list">
+        <div class="category-item" onclick="navigateToCategory('electronics')">
+            <img src="src/Images/electronics.jpg" alt="Electronics">
+            <div class="category-content">
+                <h3>Electronics</h3>
             </div>
-        </section>
+        </div>
+        <div class="category-item" onclick="navigateToCategory('apparel')">
+            <img src="src/Images/apparel.jpg" alt="Apparel">
+            <div class="category-content">
+                <h3>Apparel</h3>
+            </div>
+        </div>
+        <div class="category-item" onclick="navigateToCategory('home-garden')">
+            <img src="src/Images/home&garden.jpg" alt="Home & Garden">
+            <div class="category-content">
+                <h3>Home & Garden</h3>
+            </div>
+        </div>
+        <div class="category-item" onclick="navigateToCategory('machinery')">
+            <img src="src/Images/machinery.jpg" alt="Machinery">
+            <div class="category-content">
+                <h3>Machinery</h3>
+            </div>
+        </div>
+        <div class="category-item" onclick="navigateToCategory('beauty')">
+            <img src="src/Images/beauty.jpg" alt="Beauty & Personal Care">
+            <div class="category-content">
+                <h3>Beauty & Personal Care</h3>
+            </div>
+        </div>
+        <div class="category-item" onclick="navigateToCategory('automobiles')">
+            <img src="src/Images/auto.jpg" alt="Automobiles & Motorcycles">
+            <div class="category-content">
+                <h3>Automobiles & Motorcycles</h3>
+            </div>
+        </div>
+        <div class="category-item" onclick="navigateToCategory('toys')">
+            <img src="src/Images/toys.jpg" alt="Toys & Hobbies">
+            <div class="category-content">
+                <h3>Toys & Hobbies</h3>
+            </div>
+        </div>
+        <div class="category-item" onclick="navigateToCategory('sports')">
+            <img src="src/Images/sports.jpg" alt="Sports & Entertainment">
+            <div class="category-content">
+                <h3>Sports & Entertainment</h3>
+            </div>
+        </div>
+        <div class="category-item" onclick="navigateToCategory('office')">
+            <img src="src/Images/office.jpg" alt="Office & School Supplies">
+            <div class="category-content">
+                <h3>Office & School Supplies</h3>
+            </div>
+        </div>
+        <div class="category-item" onclick="navigateToCategory('health')">
+            <img src="src/Images/health.jpg" alt="Health & Medical">
+            <div class="category-content">
+                <h3>Health & Medical</h3>
+            </div>
+        </div>
+        <!-- Add more categories as needed -->
+    </div>
+</section>
     </main>
 
     <!-- Footer -->
     <footer>
-        <!-- Footer content from previous example -->
+        <div class="footer-top">
+            <div class="container">
+                <div class="footer-columns">
+                    <div class="footer-column">
+                        <h3>Customer Services</h3>
+                        <ul>
+                            <li><a href="#">Help Center</a></li>
+                            <li><a href="Pages/contact.html">Contact Us</a></li>
+                            <li><a href="#">Report Abuse</a></li>
+                            <li><a href="#">Submit a Dispute</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h3>About Us</h3>
+                        <ul>
+                            <li><a href="#">Company Overview</a></li>
+                            <li><a href="#">Careers</a></li>
+                            <li><a href="#">Terms of Use</a></li>
+                            <li><a href="#">Privacy Policy</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h3>Buy on Our Site</h3>
+                        <ul>
+                            <li><a href="#">All Categories</a></li>
+                            <li><a href="#">Request for Quotation</a></li>
+                            <li><a href="#">Ready to Ship</a></li>
+                            <li><a href="#">Buyer Protection</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h3>Sell on Our Site</h3>
+                        <ul>
+                            <li><a href="#">Supplier Membership</a></li>
+                            <li><a href="#">Learning Center</a></li>
+                            <li><a href="#">Partner Program</a></li>
+                            <li><a href="#">Logistics Services</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <p>&copy; 2024 ELE MAX. All rights reserved.</p>
+            </div>
+        </div>
     </footer>
-
-    <script src="js/scripts.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
