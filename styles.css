@@ -42,7 +42,7 @@ body {
 }
 /* Navbar */
 .navbar {
-    background: #fff;
+    background: white;
     border-bottom: 1px solid #ddd;
     padding: 15px 0;
 }
@@ -57,7 +57,7 @@ body {
     font-size: 24px;
     font-weight: bold;
     text-decoration: none;
-    color: #333;
+    color: black;
 }
 
 .navbar nav ul {
