@@ -54,29 +54,43 @@ body {
 }
 
 .navbar .logo {
-    font-size: 24px;
-    font-weight: bold;
-    text-decoration: none;
-    color: black;
+    display: flex;
+    align-items: center;
+}
+
+.navbar .logo img {
+    height: 40px; /* Adjust the height as needed */
+    width: auto;
 }
 
 .navbar nav ul {
     list-style: none;
     display: flex;
+    margin: 0;
+    padding: 0;
 }
 
 .navbar nav ul li {
-    margin: 0 15px;
+    margin: 0 10px;
 }
 
 .navbar nav ul li a {
+    display: block;
     text-decoration: none;
     color: #333;
+    padding: 10px 15px;
+    background-color: #f8f8f8;
+    border-radius: 25px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    font-size: 16px;
 }
 
 .navbar nav ul li a:hover {
-    color: #ff6a00;
+    background-color: #ff6a00;
+    color: white;
 }
+
+
 
 /* Banner Styles */
 .banner {
