@@ -326,7 +326,6 @@ body {
     padding: 10px;
     box-sizing: border-box;
 }
-
 /* Promotional Section */
 .promotional {
     padding: 20px 0;
@@ -354,16 +353,18 @@ body {
 }
 
 .promo-item {
+    position: relative; /* For positioning text over image */
     background: #fff;
     margin: 10px;
-    padding: 10px;
+    padding: 0;
     border: 1px solid #ddd;
     min-width: 220px; /* Adjust width */
+    height: 300px; /* Adjust height to make the box taller */
     box-sizing: border-box;
     text-align: center;
     cursor: pointer;
+    overflow: hidden; /* Ensure content doesn't overflow */
     transition: transform 0.3s ease;
-    position: relative; /* For positioning the text over the image */
 }
 
 .promo-item:hover {
@@ -372,27 +373,32 @@ body {
 
 .promo-item img {
     width: 100%;
-    height: auto;
+    height: 100%;
     object-fit: cover; /* Ensure the image covers the container */
-    max-height: 150px; /* Adjust max-height */
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1; /* Position image behind text */
+}
+
+.promo-item h3, .promo-item p, .promo-item a {
+    position: relative;
+    z-index: 2; /* Position text above image */
+    color: #fff; /* Ensure text is readable over image */
 }
 
 .promo-item h3 {
     margin: 10px 0;
     font-size: 16px; /* Adjust font size */
-    color: #333;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: normal;
-    display: -webkit-box;
-    -webkit-line-clamp: 2; /* Limit to 2 lines */
-    -webkit-box-orient: vertical;
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.5); /* Background to enhance readability */
 }
 
 .promo-item p {
     font-size: 14px; /* Adjust font size */
-    color: #666;
     margin: 10px 0;
+    padding: 5px;
+    background: rgba(0, 0, 0, 0.5); /* Background to enhance readability */
 }
 
 .promo-item a {
@@ -403,19 +409,21 @@ body {
     text-decoration: none;
     margin-top: 10px;
     transition: background-color 0.3s ease;
+    background: rgba(255, 102, 0, 0.8); /* Background to enhance readability */
 }
 
 .promo-item a:hover {
-    background-color: #e55;
+    background-color: rgba(255, 102, 0, 1); /* Darker background on hover */
 }
 
 @media (max-width: 768px) {
     .promo-item {
         min-width: 180px; /* Adjust width for smaller screens */
+        height: 250px; /* Adjust height for smaller screens */
     }
 
     .promo-item img {
-        max-height: 120px; /* Adjust max-height for smaller screens */
+        max-height: 100%; /* Ensure image covers the container */
     }
 
     .promo-item h3 {
