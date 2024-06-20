@@ -51,11 +51,13 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap; /* Allow items to wrap if needed */
 }
 
 .navbar .logo {
     display: flex;
     align-items: center;
+    flex: 1;
 }
 
 .navbar .logo img {
@@ -68,6 +70,9 @@ body {
     display: flex;
     margin: 0;
     padding: 0;
+    flex: 2;
+    justify-content: flex-end;
+    flex-wrap: wrap; /* Ensure links wrap in smaller screens */
 }
 
 .navbar nav ul li {
@@ -90,6 +95,27 @@ body {
     color: white;
 }
 
+/* Responsive Design */
+@media (max-width: 768px) {
+    .navbar .container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .navbar nav ul {
+        justify-content: center;
+    }
+
+    .navbar nav ul li {
+        margin: 5px 0;
+    }
+
+    .navbar nav ul li a {
+        padding: 8px 12px;
+        font-size: 14px;
+    }
+        }
+        
 
 
 /* Banner Styles */
@@ -1044,8 +1070,8 @@ bodyforcontactus {
 
 /* Footer Styles */
 footer {
-    background: #f7f7f7;
-    color: #333;
+    background: black;
+    color: white;
 }
 
 .footer-top {
