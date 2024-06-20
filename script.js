@@ -309,7 +309,6 @@ ref.once('value')
   });
 
 // scripts.js
-// scripts.js
 document.addEventListener('DOMContentLoaded', () => {
     // Function to navigate to a specific category
     function navigateToCategory(category) {
@@ -366,4 +365,3 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
-        
