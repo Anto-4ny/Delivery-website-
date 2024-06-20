@@ -327,6 +327,106 @@ body {
     box-sizing: border-box;
 }
 
+/* Promotional Section */
+.promotional {
+    padding: 20px 0;
+    text-align: center;
+    background-color: #fff;
+}
+
+.promotional h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #333;
+}
+
+.promo-container {
+    overflow-x: auto; /* Enable horizontal scrolling */
+    white-space: nowrap; /* Prevent items from wrapping */
+    padding: 0 10px; /* Add padding for a better look */
+}
+
+.promo-list {
+    display: inline-flex; /* Use inline-flex to allow horizontal scrolling */
+    flex-wrap: nowrap; /* Prevent items from wrapping */
+    justify-content: flex-start;
+    padding: 10px 0; /* Adjust padding */
+}
+
+.promo-item {
+    background: #fff;
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    min-width: 220px; /* Adjust width */
+    box-sizing: border-box;
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    position: relative; /* For positioning the text over the image */
+}
+
+.promo-item:hover {
+    transform: translateY(-5px);
+}
+
+.promo-item img {
+    width: 100%;
+    height: auto;
+    object-fit: cover; /* Ensure the image covers the container */
+    max-height: 150px; /* Adjust max-height */
+}
+
+.promo-item h3 {
+    margin: 10px 0;
+    font-size: 16px; /* Adjust font size */
+    color: #333;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* Limit to 2 lines */
+    -webkit-box-orient: vertical;
+}
+
+.promo-item p {
+    font-size: 14px; /* Adjust font size */
+    color: #666;
+    margin: 10px 0;
+}
+
+.promo-item a {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #f60;
+    color: #fff;
+    text-decoration: none;
+    margin-top: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.promo-item a:hover {
+    background-color: #e55;
+}
+
+@media (max-width: 768px) {
+    .promo-item {
+        min-width: 180px; /* Adjust width for smaller screens */
+    }
+
+    .promo-item img {
+        max-height: 120px; /* Adjust max-height for smaller screens */
+    }
+
+    .promo-item h3 {
+        font-size: 14px; /* Further adjust font size */
+    }
+
+    .promo-item p {
+        font-size: 12px; /* Further adjust font size */
+    }
+}
+
 
 /* Slider styles */
 .slider {
