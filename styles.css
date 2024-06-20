@@ -171,8 +171,6 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(0, 0, 0, 0.4); /* Optional: adds a dark overlay for better text visibility */
-    color: #fff; /* Text color inside the image */
 }
 
 
@@ -180,7 +178,6 @@ body {
     margin: 0;
     font-size: 18px;
     color: inherit;
-    background: rgba(0, 0, 0, 0.6); /* Optional: background for better text readability */
     width: 100%;
     text-align: center;
     padding: 5px 0;
