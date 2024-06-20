@@ -326,6 +326,7 @@ body {
     padding: 10px;
     box-sizing: border-box;
 }
+
 /* Promotional Section */
 .promotional {
     padding: 20px 0;
@@ -358,8 +359,8 @@ body {
     margin: 10px;
     padding: 0;
     border: 1px solid #ddd;
-    min-width: 300px; /* Adjust width */
-    height: 600px; /* Adjust height to make the box taller */
+    min-width: 220px; /* Adjust width */
+    height: 300px; /* Adjust height to make the box taller */
     box-sizing: border-box;
     text-align: center;
     cursor: pointer;
@@ -380,6 +381,7 @@ body {
     left: 0;
     z-index: 1; /* Position image behind text */
 }
+
  .promo-item a {
     position: relative;
     z-index: 2; /* Position text above image */
@@ -392,7 +394,10 @@ body {
     background-color: #f60;
     color: #fff;
     text-decoration: none;
-    margin-top: 10px;
+    position: absolute; /* Position the button at the bottom */
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%); /* Center the button */
     transition: background-color 0.3s ease;
     background: rgba(255, 102, 0, 0.8); /* Background to enhance readability */
 }
@@ -411,6 +416,7 @@ body {
         max-height: 100%; /* Ensure image covers the container */
     }
 }
+
 
 
 /* Slider styles */
