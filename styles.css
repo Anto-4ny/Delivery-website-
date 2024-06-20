@@ -520,10 +520,10 @@ body {
     margin: 10px;
     padding: 15px;
     border: 1px solid #e2e2e2;
-    width: calc(50% - 20px); /* Two items per row */
     box-sizing: border-box;
     text-align: center;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    flex: 1 0 calc(50% - 20px); /* Two items per row by default */
 }
 
 .product-item img {
@@ -551,11 +551,18 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-@media (max-width: 768px) {
+@media (min-width: 768px) {
     .product-item {
-        width: calc(100% - 20px); /* One item per row on smaller screens */
+        flex: 1 0 calc(33.33% - 20px); /* Three items per row on tablets */
     }
 }
+
+@media (min-width: 1024px) {
+    .product-item {
+        flex: 1 0 calc(25% - 20px); /* Four items per row on desktops */
+    }
+ }
+
 
     
 
