@@ -308,3 +308,50 @@ ref.once('value')
     console.log(data);
   });
 
+// scripts.js
+function navigateToCategory(category) {
+    window.location.href = `category-${category}.html`;
+}
+
+function showProductDetails(productId) {
+    const productDetails = {
+        product1: {
+            name: 'Original 20W iPhone 14 Pro Max USB-C to Lightning Charger + 2m Cable',
+            price: '$42.56',
+            description: 'This is a high-quality charger for iPhone 14 Pro Max with USB-C to Lightning connection.',
+            image: 'src/Images/product.jpg',
+            similarProducts: [
+                { name: 'Product 2', price: '$200.00', image: 'images/product2.jpg' },
+                { name: 'Product 3', price: '$300.00', image: 'images/product3.jpg' },
+                // Add more similar products as needed
+            ]
+        },
+        // Define other products here
+    };
+
+    const product = productDetails[productId];
+    if (product) {
+        const productDetailsSection = document.getElementById('product-details');
+        productDetailsSection.innerHTML = `
+            <h2>${product.name}</h2>
+            <img src="${product.image}" alt="${product.name}">
+            <p>Price: ${product.price}</p>
+            <p>${product.description}</p>
+            <div class="similar-products">
+                <h3>Similar Products</h3>
+                <div class="product-list">
+                    ${product.similarProducts.map(p => `
+                        <div class="product-item">
+                            <img src="${p.image}" alt="${p.name}">
+                            <h3>${p.name}</h3>
+                            <p>${p.price}</p>
+                        </div>
+                    `).join('')}
+                </div>
+            </div>
+        `;
+        productDetailsSection.style.display = 'block';
+    }
+}
+
+
