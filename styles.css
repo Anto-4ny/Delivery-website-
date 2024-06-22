@@ -986,7 +986,7 @@ button[type="submit"]:hover {
     height: auto; /* Maintain aspect ratio */
   }
 }
-/*login page*/
+/*login page and sign-up page*/
 .containerforlogin {
     display: flex;
     justify-content: center;
@@ -1013,7 +1013,7 @@ button[type="submit"]:hover {
     border-radius: 15px;
     box-shadow: 0 0 20px rgba(0, 0, 255, 0.5);
     display: flex; /* Flex display to allow side-by-side positioning */
-    flex-direction: column; /* Default to column layout */
+    flex-direction: row; /* Default to row layout */
     justify-content: space-between; /* Ensure even spacing between elements */
     align-items: center; /* Center content vertically */
     padding: 20px; /* Add padding for internal spacing */
@@ -1029,8 +1029,7 @@ button[type="submit"]:hover {
 }
 
 .login-form, .welcome-message {
-    width: 100%; /* Default to full width */
-    max-width: 45%; /* Max width for larger screens */
+    width: 45%; /* Default to 45% width */
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -1040,7 +1039,6 @@ button[type="submit"]:hover {
     padding: 20px; /* Add padding for internal spacing */
     border-radius: 10px; /* Add border radius to match overall style */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for definition */
-    margin-bottom: 20px; /* Add margin between sections */
 }
 
 .login-form h2 {
@@ -1094,33 +1092,21 @@ button[type="submit"]:hover {
     font-size: 16px;
 }
 
-.social-login button#facebook-login {
+.social-login button#facebook-login,
+.social-login button#facebook-signup {
     background-color: #3b5998; /* Facebook button color */
 }
 
 /* Responsive styles */
-@media (min-width: 600px) {
-    .login-box-content {
-        flex-direction: row; /* Switch to row layout on larger screens */
-    }
-}
-
-@media (min-width: 768px) {
-    .login-form, .welcome-message {
-        width: 45%; /* Adjust width for larger screens */
-        margin-bottom: 0; /* Remove margin between sections */
-    }
-}
-
 @media (max-width: 600px) {
-    .login-form, .welcome-message {
-        width: 100%; /* Full width on smaller screens */
-        margin-bottom: 20px; /* Add margin between sections */
+    .login-box-content {
+        flex-direction: column; /* Ensure column layout on mobile phones */
+        padding: 10px; /* Reduce padding for smaller screens */
     }
 
-    .login-box-content {
-        width: 90%; /* Slightly reduce width for smaller screens */
-        padding: 10px; /* Reduce padding for smaller screens */
+    .login-form, .welcome-message {
+        width: 100%; /* Adjust width for smaller screens */
+        margin-bottom: 10px; /* Add margin between sections */
     }
 
     .social-login button {
@@ -1128,7 +1114,6 @@ button[type="submit"]:hover {
         padding: 8px; /* Adjust padding for smaller screens */
     }
 }
-
 
 
 /*Reviews section*/
