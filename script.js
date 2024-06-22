@@ -50,28 +50,61 @@ function sendInquiry(subject, message) {
             window.location.href = "mailto:antocaptechnologies@gmail.com?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(message);
         }
 // script.js
+//loginpage
 
 document.addEventListener("DOMContentLoaded", () => {
     const username = localStorage.getItem("username");
     if (username) {
         displayWelcomeMessage(username);
     }
+
+    // Firebase auth state observer
+    firebase.auth().onAuthStateChanged(user => {
+        if (user) {
+            displayWelcomeMessage(user.displayName || user.email);
+        }
+    });
 });
 
 function loginUser() {
     const usernameInput = document.getElementById("username").value;
     const passwordInput = document.getElementById("password").value;
 
-    // For simplicity, this example does not validate the password.
-    // In a real application, you would send the username and password to a server for validation.
+    firebase.auth().signInWithEmailAndPassword(usernameInput, passwordInput)
+        .then(userCredential => {
+            const user = userCredential.user;
+            localStorage.setItem("username", user.email);
+            displayWelcomeMessage(user.email);
+        })
+        .catch(error => {
+            alert("Error: " + error.message);
+        });
 
-    if (usernameInput && passwordInput) {
-        localStorage.setItem("username", usernameInput);
-        displayWelcomeMessage(usernameInput);
-    } else {
-        alert("Please enter both username and password.");
-    }
     return false; // Prevent form submission
+}
+
+function loginWithGoogle() {
+    const provider = new firebase.auth.GoogleAuthProvider();
+    firebase.auth().signInWithPopup(provider)
+        .then(result => {
+            const user = result.user;
+            displayWelcomeMessage(user.displayName || user.email);
+        })
+        .catch(error => {
+            alert("Error: " + error.message);
+        });
+}
+
+function loginWithFacebook() {
+    const provider = new firebase.auth.FacebookAuthProvider();
+    firebase.auth().signInWithPopup(provider)
+        .then(result => {
+            const user = result.user;
+            displayWelcomeMessage(user.displayName || user.email);
+        })
+        .catch(error => {
+            alert("Error: " + error.message);
+        });
 }
 
 function displayWelcomeMessage(username) {
@@ -82,7 +115,13 @@ function displayWelcomeMessage(username) {
             <p>You are now logged in.</p>
         </div>
     `;
-            }
+}
+
+// Add event listeners for social login buttons
+document.getElementById("google-login").addEventListener("click", loginWithGoogle);
+document.getElementById("facebook-login").addEventListener("click", loginWithFacebook);
+                
+
 // Function to create a new post
 function createPost() {
     const postContent = document.getElementById('new-post').value;
