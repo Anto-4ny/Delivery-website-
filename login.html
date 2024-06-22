@@ -5,9 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Page</title>
     <link rel="stylesheet" href="styles.css">
+    <script defer src="/__/firebase/9.8.4/firebase-app-compat.js"></script>
+    <script defer src="/__/firebase/9.8.4/firebase-auth-compat.js"></script>
+    <script defer src="/__/firebase/init.js"></script>
+    <script defer src="script.js"></script>
 </head>
 <body>
-            <header>
+     <header>
         <div class="top-bar">
             <div class="container">
                 <div class="top-links">
@@ -28,14 +32,15 @@
                 <nav>
                     <ul>
                         <li><a href="index.html">Home</a></li>
-                        <li><a href="Pages/categories.html">Categories</a></li>
-                        <li><a href="Pages/services.html">Services</a></li>
-                        <li><a href="Pages/contact.html">Contact</a></li>
+                        <li><a href="categories.html">Categories</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="contact.html">Contact</a></li>
                     </ul>
                 </nav>
             </div>
         </div>
             </header>
+         <div class="containerforlogin">
         <div class="login-box">
             <div class="login-box-content">
                 <div class="login-form">
@@ -45,6 +50,10 @@
                         <input type="password" id="password" placeholder="Password" required>
                         <button type="submit">Login</button>
                     </form>
+                    <div class="social-login">
+                        <button id="google-login">Login with Google</button>
+                        <button id="facebook-login">Login with Facebook</button>
+                    </div>
                 </div>
                 <div class="welcome-message">
                     <h2>Welcome!</h2>
@@ -52,9 +61,13 @@
                 </div>
             </div>
         </div>
+         </div>
         
 <!-- Footer -->
     <footer>
+        <script src="https://www.gstatic.com/firebasejs/9.8.4/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.8.4/firebase-auth-compat.js"></script>
+    <script src="script.js"></script>
         <div class="footer-top">
             <div class="container">
                 <div class="footer-columns">
