@@ -986,7 +986,6 @@ button[type="submit"]:hover {
     height: auto; /* Maintain aspect ratio */
   }
 }
-
 /*login page*/
 .containerforlogin {
     display: flex;
@@ -1007,13 +1006,14 @@ button[type="submit"]:hover {
 
 .login-box-content {
     position: relative;
-    width: 800px; /* Increased width to accommodate both sections */
-    height: 400px;
+    width: 90%; /* Make width relative to parent */
+    max-width: 800px; /* Max width for larger screens */
+    height: auto; /* Let height adjust based on content */
     background: rgba(255, 255, 255, 0.8);
     border-radius: 15px;
     box-shadow: 0 0 20px rgba(0, 0, 255, 0.5);
-    overflow: auto;
     display: flex; /* Flex display to allow side-by-side positioning */
+    flex-direction: column; /* Default to column layout */
     justify-content: space-between; /* Ensure even spacing between elements */
     align-items: center; /* Center content vertically */
     padding: 20px; /* Add padding for internal spacing */
@@ -1029,7 +1029,8 @@ button[type="submit"]:hover {
 }
 
 .login-form, .welcome-message {
-    width: 45%; /* Adjust width to fit within the container */
+    width: 100%; /* Default to full width */
+    max-width: 45%; /* Max width for larger screens */
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -1039,6 +1040,7 @@ button[type="submit"]:hover {
     padding: 20px; /* Add padding for internal spacing */
     border-radius: 10px; /* Add border radius to match overall style */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for definition */
+    margin-bottom: 20px; /* Add margin between sections */
 }
 
 .login-form h2 {
@@ -1074,6 +1076,7 @@ button[type="submit"]:hover {
     text-align: center;
     color: blue;
 }
+
 .social-login {
     display: flex;
     flex-direction: column;
@@ -1094,6 +1097,38 @@ button[type="submit"]:hover {
 .social-login button#facebook-login {
     background-color: #3b5998; /* Facebook button color */
 }
+
+/* Responsive styles */
+@media (min-width: 600px) {
+    .login-box-content {
+        flex-direction: row; /* Switch to row layout on larger screens */
+    }
+}
+
+@media (min-width: 768px) {
+    .login-form, .welcome-message {
+        width: 45%; /* Adjust width for larger screens */
+        margin-bottom: 0; /* Remove margin between sections */
+    }
+}
+
+@media (max-width: 600px) {
+    .login-form, .welcome-message {
+        width: 100%; /* Full width on smaller screens */
+        margin-bottom: 20px; /* Add margin between sections */
+    }
+
+    .login-box-content {
+        width: 90%; /* Slightly reduce width for smaller screens */
+        padding: 10px; /* Reduce padding for smaller screens */
+    }
+
+    .social-login button {
+        font-size: 14px; /* Adjust font size for smaller screens */
+        padding: 8px; /* Adjust padding for smaller screens */
+    }
+}
+
 
 
 /*Reviews section*/
