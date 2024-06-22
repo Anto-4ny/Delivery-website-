@@ -50,7 +50,8 @@ function sendInquiry(subject, message) {
             window.location.href = "mailto:antocaptechnologies@gmail.com?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(message);
         }
 // script.js
-//loginpage
+// script.js
+//login and sign up pages
 
 document.addEventListener("DOMContentLoaded", () => {
     const username = localStorage.getItem("username");
@@ -58,11 +59,67 @@ document.addEventListener("DOMContentLoaded", () => {
         displayWelcomeMessage(username);
     }
 
-    // Firebase auth state observer
-    firebase.auth().onAuthStateChanged(user => {
-        if (user) {
-            displayWelcomeMessage(user.displayName || user.email);
-        }
+    // Initialize Firebase
+    const firebaseConfig = {
+        apiKey: "YOUR_API_KEY",
+        authDomain: "YOUR_AUTH_DOMAIN",
+        projectId: "YOUR_PROJECT_ID",
+        storageBucket: "YOUR_STORAGE_BUCKET",
+        messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+        appId: "YOUR_APP_ID"
+    };
+    firebase.initializeApp(firebaseConfig);
+
+    // Set up Google and Facebook login
+    const googleProvider = new firebase.auth.GoogleAuthProvider();
+    const facebookProvider = new firebase.auth.FacebookAuthProvider();
+
+    document.getElementById("google-login").addEventListener("click", () => {
+        firebase.auth().signInWithPopup(googleProvider)
+            .then((result) => {
+                const user = result.user;
+                localStorage.setItem("username", user.displayName);
+                displayWelcomeMessage(user.displayName);
+            })
+            .catch((error) => {
+                console.error("Google login error:", error);
+            });
+    });
+
+    document.getElementById("facebook-login").addEventListener("click", () => {
+        firebase.auth().signInWithPopup(facebookProvider)
+            .then((result) => {
+                const user = result.user;
+                localStorage.setItem("username", user.displayName);
+                displayWelcomeMessage(user.displayName);
+            })
+            .catch((error) => {
+                console.error("Facebook login error:", error);
+            });
+    });
+
+    document.getElementById("google-signup").addEventListener("click", () => {
+        firebase.auth().signInWithPopup(googleProvider)
+            .then((result) => {
+                const user = result.user;
+                localStorage.setItem("username", user.displayName);
+                displayWelcomeMessage(user.displayName);
+            })
+            .catch((error) => {
+                console.error("Google sign-up error:", error);
+            });
+    });
+
+    document.getElementById("facebook-signup").addEventListener("click", () => {
+        firebase.auth().signInWithPopup(facebookProvider)
+            .then((result) => {
+                const user = result.user;
+                localStorage.setItem("username", user.displayName);
+                displayWelcomeMessage(user.displayName);
+            })
+            .catch((error) => {
+                console.error("Facebook sign-up error:", error);
+            });
     });
 });
 
@@ -70,41 +127,41 @@ function loginUser() {
     const usernameInput = document.getElementById("username").value;
     const passwordInput = document.getElementById("password").value;
 
-    firebase.auth().signInWithEmailAndPassword(usernameInput, passwordInput)
-        .then(userCredential => {
-            const user = userCredential.user;
-            localStorage.setItem("username", user.email);
-            displayWelcomeMessage(user.email);
-        })
-        .catch(error => {
-            alert("Error: " + error.message);
-        });
-
+    if (usernameInput && passwordInput) {
+        firebase.auth().signInWithEmailAndPassword(usernameInput, passwordInput)
+            .then((userCredential) => {
+                localStorage.setItem("username", usernameInput);
+                displayWelcomeMessage(usernameInput);
+            })
+            .catch((error) => {
+                alert("Invalid login credentials.");
+                console.error("Login error:", error);
+            });
+    } else {
+        alert("Please enter both username and password.");
+    }
     return false; // Prevent form submission
 }
 
-function loginWithGoogle() {
-    const provider = new firebase.auth.GoogleAuthProvider();
-    firebase.auth().signInWithPopup(provider)
-        .then(result => {
-            const user = result.user;
-            displayWelcomeMessage(user.displayName || user.email);
-        })
-        .catch(error => {
-            alert("Error: " + error.message);
-        });
-}
+function registerUser() {
+    const usernameInput = document.getElementById("signup-username").value;
+    const emailInput = document.getElementById("signup-email").value;
+    const passwordInput = document.getElementById("signup-password").value;
 
-function loginWithFacebook() {
-    const provider = new firebase.auth.FacebookAuthProvider();
-    firebase.auth().signInWithPopup(provider)
-        .then(result => {
-            const user = result.user;
-            displayWelcomeMessage(user.displayName || user.email);
-        })
-        .catch(error => {
-            alert("Error: " + error.message);
-        });
+    if (usernameInput && emailInput && passwordInput) {
+        firebase.auth().createUserWithEmailAndPassword(emailInput, passwordInput)
+            .then((userCredential) => {
+                localStorage.setItem("username", usernameInput);
+                displayWelcomeMessage(usernameInput);
+            })
+            .catch((error) => {
+                alert("Error creating account.");
+                console.error("Sign-up error:", error);
+            });
+    } else {
+        alert("Please fill out all fields.");
+    }
+    return false; // Prevent form submission
 }
 
 function displayWelcomeMessage(username) {
@@ -112,15 +169,11 @@ function displayWelcomeMessage(username) {
     loginBoxContent.innerHTML = `
         <div class="welcome-message">
             <h2>Welcome, ${username}!</h2>
-            <p>You are now logged in.</p>
+            <p>Your account has been created.</p>
         </div>
     `;
 }
 
-// Add event listeners for social login buttons
-document.getElementById("google-login").addEventListener("click", loginWithGoogle);
-document.getElementById("facebook-login").addEventListener("click", loginWithFacebook);
-                
 
 // Function to create a new post
 function createPost() {
