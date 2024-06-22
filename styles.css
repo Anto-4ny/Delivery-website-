@@ -987,12 +987,7 @@ button[type="submit"]:hover {
   }
 }
 
-/* Login page styles */
-body, html {
-    height: 100%;
-    margin: 0;
-}
-
+/*login page*/
 .containerforlogin {
     display: flex;
     justify-content: center;
@@ -1008,18 +1003,20 @@ body, html {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 400px;
-    width: 400px;
 }
 
 .login-box-content {
     position: relative;
-    width: 400px;
+    width: 800px; /* Increased width to accommodate both sections */
     height: 400px;
     background: rgba(255, 255, 255, 0.8);
     border-radius: 15px;
     box-shadow: 0 0 20px rgba(0, 0, 255, 0.5);
     overflow: auto;
+    display: flex; /* Flex display to allow side-by-side positioning */
+    justify-content: space-between; /* Ensure even spacing between elements */
+    align-items: center; /* Center content vertically */
+    padding: 20px; /* Add padding for internal spacing */
 }
 
 .login-box-content::before {
@@ -1028,22 +1025,20 @@ body, html {
     width: 100%;
     height: 100%;
     background: linear-gradient(135deg, transparent 50%, rgba(0, 0, 255, 0.5) 50%);
+    border-radius: 15px; /* Match border radius with login-box-content */
 }
 
 .login-form, .welcome-message {
-    position: absolute;
-    width: 50%;
-    height: 100%;
+    width: 45%; /* Adjust width to fit within the container */
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    z-index: 1;
-}
-
-.login-form {
-    left: 0;
-    padding: 20px;
+    z-index: 1; /* Ensure content is above the gradient background */
+    background: rgba(255, 255, 255, 0.9); /* Slightly opaque background for readability */
+    padding: 20px; /* Add padding for internal spacing */
+    border-radius: 10px; /* Add border radius to match overall style */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for definition */
 }
 
 .login-form h2 {
@@ -1071,11 +1066,15 @@ body, html {
     background-color: darkblue;
 }
 
-.welcome-message {
-    right: 0;
-    padding: 20px;
+.welcome-message h2 {
+    margin-bottom: 20px;
+}
+
+.welcome-message p {
+    text-align: center;
     color: blue;
 }
+
 
 /*Reviews section*/
 .reviews-section {
