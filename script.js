@@ -309,66 +309,147 @@ function orderProduct(productName) {
 }
 
 //profile page
-        // JavaScript for handling form submissions and navigation
-        document.addEventListener('DOMContentLoaded', () => {
-            // Handle product form submission
-            document.getElementById('product-form').addEventListener('submit', function(event) {
-                event.preventDefault();
+        document.addEventListener('DOMContentLoaded', function() {
+    // Initialize Firebase
+    const firebaseConfig = {
+        // Your Firebase config here
+    };
+    firebase.initializeApp(firebaseConfig);
+    const database = firebase.database();
+    const storage = firebase.storage().ref();
 
-                const productName = document.getElementById('productName').value;
-                const productPrice = document.getElementById('productPrice').value;
-                const productDescription = document.getElementById('productDescription').value;
-                const productImage = document.getElementById('productImage').value;
+    // Handle product form submission
+    const productForm = document.getElementById('product-form');
+    productForm.addEventListener('submit', function(event) {
+        event.preventDefault();
 
-                const product = {
-                    name: productName,
-                    price: productPrice,
-                    description: productDescription,
-                    image: productImage
+        const productName = productForm.querySelector('#productName').value;
+        const productPrice = productForm.querySelector('#productPrice').value;
+        const productDescription = productForm.querySelector('#productDescription').value;
+        const productCategory = productForm.querySelector('#productCategory').value;
+        const productImage = productForm.querySelector('#productImage').files[0]; // Get the file
+
+        // Upload image to Firebase Storage
+        const imageRef = storage.child(`productImages/${productImage.name}`);
+        imageRef.put(productImage).then(() => {
+            console.log('Image uploaded successfully.');
+            // Get download URL for the image
+            imageRef.getDownloadURL().then((imageUrl) => {
+                // Save product details to Realtime Database
+                const newProductKey = database.ref().child('products').push().key;
+                const updates = {};
+                updates['/products/' + newProductKey] = {
+                    productName: productName,
+                    productPrice: productPrice,
+                    productDescription: productDescription,
+                    productCategory: productCategory,
+                    productImage: imageUrl
                 };
-
-                // Save product to database (Firebase example)
-                db.ref('products').push(product)
-                    .then(() => {
-                        alert('Product posted successfully!');
-                        document.getElementById('product-form').reset();
-                    })
-                    .catch(error => {
-                        console.error('Error posting product:', error);
-                    });
-            });
-
-            // Handle profile form submission
-            document.getElementById('profile-form').addEventListener('submit', function(event) {
-                event.preventDefault();
-
-                const profileName = document.getElementById('profileName').value;
-                const profileEmail = document.getElementById('profileEmail').value;
-                const profilePhone = document.getElementById('profilePhone').value;
-
-                const userProfile = {
-                    name: profileName,
-                    email: profileEmail,
-                    phone: profilePhone
-                };
-
-                // Save profile information to database (Firebase example)
-                const userId = auth.currentUser.uid;
-                db.ref('users/' + userId).set(userProfile)
-                    .then(() => {
-                        alert('Profile updated successfully!');
-                    })
-                    .catch(error => {
-                        console.error('Error updating profile:', error);
-                    });
-            });
-
-            // Navigation link handling
-            document.querySelectorAll('.alibaba-navigation a').forEach(link => {
-                link.addEventListener('click', (event) => {
-                    event.preventDefault();
-                    const targetId = link.getAttribute('href').substring(1);
-                    document.getElementById(targetId).scrollIntoView({ behavior: 'smooth' });
+                database.ref().update(updates).then(() => {
+                    alert('Product posted successfully!');
+                    // Clear form fields after submission
+                    productForm.reset();
+                }).catch(error => {
+                    console.error('Error posting product:', error);
                 });
             });
         });
+    });
+
+    // Handle profile form submission
+    const profileForm = document.getElementById('profile-form');
+    profileForm.addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const profileName = profileForm.querySelector('#profileName').value;
+        const profileEmail = profileForm.querySelector('#profileEmail').value;
+        const profilePhone = profileForm.querySelector('#profilePhone').value;
+        const profileCountry = profileForm.querySelector('#profileCountry').value;
+        const profileZip = profileForm.querySelector('#profileZip').value;
+        const profilePicture = profileForm.querySelector('#profilePicture').files[0]; // Get the file
+
+        // Upload profile picture to Firebase Storage
+        const profileImageRef = storage.child(`profilePictures/${profilePicture.name}`);
+        profileImageRef.put(profilePicture).then(() => {
+            console.log('Profile picture uploaded successfully.');
+            // Get download URL for the profile picture
+            profileImageRef.getDownloadURL().then((profileImageUrl) => {
+                // Save profile details to Realtime Database
+                database.ref('profiles/' + profileEmail).set({
+                    profileName: profileName,
+                    profileEmail: profileEmail,
+                    profilePhone: profilePhone,
+                    profileCountry: profileCountry,
+                    profileZip: profileZip,
+                    profilePicture: profileImageUrl
+                }).then(() => {
+                    alert('Profile updated successfully!');
+                    // Clear form fields after submission
+                    profileForm.reset();
+                }).catch(error => {
+                    console.error('Error updating profile:', error);
+                });
+            });
+        });
+    });
+
+    // Display products from Realtime Database
+    const productList = document.getElementById('product-list');
+    database.ref('products').once('value').then((snapshot) => {
+        snapshot.forEach((childSnapshot) => {
+            const productData = childSnapshot.val();
+            const productCard = document.createElement('div');
+            productCard.classList.add('product-card');
+            productCard.innerHTML = `
+                <h3>${productData.productName}</h3>
+                <p><strong>Price:</strong> ${productData.productPrice}</p>
+                <p><strong>Description:</strong> ${productData.productDescription}</p>
+                <p><strong>Category:</strong> ${productData.productCategory}</p>
+                <img src="${productData.productImage}" alt="Product Image" style="max-width: 100%; margin-bottom: 10px;">
+                <button onclick="addToCart('${childSnapshot.key}')">Add to Cart</button>
+            `;
+            productList.appendChild(productCard);
+        });
+    }).catch((error) => {
+        console.error('Error getting products:', error);
+    });
+
+    // Function to add product to shopping cart (simulated)
+    window.addToCart = function(productId) {
+        const productRef = database.ref('products/' + productId);
+        productRef.once('value').then((snapshot) => {
+            const productData = snapshot.val();
+            const shoppingCartForm = document.getElementById('shopping-cart-form');
+            const cartItem = document.createElement('div');
+            cartItem.classList.add('shopping-cart-item');
+            cartItem.innerHTML = `
+                <p><strong>Product Name:</strong> ${productData.productName}</p>
+                <p><strong>Price:</strong> ${productData.productPrice}</p>
+                <button onclick="checkout('${productId}')">Remove</button>
+            `;
+            shoppingCartForm.appendChild(cartItem);
+        }).catch((error) => {
+            console.error('Error adding to cart:', error);
+        });
+    };
+
+    // Function to simulate checkout process
+    window.checkout = function(productId) {
+        // Simulate checkout process, remove product from cart (if needed)
+        const cartItem = document.querySelector(`.shopping-cart-item[data-product-id="${productId}"]`);
+        if (cartItem) {
+            cartItem.remove();
+        }
+        alert('Checkout process simulated. Product removed from cart.');
+    };
+
+    // Smooth scrolling for navigation links
+    document.querySelectorAll('.alibaba-navigation a').forEach(link => {
+        link.addEventListener('click', (event) => {
+            event.preventDefault();
+            const targetId = link.getAttribute('href').substring(1);
+            document.getElementById(targetId).scrollIntoView({ behavior: 'smooth' });
+        });
+    });
+});
+        
