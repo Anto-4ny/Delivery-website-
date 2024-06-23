@@ -139,72 +139,59 @@
             <button type="submit">Update Profile</button>
         </form>
     </div>
-
-    <script>
-        // JavaScript for handling form submissions and navigation
-        document.addEventListener('DOMContentLoaded', () => {
-            // Handle product form submission
-            document.getElementById('product-form').addEventListener('submit', function(event) {
-                event.preventDefault();
-
-                const productName = document.getElementById('productName').value;
-                const productPrice = document.getElementById('productPrice').value;
-                const productDescription = document.getElementById('productDescription').value;
-                const productImage = document.getElementById('productImage').value;
-
-                const product = {
-                    name: productName,
-                    price: productPrice,
-                    description: productDescription,
-                    image: productImage
-                };
-
-                // Save product to database (Firebase example)
-                db.ref('products').push(product)
-                    .then(() => {
-                        alert('Product posted successfully!');
-                        document.getElementById('product-form').reset();
-                    })
-                    .catch(error => {
-                        console.error('Error posting product:', error);
-                    });
-            });
-
-            // Handle profile form submission
-            document.getElementById('profile-form').addEventListener('submit', function(event) {
-                event.preventDefault();
-
-                const profileName = document.getElementById('profileName').value;
-                const profileEmail = document.getElementById('profileEmail').value;
-                const profilePhone = document.getElementById('profilePhone').value;
-
-                const userProfile = {
-                    name: profileName,
-                    email: profileEmail,
-                    phone: profilePhone
-                };
-
-                // Save profile information to database (Firebase example)
-                const userId = auth.currentUser.uid;
-                db.ref('users/' + userId).set(userProfile)
-                    .then(() => {
-                        alert('Profile updated successfully!');
-                    })
-                    .catch(error => {
-                        console.error('Error updating profile:', error);
-                    });
-            });
-
-            // Navigation link handling
-            document.querySelectorAll('.alibaba-navigation a').forEach(link => {
-                link.addEventListener('click', (event) => {
-                    event.preventDefault();
-                    const targetId = link.getAttribute('href').substring(1);
-                    document.getElementById(targetId).scrollIntoView({ behavior: 'smooth' });
-                });
-            });
-        });
-    </script>
+<!-- Footer -->
+    <footer>
+        <div class="footer-top">
+            <div class="container">
+                <div class="footer-columns">
+                    <div class="footer-column">
+                        <h3>Customer Services</h3>
+                        <ul>
+                            <li><a href="#">Help Center</a></li>
+                            <li><a href="contact.html">Contact Us</a></li>
+                            <li><a href="#">Report Abuse</a></li>
+                            <li><a href="#">Submit a Dispute</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h3>About Us</h3>
+                        <ul>
+                            <li><a href="#">Company Overview</a></li>
+                            <li><a href="#">Careers</a></li>
+                            <li><a href="#">Terms of Use</a></li>
+                            <li><a href="#">Privacy Policy</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h3>Buy on Our Site</h3>
+                        <ul>
+                            <li><a href="#">All Categories</a></li>
+                            <li><a href="#">Request for Quotation</a></li>
+                            <li><a href="readytoship.html">Ready to Ship</a></li>
+                            <li><a href="#">Buyer Protection</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h3>Sell on Our Site</h3>
+                        <ul>
+                            <li><a href="#">Supplier Membership</a></li>
+                            <li><a href="#">Learning Center</a></li>
+                            <li><a href="#">Partner Program</a></li>
+                            <li><a href="#">Logistics Services</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <p>&copy; 2024 ELE MAX. All rights reserved.</p>
+            </div>
+        </div>
+    </main>
+    </footer>
+    <script src="script.js"></script>
 </body>
-  </html>
+            </html>
+    
               
