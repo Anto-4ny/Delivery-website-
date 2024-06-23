@@ -106,7 +106,7 @@
     <!-- Post Product Form -->
     <div class="post-product-form">
         <h2>Post Your Product or Service</h2>
-        <form id="product-form">
+        <form id="product-form" enctype="multipart/form-data">
             <label for="productName">Product/Service Name:</label>
             <input type="text" id="productName" name="productName" placeholder="Enter product/service name" required>
 
@@ -116,8 +116,8 @@
             <label for="productDescription">Description:</label>
             <textarea id="productDescription" name="productDescription" placeholder="Enter description" required></textarea>
 
-            <label for="productImage">Image URL:</label>
-            <input type="url" id="productImage" name="productImage" placeholder="Enter image URL" required>
+            <label for="productImage">Image or Video:</label>
+            <input type="file" id="productImage" name="productImage" accept="image/*, video/*" required>
 
             <label for="productCategory">Category:</label>
             <select id="productCategory" name="productCategory" required>
@@ -141,7 +141,7 @@
     <!-- Profile Form -->
     <div class="profile-form">
         <h2>Profile Information</h2>
-        <form id="profile-form">
+        <form id="profile-form" enctype="multipart/form-data">
             <label for="profileName">Name:</label>
             <input type="text" id="profileName" name="profileName" placeholder="Enter your name" required>
 
@@ -151,7 +151,33 @@
             <label for="profilePhone">Phone Number:</label>
             <input type="tel" id="profilePhone" name="profilePhone" placeholder="Enter your phone number" required>
 
+            <label for="profileCountry">Country:</label>
+            <input type="text" id="profileCountry" name="profileCountry" placeholder="Enter your country" required>
+
+            <label for="profileZip">Zip Code:</label>
+            <input type="text" id="profileZip" name="profileZip" placeholder="Enter your zip code" required>
+
+            <label for="profilePicture">Profile Picture:</label>
+            <input type="file" id="profilePicture" name="profilePicture" accept="image/*" required>
+
             <button type="submit">Update Profile</button>
+        </form>
+    </div>
+
+    <!-- Product Listing Section -->
+    <div class="product-listing">
+        <h2>Products Available</h2>
+        <div id="product-list">
+            <!-- Products will be dynamically added here -->
+        </div>
+    </div>
+
+    <!-- Shopping Cart Form -->
+    <div class="shopping-cart-form">
+        <h2>Shopping Cart</h2>
+        <form id="shopping-cart-form">
+            <!-- Cart items will be dynamically added here -->
+            <button type="submit">Proceed to Checkout</button>
         </form>
     </div>
 <!-- Footer -->
@@ -206,7 +232,7 @@
     </main>
     </footer>
     <script src="script.js"></script>
-</body>
-            </html>
+  </body>
+</html>
     
               
