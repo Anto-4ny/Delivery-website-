@@ -307,4 +307,68 @@ function orderProduct(productName) {
     const message = `I want to order the ${productName}`;
     window.location.href = `mailto:antocaptechnologies@gmail.com?subject=Product Order&body=${encodeURIComponent(message)}`;
 }
-    
+
+//profile page
+        // JavaScript for handling form submissions and navigation
+        document.addEventListener('DOMContentLoaded', () => {
+            // Handle product form submission
+            document.getElementById('product-form').addEventListener('submit', function(event) {
+                event.preventDefault();
+
+                const productName = document.getElementById('productName').value;
+                const productPrice = document.getElementById('productPrice').value;
+                const productDescription = document.getElementById('productDescription').value;
+                const productImage = document.getElementById('productImage').value;
+
+                const product = {
+                    name: productName,
+                    price: productPrice,
+                    description: productDescription,
+                    image: productImage
+                };
+
+                // Save product to database (Firebase example)
+                db.ref('products').push(product)
+                    .then(() => {
+                        alert('Product posted successfully!');
+                        document.getElementById('product-form').reset();
+                    })
+                    .catch(error => {
+                        console.error('Error posting product:', error);
+                    });
+            });
+
+            // Handle profile form submission
+            document.getElementById('profile-form').addEventListener('submit', function(event) {
+                event.preventDefault();
+
+                const profileName = document.getElementById('profileName').value;
+                const profileEmail = document.getElementById('profileEmail').value;
+                const profilePhone = document.getElementById('profilePhone').value;
+
+                const userProfile = {
+                    name: profileName,
+                    email: profileEmail,
+                    phone: profilePhone
+                };
+
+                // Save profile information to database (Firebase example)
+                const userId = auth.currentUser.uid;
+                db.ref('users/' + userId).set(userProfile)
+                    .then(() => {
+                        alert('Profile updated successfully!');
+                    })
+                    .catch(error => {
+                        console.error('Error updating profile:', error);
+                    });
+            });
+
+            // Navigation link handling
+            document.querySelectorAll('.alibaba-navigation a').forEach(link => {
+                link.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    const targetId = link.getAttribute('href').substring(1);
+                    document.getElementById(targetId).scrollIntoView({ behavior: 'smooth' });
+                });
+            });
+        });
