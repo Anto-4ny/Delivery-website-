@@ -275,4 +275,36 @@ document.getElementById('review-form').addEventListener('submit', async (event) 
         alert('Failed to submit review.');
     }
 });
-                
+
+// Function to fetch and display products
+document.addEventListener('DOMContentLoaded', () => {
+    fetchProducts();
+});
+
+function fetchProducts() {
+    // Simulate fetching products from an API
+    const products = [
+        { id: 1, name: 'Basic Website', price: '$100', description: 'A simple website.' },
+        { id: 2, name: 'Advanced Website', price: '$200', description: 'A more complex website with additional features.' },
+        { id: 3, name: 'Premium Website', price: '$300', description: 'A top-tier website with all the bells and whistles.' }
+    ];
+
+    const productsContainer = document.querySelector('.products-container');
+    products.forEach(product => {
+        const productBox = document.createElement('div');
+        productBox.className = 'product';
+        productBox.innerHTML = `
+            <h3>${product.name}</h3>
+            <p>Price: ${product.price}</p>
+            <p>Description: ${product.description}</p>
+            <button onclick="orderProduct('${product.name}')">Order Now</button>
+        `;
+        productsContainer.appendChild(productBox);
+    });
+}
+
+function orderProduct(productName) {
+    const message = `I want to order the ${productName}`;
+    window.location.href = `mailto:antocaptechnologies@gmail.com?subject=Product Order&body=${encodeURIComponent(message)}`;
+}
+    
