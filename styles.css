@@ -1250,7 +1250,7 @@ bodyforcontactus {
     background-color: #1ebf55;
     }
 /* profile page styles */
-        /* Navigation */
+/* Navigation */
         .alibaba-navigation ul {
             list-style: none;
             background-color: #ff6a00;
@@ -1305,6 +1305,15 @@ bodyforcontactus {
             border-radius: 3px;
         }
 
+        .post-product-form select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            background-color: #fff;
+        }
+
         .post-product-form button, .profile-form button {
             background-color: #ff6a00;
             color: #fff;
@@ -1317,7 +1326,7 @@ bodyforcontactus {
 
         .post-product-form button:hover, .profile-form button:hover {
             background-color: #ff8c3d;
-        }
+}
 
 
 .social-media {
