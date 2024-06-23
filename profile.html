@@ -46,7 +46,7 @@
             <li><a href="#shopping-cart">Shopping Cart</a></li>
             <li><a href="#favorites">My Favorites</a></li>
             <li><a href="#coupons">My Coupons</a></li>
-            <li><a href="#sell-on-alibaba">How to sell </a></li>
+            <li><a href="#sell-on-alibaba">How to sell on Alibaba.com</a></li>
             <li><a href="#help-center">Help Center</a></li>
             <li><a href="#settings">Setting</a></li>
             <li><a href="#country-region">Country/Region, Currency & Language</a></li>
@@ -108,16 +108,31 @@
         <h2>Post Your Product or Service</h2>
         <form id="product-form">
             <label for="productName">Product/Service Name:</label>
-            <input type="text" id="productName" name="productName" required>
+            <input type="text" id="productName" name="productName" placeholder="Enter product/service name" required>
 
             <label for="productPrice">Price:</label>
-            <input type="text" id="productPrice" name="productPrice" required>
+            <input type="text" id="productPrice" name="productPrice" placeholder="Enter price" required>
 
             <label for="productDescription">Description:</label>
-            <textarea id="productDescription" name="productDescription" required></textarea>
+            <textarea id="productDescription" name="productDescription" placeholder="Enter description" required></textarea>
 
             <label for="productImage">Image URL:</label>
-            <input type="url" id="productImage" name="productImage" required>
+            <input type="url" id="productImage" name="productImage" placeholder="Enter image URL" required>
+
+            <label for="productCategory">Category:</label>
+            <select id="productCategory" name="productCategory" required>
+                <option value="" selected disabled>Select category</option>
+                <option value="Electronics">Electronics</option>
+                <option value="Apparel">Apparel</option>
+                <option value="Home & Garden">Home & Garden</option>
+                <option value="Machinery">Machinery</option>
+                <option value="Beauty & Personal Care">Beauty & Personal Care</option>
+                <option value="Automobiles & Motorcycles">Automobiles & Motorcycles</option>
+                <option value="Toys & Hobbies">Toys & Hobbies</option>
+                <option value="Sports & Entertainment">Sports & Entertainment</option>
+                <option value="Office & School Supplies">Office & School Supplies</option>
+                <option value="Health & Medical">Health & Medical</option>
+            </select>
 
             <button type="submit">Post</button>
         </form>
@@ -128,13 +143,13 @@
         <h2>Profile Information</h2>
         <form id="profile-form">
             <label for="profileName">Name:</label>
-            <input type="text" id="profileName" name="profileName" required>
+            <input type="text" id="profileName" name="profileName" placeholder="Enter your name" required>
 
             <label for="profileEmail">Email:</label>
-            <input type="email" id="profileEmail" name="profileEmail" required>
+            <input type="email" id="profileEmail" name="profileEmail" placeholder="Enter your email" required>
 
             <label for="profilePhone">Phone Number:</label>
-            <input type="tel" id="profilePhone" name="profilePhone" required>
+            <input type="tel" id="profilePhone" name="profilePhone" placeholder="Enter your phone number" required>
 
             <button type="submit">Update Profile</button>
         </form>
