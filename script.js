@@ -5,10 +5,12 @@ const firebaseConfig = {
     projectId: "YOUR_PROJECT_ID",
     storageBucket: "YOUR_STORAGE_BUCKET",
     messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-    appId: "YOUR_APP_ID"
+    appId: "YOUR_APP_ID",
+    databaseURL: "YOUR_DATABASE_URL"
 };
 
 firebase.initializeApp(firebaseConfig);
+
 const auth = firebase.auth();
 const db = firebase.database();
 const storage = firebase.storage().ref();
@@ -29,7 +31,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const facebookProvider = new firebase.auth.FacebookAuthProvider();
 
     document.getElementById("google-login").addEventListener("click", () => {
-        firebase.auth().signInWithPopup(googleProvider)
+        auth.signInWithPopup(googleProvider)
             .then((result) => {
                 const user = result.user;
                 localStorage.setItem("username", user.displayName);
@@ -41,7 +43,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     document.getElementById("facebook-login").addEventListener("click", () => {
-        firebase.auth().signInWithPopup(facebookProvider)
+        auth.signInWithPopup(facebookProvider)
             .then((result) => {
                 const user = result.user;
                 localStorage.setItem("username", user.displayName);
@@ -53,7 +55,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     document.getElementById("google-signup").addEventListener("click", () => {
-        firebase.auth().signInWithPopup(googleProvider)
+        auth.signInWithPopup(googleProvider)
             .then((result) => {
                 const user = result.user;
                 localStorage.setItem("username", user.displayName);
@@ -65,7 +67,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     document.getElementById("facebook-signup").addEventListener("click", () => {
-        firebase.auth().signInWithPopup(facebookProvider)
+        auth.signInWithPopup(facebookProvider)
             .then((result) => {
                 const user = result.user;
                 localStorage.setItem("username", user.displayName);
@@ -82,7 +84,7 @@ function loginUser() {
     const passwordInput = document.getElementById("password").value;
 
     if (usernameInput && passwordInput) {
-        firebase.auth().signInWithEmailAndPassword(usernameInput, passwordInput)
+        auth.signInWithEmailAndPassword(usernameInput, passwordInput)
             .then((userCredential) => {
                 localStorage.setItem("username", usernameInput);
                 displayWelcomeMessage(usernameInput);
@@ -103,7 +105,7 @@ function registerUser() {
     const passwordInput = document.getElementById("signup-password").value;
 
     if (usernameInput && emailInput && passwordInput) {
-        firebase.auth().createUserWithEmailAndPassword(emailInput, passwordInput)
+        auth.createUserWithEmailAndPassword(emailInput, passwordInput)
             .then((userCredential) => {
                 localStorage.setItem("username", usernameInput);
                 displayWelcomeMessage(usernameInput);
@@ -130,9 +132,6 @@ function displayWelcomeMessage(username) {
 
 // Profile page functionality
 document.addEventListener('DOMContentLoaded', function() {
-    const database = firebase.database();
-    const storage = firebase.storage().ref();
-
     // Handle product form submission
     const productForm = document.getElementById('product-form');
     productForm.addEventListener('submit', function(event) {
@@ -151,7 +150,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // Get download URL for the image
             imageRef.getDownloadURL().then((imageUrl) => {
                 // Save product details to Realtime Database
-                const newProductKey = database.ref().child('products').push().key;
+                const newProductKey = db.ref().child('products').push().key;
                 const updates = {};
                 updates['/products/' + newProductKey] = {
                     productName: productName,
@@ -160,7 +159,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     productCategory: productCategory,
                     productImage: imageUrl
                 };
-                database.ref().update(updates).then(() => {
+                db.ref().update(updates).then(() => {
                     alert('Product posted successfully!');
                     // Clear form fields after submission
                     productForm.reset();
@@ -171,170 +170,153 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Initialize Firebase
-const firebaseConfig = {
-    apiKey: "YOUR_API_KEY",
-    authDomain: "YOUR_AUTH_DOMAIN",
-    databaseURL: "YOUR_DATABASE_URL",
-    projectId: "YOUR_PROJECT_ID",
-    storageBucket: "YOUR_STORAGE_BUCKET",
-    messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-    appId: "YOUR_APP_ID"
-};
+    // Handle profile form submission
+    const profileForm = document.getElementById('profile-form');
+    profileForm.addEventListener('submit', function(event) {
+        event.preventDefault();
 
-firebase.initializeApp(firebaseConfig);
+        const profileName = profileForm.querySelector('#profileName').value;
+        const profileEmail = profileForm.querySelector('#profileEmail').value;
+        const profilePhone = profileForm.querySelector('#profilePhone').value;
+        const profileCountry = profileForm.querySelector('#profileCountry').value;
+        const profileZip = profileForm.querySelector('#profileZip').value;
+        const profilePicture = profileForm.querySelector('#profilePicture').files[0]; // Get the file
 
-// Reference to Firebase Realtime Database and Storage
-const database = firebase.database();
-const storage = firebase.storage().ref();
-
-// Handle profile form submission
-const profileForm = document.getElementById('profile-form');
-profileForm.addEventListener('submit', function(event) {
-    event.preventDefault();
-
-    const profileName = profileForm.querySelector('#profileName').value;
-    const profileEmail = profileForm.querySelector('#profileEmail').value;
-    const profilePhone = profileForm.querySelector('#profilePhone').value;
-    const profileCountry = profileForm.querySelector('#profileCountry').value;
-    const profileZip = profileForm.querySelector('#profileZip').value;
-    const profilePicture = profileForm.querySelector('#profilePicture').files[0]; // Get the file
-
-    // Upload profile picture to Firebase Storage
-    const profileImageRef = storage.child(`profilePictures/${profilePicture.name}`);
-    profileImageRef.put(profilePicture).then(() => {
-        console.log('Profile picture uploaded successfully.');
-        // Get download URL for the profile picture
-        profileImageRef.getDownloadURL().then((profileImageUrl) => {
-            // Save profile details to Realtime Database
-            database.ref('profiles/' + profileEmail).set({
-                profileName: profileName,
-                profileEmail: profileEmail,
-                profilePhone: profilePhone,
-                profileCountry: profileCountry,
-                profileZip: profileZip,
-                profilePicture: profileImageUrl
-            }).then(() => {
-                alert('Profile updated successfully!');
-                // Clear form fields after submission
-                profileForm.reset();
-            }).catch(error => {
-                console.error('Error updating profile:', error);
-                alert('Failed to update profile. Please try again.');
+        // Upload profile picture to Firebase Storage
+        const profileImageRef = storage.child(`profilePictures/${profilePicture.name}`);
+        profileImageRef.put(profilePicture).then(() => {
+            console.log('Profile picture uploaded successfully.');
+            // Get download URL for the profile picture
+            profileImageRef.getDownloadURL().then((profileImageUrl) => {
+                // Save profile details to Realtime Database
+                db.ref('profiles/' + profileEmail).set({
+                    profileName: profileName,
+                    profileEmail: profileEmail,
+                    profilePhone: profilePhone,
+                    profileCountry: profileCountry,
+                    profileZip: profileZip,
+                    profilePicture: profileImageUrl
+                }).then(() => {
+                    alert('Profile updated successfully!');
+                    // Clear form fields after submission
+                    profileForm.reset();
+                }).catch(error => {
+                    console.error('Error updating profile:', error);
+                    alert('Failed to update profile. Please try again.');
+                });
             });
+        }).catch(error => {
+            console.error('Error uploading profile picture:', error);
+            alert('Failed to update profile. Please try again.');
         });
-    }).catch(error => {
-        console.error('Error uploading profile picture:', error);
-        alert('Failed to update profile. Please try again.');
     });
-});
 
-// Display products from Realtime Database
-const productList = document.getElementById('product-list');
-database.ref('products').once('value').then((snapshot) => {
-    snapshot.forEach((childSnapshot) => {
-        const productData = childSnapshot.val();
-        const productCard = document.createElement('div');
-        productCard.classList.add('product-card');
-        productCard.innerHTML = `
-            <h3>${productData.productName}</h3>
-            <p><strong>Price:</strong> $${productData.productPrice}</p>
-            <p><strong>Description:</strong> ${productData.productDescription}</p>
-            <p><strong>Category:</strong> ${productData.productCategory}</p>
-            <img src="${productData.productImage}" alt="Product Image">
-            <button onclick="addToCart('${childSnapshot.key}')">Add to Cart</button>
-        `;
-        productList.appendChild(productCard);
-    });
-});
-
-// Add product to cart
-function addToCart(productId) {
-    const user = firebase.auth().currentUser;
-    if (user) {
-        const userId = user.uid;
-        database.ref('carts/' + userId + '/' + productId).set(true)
-            .then(() => {
-                alert('Product added to cart!');
-            }).catch(error => {
-                console.error('Error adding to cart:', error);
-                alert('Failed to add product to cart. Please try again.');
-            });
-    } else {
-        alert('Please log in to add items to your cart.');
-    }
-}
-
-// Firebase Authentication State Change Listener
-firebase.auth().onAuthStateChanged(function(user) {
-    if (user) {
-        // User is signed in.
-        console.log('User is signed in:', user.email);
-        // Show logged-in user specific content or perform actions
-        // Example: Display user's profile information, etc.
-    } else {
-        // No user is signed in.
-        console.log('No user signed in.');
-        // Redirect or show login form
-        window.location.href = 'login.html';
-    }
-});
-                
-// Handle product posting form submission
-const postProductForm = document.getElementById('post-product-form');
-postProductForm.addEventListener('submit', function(event) {
-    event.preventDefault();
-
-    const productName = postProductForm.querySelector('#product-name').value;
-    const description = postProductForm.querySelector('#description').value;
-    const price = parseFloat(postProductForm.querySelector('#price').value);
-    const category = postProductForm.querySelector('#category').value;
-    const mediaFile = postProductForm.querySelector('#media').files[0]; // Get the file
-
-    // Upload media file to Firebase Storage
-    const storageRef = storage.child(`products/${mediaFile.name}`);
-    storageRef.put(mediaFile).then(() => {
-        console.log('Product media uploaded successfully.');
-        // Get download URL for the media file
-        storageRef.getDownloadURL().then((mediaUrl) => {
-            // Save product details to Realtime Database
-            database.ref('products').push({
-                productName: productName,
-                description: description,
-                price: price,
-                category: category,
-                mediaUrl: mediaUrl
-            }).then(() => {
-                alert('Product posted successfully!');
-                // Clear form fields after submission
-                postProductForm.reset();
-            }).catch(error => {
-                console.error('Error posting product:', error);
-                alert('Failed to post product. Please try again.');
-            });
+    // Display products from Realtime Database
+    const productList = document.getElementById('product-list');
+    db.ref('products').once('value').then((snapshot) => {
+        snapshot.forEach((childSnapshot) => {
+            const productData = childSnapshot.val();
+            const productCard = document.createElement('div');
+            productCard.classList.add('product-card');
+            productCard.innerHTML = `
+                <h3>${productData.productName}</h3>
+                <p><strong>Price:</strong> $${productData.productPrice}</p>
+                <p><strong>Description:</strong> ${productData.productDescription}</p>
+                <p><strong>Category:</strong> ${productData.productCategory}</p>
+                <img src="${productData.productImage}" alt="Product Image">
+                <button onclick="addToCart('${childSnapshot.key}')">Add to Cart</button>
+            `;
+            productList.appendChild(productCard);
         });
-    }).catch(error => {
-        console.error('Error uploading product media:', error);
-        alert('Failed to upload product media. Please try again.');
     });
-});
 
-// Display products from Realtime Database
-const productList = document.getElementById('product-list');
-database.ref('products').once('value').then((snapshot) => {
-    snapshot.forEach((childSnapshot) => {
-        const productData = childSnapshot.val();
-        const productCard = document.createElement('div');
-        productCard.classList.add('product-card');
-        productCard.innerHTML = `
-            <h3>${productData.productName}</h3>
-            <p><strong>Price:</strong> $${productData.price}</p>
-            <p><strong>Description:</strong> ${productData.description}</p>
-            <p><strong>Category:</strong> ${productData.category}</p>
-            <img src="${productData.mediaUrl}" alt="Product Image">
-            <button onclick="addToCart('${childSnapshot.key}')">Add to Cart</button>
-        `;
-        productList.appendChild(productCard);
+    // Add product to cart
+    window.addToCart = function(productId) {
+        const user = auth.currentUser;
+        if (user) {
+            const userId = user.uid;
+            db.ref('carts/' + userId + '/' + productId).set(true)
+                .then(() => {
+                    alert('Product added to cart!');
+                }).catch(error => {
+                    console.error('Error adding to cart:', error);
+                    alert('Failed to add product to cart. Please try again.');
+                });
+        } else {
+            alert('Please log in to add items to your cart.');
+        }
+    }
+
+    // Firebase Authentication State Change Listener
+    auth.onAuthStateChanged(function(user) {
+        if (user) {
+            // User is signed in.
+            console.log('User is signed in:', user.email);
+            // Show logged-in user specific content or perform actions
+            // Example: Display user's profile information, etc.
+        } else {
+            // No user is signed in.
+            console.log('No user signed in.');
+            // Redirect or show login form
+            window.location.href = 'login.html';
+        }
+    });
+
+    // Handle product posting form submission
+    const postProductForm = document.getElementById('post-product-form');
+    postProductForm.addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const productName = postProductForm.querySelector('#product-name').value;
+        const description = postProductForm.querySelector('#description').value;
+        const price = parseFloat(postProductForm.querySelector('#price').value);
+        const category = postProductForm.querySelector('#category').value;
+        const mediaFile = postProductForm.querySelector('#media').files[0]; // Get the file
+
+        // Upload media file to Firebase Storage
+        const storageRef = storage.child(`products/${mediaFile.name}`);
+        storageRef.put(mediaFile).then(() => {
+            console.log('Product media uploaded successfully.');
+            // Get download URL for the media file
+            storageRef.getDownloadURL().then((mediaUrl) => {
+                // Save product details to Realtime Database
+                db.ref('products').push({
+                    productName: productName,
+                    description: description,
+                    price: price,
+                    category: category,
+                    mediaUrl: mediaUrl
+                }).then(() => {
+                    alert('Product posted successfully!');
+                    // Clear form fields after submission
+                    postProductForm.reset();
+                }).catch(error => {
+                    console.error('Error posting product:', error);
+                    alert('Failed to post product. Please try again.');
+                });
+            });
+        }).catch(error => {
+            console.error('Error uploading product media:', error);
+            alert('Failed to upload product media. Please try again.');
+        });
+    });
+
+    // Display products from Realtime Database
+    const productList = document.getElementById('product-list');
+    db.ref('products').once('value').then((snapshot) => {
+        snapshot.forEach((childSnapshot) => {
+            const productData = childSnapshot.val();
+            const productCard = document.createElement('div');
+            productCard.classList.add('product-card');
+            productCard.innerHTML = `
+                <h3>${productData.productName}</h3>
+                <p><strong>Price:</strong> $${productData.price}</p>
+                <p><strong>Description:</strong> ${productData.description}</p>
+                <p><strong>Category:</strong> ${productData.category}</p>
+                <img src="${productData.mediaUrl}" alt="Product Image">
+                <button onclick="addToCart('${childSnapshot.key}')">Add to Cart</button>
+            `;
+            productList.appendChild(productCard);
+        });
     });
 });
-        
