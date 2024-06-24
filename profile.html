@@ -37,149 +37,211 @@
     </header>
 </head>
 <body>
-    <!-- Alibaba-style Navigation Links -->
-    <div class="alibaba-navigation">
-        <ul>
-            <li><a href="#signin-register">Sign in or Register</a></li>
-            <li><a href="#manage-orders">Manage Orders</a></li>
-            <li><a href="#messenger">Messenger</a></li>
-            <li><a href="#shopping-cart">Shopping Cart</a></li>
-            <li><a href="#favorites">My Favorites</a></li>
-            <li><a href="#coupons">My Coupons</a></li>
-            <li><a href="#sell-on-alibaba">How to sell on Alibaba.com</a></li>
-            <li><a href="#help-center">Help Center</a></li>
-            <li><a href="#settings">Setting</a></li>
-            <li><a href="#country-region">Country/Region, Currency & Language</a></li>
-        </ul>
-    </div>
+    <header>
+        <nav class="alibaba-navigation">
+            <ul>
+                <li id="signin-link"><a href="#signin">Sign in</a></li>
+                <li id="register-link"><a href="#register">Register</a></li>
+                <li id="username-link" style="display:none;"></li>
+                <li><a href="#manage-orders">Manage Orders</a></li>
+                <li><a href="#messenger">Messenger</a></li>
+                <li><a href="#shopping-cart">Shopping Cart</a></li>
+                <li><a href="#favorites">My Favorites</a></li>
+                <li><a href="#coupons">My Coupons</a></li>
+                <li><a href="#sell-on-alibaba">Sell on Alibaba</a></li>
+                <li><a href="#help-center">Help Center</a></li>
+                <li><a href="#settings">Settings</a></li>
+                <li><a href="#country-region">Country/Region</a></li>
+            </ul>
+        </nav>
+    </header>
 
-    <!-- Sign in or Register Section -->
-    <div id="signin-register">
-        <!-- Sign in and Register Forms -->
-    </div>
+    <main>
+        <section id="signin" class="content-section">
+            <h2>Sign In</h2>
+            <form id="signin-form">
+                <div>
+                    <label for="signin-email">Email:</label>
+                    <input type="email" id="signin-email" name="signin-email" placeholder="Enter your email">
+                </div>
+                <div>
+                    <label for="signin-password">Password:</label>
+                    <input type="password" id="signin-password" name="signin-password" placeholder="Enter your password">
+                </div>
+                <button type="submit">Sign In</button>
+            </form>
+        </section>
 
-    <!-- Manage Orders Section -->
-    <div id="manage-orders">
-        <!-- Manage Orders Content -->
-    </div>
+        <section id="register" class="content-section">
+            <h2>Register</h2>
+            <form id="register-form">
+                <div>
+                    <label for="register-email">Email:</label>
+                    <input type="email" id="register-email" name="register-email" placeholder="Enter your email">
+                </div>
+                <div>
+                    <label for="register-password">Password:</label>
+                    <input type="password" id="register-password" name="register-password" placeholder="Enter your password">
+                </div>
+                <button type="submit">Register</button>
+            </form>
+        </section>
 
-    <!-- Messenger Section -->
-    <div id="messenger">
-        <!-- Messenger Content -->
-    </div>
+        <section id="profile" class="content-section">
+            <h2>Profile</h2>
+            <form id="profile-form">
+                <div>
+                    <label for="profile-picture">Profile Picture:</label>
+                    <input type="file" id="profile-picture" name="profile-picture">
+                </div>
+                <div>
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" placeholder="Enter your name">
+                </div>
+                <div>
+                    <label for="country">Country:</label>
+                    <select id="country" name="country">
+                        <!-- Populate with actual country options -->
+                        <option value="USA">USA</option>
+                        <option value="Canada">Canada</option>
+                        <!-- Add more options as needed -->
+                    </select>
+                </div>
+                <div>
+                    <label for="zip">Zip Code:</label>
+                    <input type="text" id="zip" name="zip" placeholder="Enter your zip code">
+                </div>
+                <div>
+                    <label for="phone-country-code">Country Code:</label>
+                    <select id="phone-country-code" name="phone-country-code">
+                        <!-- Populate with actual country code options -->
+                        <option value="+1">+1 USA</option>
+                        <option value="+1">+1 Canada</option>
+                        <!-- Add more options as needed -->
+                    </select>
+                </div>
+                <div>
+                    <label for="phone-number">Phone Number:</label>
+                    <input type="text" id="phone-number" name="phone-number" placeholder="Enter your phone number">
+                </div>
+                <button type="submit">Save Profile</button>
+            </form>
+        </section>
 
-    <!-- Shopping Cart Section -->
-    <div id="shopping-cart">
-        <!-- Shopping Cart Content -->
-    </div>
+        <section id="post-product" class="content-section">
+            <h2>Post a Product</h2>
+            <form id="post-product-form">
+                <div>
+                    <label for="product-name">Product Name:</label>
+                    <input type="text" id="product-name" name="product-name" placeholder="Enter product name">
+                </div>
+                <div>
+                    <label for="product-category">Category:</label>
+                    <select id="product-category" name="product-category">
+                        <option value="Electronics">Electronics</option>
+                        <option value="Apparel">Apparel</option>
+                        <option value="Home & Garden">Home & Garden</option>
+                        <option value="Machinery">Machinery</option>
+                        <option value="Beauty & Personal Care">Beauty & Personal Care</option>
+                        <option value="Automobiles & Motorcycles">Automobiles & Motorcycles</option>
+                        <option value="Toys & Hobbies">Toys & Hobbies</option>
+                        <option value="Sports & Entertainment">Sports & Entertainment</option>
+                        <option value="Office & School Supplies">Office & School Supplies</option>
+                        <option value="Health & Medical">Health & Medical</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="product-price">Price (USD):</label>
+                    <input type="number" id="product-price" name="product-price" placeholder="Enter product price">
+                </div>
+                <div>
+                    <label for="product-description">Description:</label>
+                    <textarea id="product-description" name="product-description" placeholder="Enter product description"></textarea>
+                </div>
+                <div>
+                    <label for="product-file">Upload Image/Video:</label>
+                    <div class="file-upload-icons">
+                        <input type="file" id="product-image" name="product-image" accept="image/*" style="display:none;">
+                        <input type="file" id="product-video" name="product-video" accept="video/*" style="display:none;">
+                        <button type="button" id="upload-image-button">📷 Upload Image</button>
+                        <button type="button" id="upload-video-button">🎥 Upload Video</button>
+                    </div>
+                </div>
+                <button type="submit">Post Product</button>
+            </form>
+        </section>
 
-    <!-- My Favorites Section -->
-    <div id="favorites">
-        <!-- My Favorites Content -->
-    </div>
+        <section id="manage-orders" class="content-section">
+            <h2>Manage Orders</h2>
+            <div id="order-list">
+                <!-- Orders will be dynamically loaded here -->
+            </div>
+        </section>
 
-    <!-- My Coupons Section -->
-    <div id="coupons">
-        <!-- My Coupons Content -->
-    </div>
+        <section id="messenger" class="content-section">
+            <h2>Messenger</h2>
+            <div id="messenger-content">
+                <!-- Messenger content here -->
+            </div>
+        </section>
 
-    <!-- How to sell on Alibaba.com Section -->
-    <div id="sell-on-alibaba">
-        <!-- How to Sell Content -->
-    </div>
+        <section id="shopping-cart" class="content-section">
+            <h2>Shopping Cart</h2>
+            <div id="cart-content">
+                <!-- Shopping cart items will be dynamically loaded here -->
+            </div>
+        </section>
 
-    <!-- Help Center Section -->
-    <div id="help-center">
-        <!-- Help Center Content -->
-    </div>
+        <section id="favorites" class="content-section">
+            <h2>My Favorites</h2>
+            <div id="favorites-content">
+                <!-- Favorites will be dynamically loaded here -->
+            </div>
+        </section>
 
-    <!-- Settings Section -->
-    <div id="settings">
-        <!-- Settings Content -->
-    </div>
+        <section id="coupons" class="content-section">
+            <h2>My Coupons</h2>
+            <div id="coupons-content">
+                <!-- Coupons will be dynamically loaded here -->
+            </div>
+        </section>
 
-    <!-- Country/Region, Currency & Language Section -->
-    <div id="country-region">
-        <!-- Country/Region Content -->
-    </div>
+        <section id="sell-on-alibaba" class="content-section">
+            <h2>Sell on Alibaba</h2>
+            <div id="sell-content">
+                <!-- Sell on Alibaba content here -->
+            </div>
+        </section>
 
-    <!-- Post Product Form -->
-    <div class="post-product-form">
-        <h2>Post Your Product or Service</h2>
-        <form id="product-form" enctype="multipart/form-data">
-            <label for="productName">Product/Service Name:</label>
-            <input type="text" id="productName" name="productName" placeholder="Enter product/service name" required>
+        <section id="help-center" class="content-section">
+            <h2>Help Center</h2>
+            <div id="help-content">
+                <!-- Help
+                <!-- Help Center content here -->
+            </div>
+        </section>
 
-            <label for="productPrice">Price:</label>
-            <input type="text" id="productPrice" name="productPrice" placeholder="Enter price" required>
+        <section id="settings" class="content-section">
+            <h2>Settings</h2>
+            <div id="settings-content">
+                <!-- Settings content here -->
+            </div>
+        </section>
 
-            <label for="productDescription">Description:</label>
-            <textarea id="productDescription" name="productDescription" placeholder="Enter description" required></textarea>
+        <section id="country-region" class="content-section">
+            <h2>Country/Region</h2>
+            <div id="country-region-content">
+                <!-- Country/Region content here -->
+            </div>
+        </section>
 
-            <label for="productImage">Image or Video:</label>
-            <input type="file" id="productImage" name="productImage" accept="image/*, video/*" required>
+        <section id="product-list" class="content-section">
+            <h2>Available Products</h2>
+            <div id="products">
+                <!-- Products will be dynamically loaded here -->
+            </div>
+        </section>
 
-            <label for="productCategory">Category:</label>
-            <select id="productCategory" name="productCategory" required>
-                <option value="" selected disabled>Select category</option>
-                <option value="Electronics">Electronics</option>
-                <option value="Apparel">Apparel</option>
-                <option value="Home & Garden">Home & Garden</option>
-                <option value="Machinery">Machinery</option>
-                <option value="Beauty & Personal Care">Beauty & Personal Care</option>
-                <option value="Automobiles & Motorcycles">Automobiles & Motorcycles</option>
-                <option value="Toys & Hobbies">Toys & Hobbies</option>
-                <option value="Sports & Entertainment">Sports & Entertainment</option>
-                <option value="Office & School Supplies">Office & School Supplies</option>
-                <option value="Health & Medical">Health & Medical</option>
-            </select>
-
-            <button type="submit">Post</button>
-        </form>
-    </div>
-
-    <!-- Profile Form -->
-    <div class="profile-form">
-        <h2>Profile Information</h2>
-        <form id="profile-form" enctype="multipart/form-data">
-            <label for="profileName">Name:</label>
-            <input type="text" id="profileName" name="profileName" placeholder="Enter your name" required>
-
-            <label for="profileEmail">Email:</label>
-            <input type="email" id="profileEmail" name="profileEmail" placeholder="Enter your email" required>
-
-            <label for="profilePhone">Phone Number:</label>
-            <input type="tel" id="profilePhone" name="profilePhone" placeholder="Enter your phone number" required>
-
-            <label for="profileCountry">Country:</label>
-            <input type="text" id="profileCountry" name="profileCountry" placeholder="Enter your country" required>
-
-            <label for="profileZip">Zip Code:</label>
-            <input type="text" id="profileZip" name="profileZip" placeholder="Enter your zip code" required>
-
-            <label for="profilePicture">Profile Picture:</label>
-            <input type="file" id="profilePicture" name="profilePicture" accept="image/*" required>
-
-            <button type="submit">Update Profile</button>
-        </form>
-    </div>
-
-    <!-- Product Listing Section -->
-    <div class="product-listing">
-        <h2>Products Available</h2>
-        <div id="product-list">
-            <!-- Products will be dynamically added here -->
-        </div>
-    </div>
-
-    <!-- Shopping Cart Form -->
-    <div class="shopping-cart-form">
-        <h2>Shopping Cart</h2>
-        <form id="shopping-cart-form">
-            <!-- Cart items will be dynamically added here -->
-            <button type="submit">Proceed to Checkout</button>
-        </form>
-    </div>
 <!-- Footer -->
     <footer>
         <div class="footer-top">
