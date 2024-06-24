@@ -276,7 +276,65 @@ firebase.auth().onAuthStateChanged(function(user) {
         // No user is signed in.
         console.log('No user signed in.');
         // Redirect or show login form
-        // Example: window.location.href = 'login.html';
+        window.location.href = 'login.html';
     }
 });
                 
+// Handle product posting form submission
+const postProductForm = document.getElementById('post-product-form');
+postProductForm.addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    const productName = postProductForm.querySelector('#product-name').value;
+    const description = postProductForm.querySelector('#description').value;
+    const price = parseFloat(postProductForm.querySelector('#price').value);
+    const category = postProductForm.querySelector('#category').value;
+    const mediaFile = postProductForm.querySelector('#media').files[0]; // Get the file
+
+    // Upload media file to Firebase Storage
+    const storageRef = storage.child(`products/${mediaFile.name}`);
+    storageRef.put(mediaFile).then(() => {
+        console.log('Product media uploaded successfully.');
+        // Get download URL for the media file
+        storageRef.getDownloadURL().then((mediaUrl) => {
+            // Save product details to Realtime Database
+            database.ref('products').push({
+                productName: productName,
+                description: description,
+                price: price,
+                category: category,
+                mediaUrl: mediaUrl
+            }).then(() => {
+                alert('Product posted successfully!');
+                // Clear form fields after submission
+                postProductForm.reset();
+            }).catch(error => {
+                console.error('Error posting product:', error);
+                alert('Failed to post product. Please try again.');
+            });
+        });
+    }).catch(error => {
+        console.error('Error uploading product media:', error);
+        alert('Failed to upload product media. Please try again.');
+    });
+});
+
+// Display products from Realtime Database
+const productList = document.getElementById('product-list');
+database.ref('products').once('value').then((snapshot) => {
+    snapshot.forEach((childSnapshot) => {
+        const productData = childSnapshot.val();
+        const productCard = document.createElement('div');
+        productCard.classList.add('product-card');
+        productCard.innerHTML = `
+            <h3>${productData.productName}</h3>
+            <p><strong>Price:</strong> $${productData.price}</p>
+            <p><strong>Description:</strong> ${productData.description}</p>
+            <p><strong>Category:</strong> ${productData.category}</p>
+            <img src="${productData.mediaUrl}" alt="Product Image">
+            <button onclick="addToCart('${childSnapshot.key}')">Add to Cart</button>
+        `;
+        productList.appendChild(productCard);
+    });
+});
+        
