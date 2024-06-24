@@ -1250,56 +1250,12 @@ bodyforcontactus {
     background-color: #1ebf55;
     }
 /* profile page styles */
-/* Basic styles, adjust as needed */
-body {
-    font-family: Arial, sans-serif;
-    line-height: 1.6;
-    margin: 0;
-    padding: 0;
-}
-
-header {
-    background-color: #f0f0f0;
-    padding: 10px 0;
-}
-
-.alibaba-navigation {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.alibaba-navigation ul {
-    list-style-type: none;
-    display: flex;
-    gap: 20px;
-}
-
-.alibaba-navigation ul li {
-    padding: 0 10px;
-}
-
-.main {
+form {
+    margin-bottom: 20px;
     padding: 20px;
-}
-
-section {
-    margin-bottom: 40px;
-}
-
-h2 {
-    border-bottom: 1px solid #ccc;
-    padding-bottom: 10px;
-}
-
-/* Hide all content sections by default */
-.content-section {
-    display: none;
-}
-
-/* Show content section when active */
-.content-section.active {
-    display: block;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
 }
 
 form div {
@@ -1311,15 +1267,59 @@ form label {
     margin-bottom: 5px;
 }
 
-form input, form select, form button {
-    padding: 5px;
+form input[type="text"],
+form input[type="number"],
+form textarea,
+form select {
     width: 100%;
-    max-width: 300px;
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
 }
 
 form button {
-    margin-top: 10px;
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
 }
+
+form button:hover {
+    background-color: #45a049;
+}
+
+/* Example styles for header navigation */
+.alibaba-navigation {
+    background-color: #f0f0f0;
+    padding: 10px 0;
+    text-align: center;
+}
+
+.alibaba-navigation ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.alibaba-navigation ul li {
+    display: inline-block;
+    margin-right: 20px;
+}
+
+.alibaba-navigation ul li a {
+    text-decoration: none;
+    color: #333;
+    font-size: 16px;
+    padding: 10px;
+}
+
+.alibaba-navigation ul li a:hover {
+    color: #000;
+    font-weight: bold;
+}
+
 
 
 
