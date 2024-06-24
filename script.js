@@ -324,3 +324,113 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Handle product form submission
+    const productForm = document.getElementById('product-form');
+    productForm.addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const productName = productForm.querySelector('#productName').value;
+        const productPrice = productForm.querySelector('#productPrice').value;
+        const productDescription = productForm.querySelector('#productDescription').value;
+        const productCategory = productForm.querySelector('#productCategory').value;
+        const productImage = productForm.querySelector('#productImage').files[0]; // Get the file
+
+        if (!productImage) {
+            alert('Please upload a product image.');
+            return;
+        }
+
+        // Upload image to Firebase Storage
+        const imageRef = storage.child(`productImages/${productImage.name}`);
+        imageRef.put(productImage).then(() => {
+            console.log('Image uploaded successfully.');
+            // Get download URL for the image
+            imageRef.getDownloadURL().then((imageUrl) => {
+                // Save product details to Realtime Database
+                const newProductKey = db.ref().child('products').push().key;
+                const updates = {};
+                updates['/products/' + newProductKey] = {
+                    productName: productName,
+                    productPrice: productPrice,
+                    productDescription: productDescription,
+                    productCategory: productCategory,
+                    productImage: imageUrl
+                };
+                db.ref().update(updates).then(() => {
+                    alert('Product posted successfully!');
+                    // Clear form fields after submission
+                    productForm.reset();
+                    // Refresh product list
+                    displayProducts();
+                }).catch(error => {
+                    console.error('Error posting product:', error);
+                });
+            }).catch(error => {
+                console.error('Error getting download URL:', error);
+            });
+        }).catch(error => {
+            console.error('Error uploading image:', error);
+        });
+    });
+
+    // Function to display products
+    function displayProducts() {
+        const productList = document.getElementById('product-list');
+        productList.innerHTML = ''; // Clear current product list
+        db.ref('products').once('value').then((snapshot) => {
+            if (!snapshot.exists()) {
+                productList.innerHTML = '<p>No products available.</p>';
+                return;
+            }
+            snapshot.forEach((childSnapshot) => {
+                const productData = childSnapshot.val();
+                const productCard = document.createElement('div');
+                productCard.classList.add('product-card');
+                productCard.innerHTML = `
+                    <h3>${productData.productName}</h3>
+                    <p><strong>Price:</strong> $${productData.productPrice}</p>
+                    <p><strong>Description:</strong> ${productData.productDescription}</p>
+                    <p><strong>Category:</strong> ${productData.productCategory}</p>
+                    <img src="${productData.productImage}" alt="Product Image">
+                    <button onclick="addToCart('${childSnapshot.key}')">Add to Cart</button>
+                `;
+                productList.appendChild(productCard);
+            });
+        }).catch(error => {
+            console.error('Error fetching products:', error);
+        });
+    }
+
+    // Initial call to display products
+    displayProducts();
+
+    // Add product to cart
+    window.addToCart = function(productId) {
+        const user = auth.currentUser;
+        if (user) {
+            const userId = user.uid;
+            db.ref('carts/' + userId + '/' + productId).set(true)
+                .then(() => {
+                    alert('Product added to cart!');
+                }).catch(error => {
+                    console.error('Error adding to cart:', error);
+                    alert('Failed to add product to cart. Please try again.');
+                });
+        } else {
+            alert('Please log in to add items to your cart.');
+        }
+    }
+
+    // Firebase Authentication State Change Listener
+    auth.onAuthStateChanged(function(user) {
+        if (user) {
+            console.log('User is signed in:', user.email);
+        } else {
+            console.log('No user signed in.');
+            window.location.href = 'login.html';
+        }
+    });
+});
+                                              
