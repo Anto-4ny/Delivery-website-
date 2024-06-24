@@ -25,39 +25,49 @@ const db = getDatabase();
 const storage = getStorage();
 
 // Handle registration
-document.getElementById('signupForm').addEventListener('submit', function(event) {
-    event.preventDefault();
-
+function registerUser() {
     const username = document.getElementById('signup-username').value;
     const email = document.getElementById('signup-email').value;
     const password = document.getElementById('signup-password').value;
 
-    createUserWithEmailAndPassword(auth, email, password)
+    auth.createUserWithEmailAndPassword(email, password)
         .then((userCredential) => {
             const user = userCredential.user;
-
-            // Save user data to the database
-            set(ref(db, 'users/' + user.uid), {
+            db.ref('users/' + user.uid).set({
                 username: username,
-                email: email,
-                profilePicture: user.photoURL || 'default_profile_picture_url'  // Replace with default picture URL
+                email: email
             });
-
-            // Display the profile icon
             displayProfileIcon(user);
         })
         .catch((error) => {
             console.error('Error signing up:', error);
         });
-});
 
-// Social sign-up handlers
+    return false; // Prevent form submission
+}
+
+function loginUser() {
+    const email = document.getElementById('login-email').value;
+    const password = document.getElementById('login-password').value;
+
+    auth.signInWithEmailAndPassword(email, password)
+        .then((userCredential) => {
+            const user = userCredential.user;
+            displayProfileIcon(user);
+        })
+        .catch((error) => {
+            console.error('Error logging in:', error);
+        });
+
+    return false; // Prevent form submission
+}
+
 document.getElementById('google-signup').addEventListener('click', () => {
-    const provider = new GoogleAuthProvider();
-    signInWithPopup(auth, provider)
+    const provider = new firebase.auth.GoogleAuthProvider();
+    auth.signInWithPopup(provider)
         .then((result) => {
             const user = result.user;
-            set(ref(db, 'users/' + user.uid), {
+            db.ref('users/' + user.uid).set({
                 username: user.displayName,
                 email: user.email,
                 profilePicture: user.photoURL
@@ -65,16 +75,16 @@ document.getElementById('google-signup').addEventListener('click', () => {
             displayProfileIcon(user);
         })
         .catch((error) => {
-            console.error('Google sign-up error:', error);
+            console.error('Error signing up with Google:', error);
         });
 });
 
 document.getElementById('facebook-signup').addEventListener('click', () => {
-    const provider = new FacebookAuthProvider();
-    signInWithPopup(auth, provider)
+    const provider = new firebase.auth.FacebookAuthProvider();
+    auth.signInWithPopup(provider)
         .then((result) => {
             const user = result.user;
-            set(ref(db, 'users/' + user.uid), {
+            db.ref('users/' + user.uid).set({
                 username: user.displayName,
                 email: user.email,
                 profilePicture: user.photoURL
@@ -82,28 +92,86 @@ document.getElementById('facebook-signup').addEventListener('click', () => {
             displayProfileIcon(user);
         })
         .catch((error) => {
-            console.error('Facebook sign-up error:', error);
+            console.error('Error signing up with Facebook:', error);
         });
 });
 
+document.getElementById('google-login').addEventListener('click', () => {
+    const provider = new firebase.auth.GoogleAuthProvider();
+    auth.signInWithPopup(provider)
+        .then((result) => {
+            const user = result.user;
+            displayProfileIcon(user);
+        })
+        .catch((error) => {
+                       console.error('Error logging in with Google:', error);
+        });
+});
+
+document.getElementById('facebook-login').addEventListener('click', () => {
+    const provider = new firebase.auth.FacebookAuthProvider();
+    auth.signInWithPopup(provider)
+        .then((result) => {
+            const user = result.user;
+            displayProfileIcon(user);
+        })
+        .catch((error) => {
+            console.error('Error logging in with Facebook:', error);
+        });
+});
+
+// Function to display profile icon and hide login/signup forms
 function displayProfileIcon(user) {
+    const profileIcon = document.createElement('div');
+    profileIcon.classList.add('profile-icon');
+    const profileImage = document.createElement('img');
+    profileImage.src = user.photoURL;
+    profileIcon.appendChild(profileImage);
+    
     const accountLinks = document.querySelector('.account-links');
-    accountLinks.innerHTML = `
-        <img src="${user.photoURL || 'default_profile_picture_url'}" alt="${user.displayName}" class="profile-icon">
-        <span>${user.displayName}</span>
-    `;
+    accountLinks.innerHTML = ''; // Clear existing links
+    accountLinks.appendChild(profileIcon);
+
+    // Hide login/signup forms and welcome message
+    const signupForm = document.getElementById('signup-form');
+    signupForm.style.display = 'none';
+    const loginForm = document.getElementById('login-form');
+    loginForm.style.display = 'none';
+    const welcomeMessage = document.querySelector('.welcome-message');
+    welcomeMessage.style.display = 'none';
 }
 
-function displayWelcomeMessage(username) {
-    const loginBoxContent = document.querySelector("#login-box-content");
-    loginBoxContent.innerHTML = `
-        <div class="welcome-message">
-            <h2>Welcome, ${username}!</h2>
-            <p>Your account has been created.</p>
-        </div>
-    `;
+// Function to check user authentication state on page load
+function checkAuthState() {
+    auth.onAuthStateChanged((user) => {
+        if (user) {
+            displayProfileIcon(user);
+        } else {
+            // User is signed out
+            const accountLinks = document.querySelector('.account-links');
+            accountLinks.innerHTML = ''; // Clear existing profile icon
+            accountLinks.innerHTML = `<a href="#" id="sign-in-link">Sign In</a>
+                                      <a href="#" id="join-free-link">Join Free</a>`;
+        }
+    });
 }
 
+// Switching between sign up and login forms
+document.getElementById('switch-to-login').addEventListener('click', (e) => {
+    e.preventDefault();
+    document.getElementById('signup-form').style.display = 'none';
+    document.getElementById('login-form').style.display = 'block';
+});
+
+document.getElementById('switch-to-signup').addEventListener('click', (e) => {
+    e.preventDefault();
+    document.getElementById('signup-form').style.display = 'block';
+    document.getElementById('login-form').style.display = 'none';
+});
+
+// Initial call to check authentication state
+checkAuthState();
+    
 // Profile page functionality
 document.addEventListener('DOMContentLoaded', function() {
     // Handle product form submission
