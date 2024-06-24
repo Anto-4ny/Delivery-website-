@@ -11,6 +11,7 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 const db = firebase.database();
+const storage = firebase.storage().ref();
 
 // Function to navigate to a specific category
 function navigateToCategory(category) {
@@ -42,26 +43,6 @@ document.addEventListener("DOMContentLoaded", () => {
     setInterval(nextSlide, 6000); // Change slide every 6 seconds
     showSlide(currentSlide); // Initialize the first slide
 });
-
-// Product box click handling for email order
-document.querySelectorAll(".box").forEach((box) => {
-    box.addEventListener("click", () => {
-        let websiteType = box.classList.contains("basic")
-            ? "Basic Website"
-            : box.classList.contains("advanced")
-            ? "Advanced Website"
-            : "Premium Website";
-        let message = "I want to order the " + websiteType;
-        window.location.href =
-            "mailto:antocaptechnologies@gmail.com?subject=Website Order&body=" +
-            encodeURIComponent(message);
-    });
-});
-
-// Send inquiry via email
-function sendInquiry(subject, message) {
-    window.location.href = "mailto:antocaptechnologies@gmail.com?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(message);
-}
 
 // Authentication and user management
 document.addEventListener("DOMContentLoaded", () => {
@@ -173,148 +154,8 @@ function displayWelcomeMessage(username) {
     `;
 }
 
-// Post creation and interaction
-function createPost() {
-    const postContent = document.getElementById('new-post').value;
-    if (postContent.trim() !== "") {
-        const postContainer = document.createElement('div');
-        postContainer.className = 'post';
-        postContainer.innerHTML = `
-            <p>${postContent}</p>
-            <div class="likes" onclick="likePost(this)">Like</div>
-            <div class="comments"></div>
-            <input type="text" class="comment-input" placeholder="Write a comment...">
-            <button onclick="addComment(this)">Comment</button>
-        `;
-        document.getElementById('posts-container').prepend(postContainer);
-        document.getElementById('new-post').value = "";
-    }
-}
-
-function likePost(element) {
-    const likesDiv = element;
-    likesDiv.textContent = likesDiv.textContent === "Like" ? "Unlike" : "Like";
-}
-
-function addComment(element) {
-    const commentInput = element.previousElementSibling;
-    const commentText = commentInput.value;
-    if (commentText.trim() !== "") {
-        const commentContainer = document.createElement('div');
-        commentContainer.className = 'comment';
-        commentContainer.textContent = commentText;
-        element.parentElement.querySelector('.comments').appendChild(commentContainer);
-        commentInput.value = "";
-    }
-}
-
-function sendMessage() {
-    const chatInput = document.getElementById('chat-input');
-    const chatMessage = chatInput.value;
-    if (chatMessage.trim() !== "") {
-        const messageContainer = document.createElement('div');
-        messageContainer.className = 'chat-message';
-        messageContainer.textContent = chatMessage;
-        document.getElementById('chat-container').appendChild(messageContainer);
-        chatInput.value = "";
-    }
-}
-
-// Fetch data from backend
-function fetchDataFromBackend() {
-    fetch('/api/data')
-        .then(response => response.json())
-        .then(data => {
-            console.log('Data from backend:', data);
-        })
-        .catch(error => {
-            console.error('Error fetching data:', error);
-        });
-}
-
-// Reviews section
-document.addEventListener('DOMContentLoaded', () => {
-    fetchReviews();
-});
-
-function fetchReviews() {
-    const reviews = [
-        { name: 'John Doe', profilePic: 'path/to/profile-pic1.jpg', text: 'Great service!' },
-        { name: 'Jane Smith', profilePic: 'path/to/profile-pic2.jpg', text: 'Fast and reliable!' },
-    ];
-
-    const container = document.querySelector('.reviews-container');
-    reviews.forEach(review => {
-        const reviewBox = document.createElement('div');
-        reviewBox.classList.add('review-box');
-        reviewBox.innerHTML = `
-            <img src="${review.profilePic}" alt="${review.name}'s profile picture">
-            <div class="name">${review.name}</div>
-            <div class="review-text">${review.text}</div>
-        `;
-        container.appendChild(reviewBox);
-    });
-}
-
-document.getElementById('review-form').addEventListener('submit', async (event) => {
-    event.preventDefault();
-    const name = document.getElementById('name').value;
-    const profilePic = document.getElementById('profilePic').value;
-    const reviewText = document.getElementById('reviewText').value;
-
-    const response = await fetch('http://localhost:3000/api/reviews', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, profilePic, reviewText })
-    });
-
-    if (response.ok) {
-        alert('Review submitted successfully!');
-        document.getElementById('review-form').reset();
-    } else {
-        alert('Failed to submit review.');
-    }
-});
-
-// Function to fetch and display products
-document.addEventListener('DOMContentLoaded', () => {
-    fetchProducts();
-});
-
-function fetchProducts() {
-    // Simulate fetching products from an API
-    const products = [
-        { id: 1, name: 'Basic Website', price: '$100', description: 'A simple website.' },
-        { id: 2, name: 'Advanced Website', price: '$200', description: 'A more complex website with additional features.' },
-        { id: 3, name: 'Premium Website', price: '$300', description: 'A top-tier website with all the bells and whistles.' }
-    ];
-
-    const productsContainer = document.querySelector('.products-container');
-    products.forEach(product => {
-        const productBox = document.createElement('div');
-        productBox.className = 'product';
-        productBox.innerHTML = `
-            <h3>${product.name}</h3>
-            <p>Price: ${product.price}</p>
-            <p>Description: ${product.description}</p>
-            <button onclick="orderProduct('${product.name}')">Order Now</button>
-        `;
-        productsContainer.appendChild(productBox);
-    });
-}
-
-function orderProduct(productName) {
-    const message = `I want to order the ${productName}`;
-    window.location.href = `mailto:antocaptechnologies@gmail.com?subject=Product Order&body=${encodeURIComponent(message)}`;
-}
-
-//profile page
-        document.addEventListener('DOMContentLoaded', function() {
-    // Initialize Firebase
-    const firebaseConfig = {
-        // Your Firebase config here
-    };
-    firebase.initializeApp(firebaseConfig);
+// Profile page functionality
+document.addEventListener('DOMContentLoaded', function() {
     const database = firebase.database();
     const storage = firebase.storage().ref();
 
@@ -410,46 +251,22 @@ function orderProduct(productName) {
             `;
             productList.appendChild(productCard);
         });
-    }).catch((error) => {
-        console.error('Error getting products:', error);
     });
 
-    // Function to add product to shopping cart (simulated)
+    // Add product to cart
     window.addToCart = function(productId) {
-        const productRef = database.ref('products/' + productId);
-        productRef.once('value').then((snapshot) => {
-            const productData = snapshot.val();
-            const shoppingCartForm = document.getElementById('shopping-cart-form');
-            const cartItem = document.createElement('div');
-            cartItem.classList.add('shopping-cart-item');
-            cartItem.innerHTML = `
-                <p><strong>Product Name:</strong> ${productData.productName}</p>
-                <p><strong>Price:</strong> ${productData.productPrice}</p>
-                <button onclick="checkout('${productId}')">Remove</button>
-            `;
-            shoppingCartForm.appendChild(cartItem);
-        }).catch((error) => {
-            console.error('Error adding to cart:', error);
-        });
-    };
-
-    // Function to simulate checkout process
-    window.checkout = function(productId) {
-        // Simulate checkout process, remove product from cart (if needed)
-        const cartItem = document.querySelector(`.shopping-cart-item[data-product-id="${productId}"]`);
-        if (cartItem) {
-            cartItem.remove();
+        const user = firebase.auth().currentUser;
+        if (user) {
+            const userId = user.uid;
+            database.ref('carts/' + userId + '/' + productId).set(true)
+                .then(() => {
+                    alert('Product added to cart!');
+                }).catch(error => {
+                    console.error('Error adding to cart:', error);
+                });
+        } else {
+            alert('Please log in to add items to your cart.');
         }
-        alert('Checkout process simulated. Product removed from cart.');
     };
-
-    // Smooth scrolling for navigation links
-    document.querySelectorAll('.alibaba-navigation a').forEach(link => {
-        link.addEventListener('click', (event) => {
-            event.preventDefault();
-            const targetId = link.getAttribute('href').substring(1);
-            document.getElementById(targetId).scrollIntoView({ behavior: 'smooth' });
-        });
-    });
 });
-        
+                          
