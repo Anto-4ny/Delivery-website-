@@ -5,9 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile page</title>
     <link rel="stylesheet" href="styles.css">  
-    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database.js"></script>
     <header>
         <div class="top-bar">
             <div class="container">
@@ -40,6 +37,7 @@
     </header>
 </head>
 <body>
+    <!-- Header navigation -->
     <header>
         <nav class="alibaba-navigation">
             <ul>
@@ -51,140 +49,60 @@
                 <li><a href="#sell-on-alibaba">How to sell on Ele Max</a></li>
                 <li><a href="#settings">Settings</a></li>
                 <li><a href="#country-region">Country/Region, Currency & Language</a></li>
-                <li><a href="#post-product">Post Product/Service</a></li> <!-- Added link for product posting -->
+                <li><a href="#post-product">Post Product/Service</a></li>
             </ul>
         </nav>
     </header>
 
     <!-- Main content sections -->
-    <main>
-        <section id="manage-orders" class="content-section">
-            <h2>Manage Orders</h2>
-            <div id="order-list">
-                <!-- Orders content -->
-            </div>
-        </section>
-
-        <section id="messenger" class="content-section">
-            <h2>Messenger</h2>
-            <div id="messenger-content">
-                <!-- Messenger content -->
-            </div>
-        </section>
-
-        <section id="shopping-cart" class="content-section">
-            <h2>Shopping Cart</h2>
-            <div id="cart-content">
-                <!-- Shopping cart content -->
-            </div>
-        </section>
-
-        <section id="favorites" class="content-section">
-            <h2>My Favorites</h2>
-            <div id="favorites-content">
-                <!-- Favorites content -->
-            </div>
-        </section>
-
-        <section id="coupons" class="content-section">
-            <h2>My Coupons</h2>
-            <div id="coupons-content">
-                <!-- Coupons content -->
-            </div>
-        </section>
-
-        <section id="sell-on-alibaba" class="content-section">
-            <h2>How to sell on Ele Max</h2>
-            <div id="sell-content">
-                <!-- Sell on Ele Max content -->
-            </div>
-        </section>
-
-        <section id="help-center" class="content-section">
-            <h2>Help Center</h2>
-            <div id="help-content">
-                <!-- Help center content -->
-            </div>
-        </section>
-
-        <section id="settings" class="content-section">
-            <h2>Settings</h2>
-            <form id="settings-form">
+    <main class="container">
+        <!-- Profile form section -->
+        <section id="profile-section">
+            <h2>Profile Management</h2>
+            <form id="profile-form">
                 <div>
-                    <label for="country">Country:</label>
-                    <input type="text" id="country" name="country">
+                    <label for="profileName">Name:</label>
+                    <input type="text" id="profileName" name="profileName" required>
                 </div>
                 <div>
-                    <label for="zip">Zip Code:</label>
-                    <input type="text" id="zip" name="zip">
+                    <label for="profileEmail">Email:</label>
+                    <input type="email" id="profileEmail" name="profileEmail" required>
                 </div>
                 <div>
-                    <label for="profile-picture">Profile Picture:</label>
-                    <input type="file" id="profile-picture" name="profile-picture">
+                    <label for="profilePhone">Phone:</label>
+                    <input type="tel" id="profilePhone" name="profilePhone">
                 </div>
-                <button type="submit">Save Settings</button>
+                <div>
+                    <label for="profileCountry">Country:</label>
+                    <input type="text" id="profileCountry" name="profileCountry">
+                </div>
+                <div>
+                    <label for="profileZip">Zip Code:</label>
+                    <input type="text" id="profileZip" name="profileZip">
+                </div>
+                <div>
+                    <label for="profilePicture">Profile Picture:</label>
+                    <input type="file" id="profilePicture" name="profilePicture">
+                </div>
+                <button type="submit">Save Profile</button>
             </form>
         </section>
 
-        <section id="country-region" class="content-section">
-            <h2>Country/Region, Currency & Language</h2>
-            <form id="country-region-form">
-                <div>
-                    <label for="country-region-select">Select Country/Region:</label>
-                    <select id="country-region-select" name="country-region">
-                        <option value="USA">USA</option>
-                        <option value="Canada">Canada</option>
-                        <!-- Add more options as needed -->
-                    </select>
-                </div>
-                <button type="submit">Save Country/Region</button>
-            </form>
+        <!-- Product display section -->
+        <section id="product-section">
+            <h2>Products</h2>
+            <div id="product-list" class="product-list">
+                <!-- Products will be dynamically added here -->
+            </div>
         </section>
 
-        <!-- Form for posting product/service -->
-        <section id="post-product" class="content-section">
-            <h2>Post Product/Service</h2>
-            <form id="post-product-form">
-                <div>
-                    <label for="product-name">Product Name:</label>
-                    <input type="text" id="product-name" name="product-name" required>
-                </div>
-                <div>
-                    <label for="description">Description:</label>
-                    <textarea id="description" name="description" rows="4" required></textarea>
-                </div>
-                <div>
-                    <label for="price">Price ($):</label>
-                    <input type="number" id="price" name="price" step="0.01" required>
-                </div>
-                <div>
-                    <label for="category">Category:</label>
-                    <select id="category" name="category" required>
-                        <option value="">Select Category</option>
-                        <option value="Electronics">Electronics</option>
-                        <option value="Apparel">Apparel</option>
-                        <option value="Home & Garden">Home & Garden</option>
-                        <option value="Machinery">Machinery</option>
-                        <option value="Beauty & Personal Care">Beauty & Personal Care</option>
-                        <option value="Automobiles & Motorcycles">Automobiles & Motorcycles</option>
-                        <option value="Toys & Hobbies">Toys & Hobbies</option>
-                        <option value="Sports & Entertainment">Sports & Entertainment</option>
-                        <option value="Office & School Supplies">Office & School Supplies</option>
-                        <option value="Health & Medical">Health & Medical</option>
-                    </select>
-                </div>
-                <div>
-                    <label for="media">Media (Image/Video):</label>
-                    <input type="file" id="media" name="media" accept="image/*, video/*" required>
-                </div>
-                <button type="submit">Post Product/Service</button>
-            </form>
-        </section>
+    <!-- Firebase JavaScript SDK -->
     <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-storage.js"></script>
+    <!-- Your custom JavaScript file -->
     <script src="script.js"></script>
-<!-- Footer -->
     <footer>
         <div class="footer-top">
             <div class="container">
