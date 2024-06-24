@@ -1,4 +1,9 @@
-
+{
+  "rules": {
+    ".read": false,
+    ".write": false
+  }
+}
         // Firebase configuration and initialization
         const firebaseConfig = {
             apiKey: "AIzaSyDJ1g4qrix-xtkJN1dtEWXZ6SSUUHt04Cw",
