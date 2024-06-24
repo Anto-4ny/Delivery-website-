@@ -1250,36 +1250,12 @@ bodyforcontactus {
     background-color: #1ebf55;
     }
 /* profile page styles */
-.alibaba-navigation ul {
-    list-style: none;
-    background-color: #ff6a00;
-    padding: 10px;
-    border-radius: 5px;
-}
-
-.alibaba-navigation ul li {
-    display: inline;
-    margin-right: 10px;
-}
-
-.alibaba-navigation ul li a {
-    text-decoration: none;
-    color: #fff;
-    padding: 10px 15px;
-    background-color: #ff6a00;
-    border-radius: 3px;
-    transition: background-color 0.3s;
-}
-
-.alibaba-navigation ul li a:hover {
-    background-color: #ff8c3d;
-}
-
 /* Forms */
 .post-product-form, .profile-form {
     background-color: #fff;
     padding: 20px;
-    margin-top: 20px;
+    margin: 20px auto;
+    max-width: 600px;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
@@ -1349,6 +1325,30 @@ bodyforcontactus {
     margin-bottom: 10px;
 }
 
+.product-card img {
+    max-width: 100%;
+    margin-bottom: 10px;
+}
+
+.product-card .icon-buttons {
+    display: flex;
+    justify-content: space-between;
+}
+
+.product-card .icon-buttons button {
+    background-color: #ff6a00;
+    color: #fff;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.product-card .icon-buttons button:hover {
+    background-color: #ff8c3d;
+}
+
 /* Shopping Cart */
 .shopping-cart-form {
     margin-top: 40px;
@@ -1384,6 +1384,33 @@ bodyforcontactus {
 .shopping-cart-form button:hover {
     background-color: #ff8c3d;
 }
+
+/* Alibaba Navigation */
+.alibaba-navigation ul {
+    list-style: none;
+    background-color: #ff6a00;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.alibaba-navigation ul li {
+    display: inline;
+    margin-right: 10px;
+}
+
+.alibaba-navigation ul li a {
+    text-decoration: none;
+    color: #fff;
+    padding: 10px 15px;
+    background-color: #ff6a00;
+    border-radius: 3px;
+    transition: background-color 0.3s;
+}
+
+.alibaba-navigation ul li a:hover {
+    background-color: #ff8c3d;
+    }
+    
 
 
 
