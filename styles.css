@@ -1158,7 +1158,7 @@ button[type="submit"]:hover {
 }
 
 
-body{
+bodyforcontactus{
     font-family: Arial, sans-serif;
     background-color: #f5f5f5;
     display: flex;
@@ -1251,7 +1251,7 @@ body{
     }
 /* profile page styles */
 /* Global styles */
-body {
+bodyforprofilepage{
     font-family: Arial, sans-serif;
     line-height: 1.6;
     background-color: #f0f0f0;
@@ -1259,7 +1259,7 @@ body {
     padding: 0;
 }
 
-.container {
+.containerforprofilepage {
     width: 80%;
     margin: 0 auto;
 }
