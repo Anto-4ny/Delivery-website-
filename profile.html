@@ -4,7 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile page</title>
-    <link rel="stylesheet" href="styles.css">  
+    <link rel="stylesheet" href="styles.css"> 
+    <script src="https://www.gstatic.com/firebasejs/9.1.3/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.1.3/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.1.3/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.1.3/firebase-storage.js"></script>
     <header>
         <div class="top-bar">
             <div class="containerforprofilepage">
@@ -53,7 +57,37 @@
             </ul>
         </nav>
     </header>
+<!-- Login and Signup Forms -->
+    <div id="login-box-content">
+        <button id="google-login">Google Login</button>
+        <button id="facebook-login">Facebook Login</button>
+        <button id="google-signup">Google Signup</button>
+        <button id="facebook-signup">Facebook Signup</button>
+    </div>
 
+    <!-- Profile Form -->
+    <form id="profile-form">
+        <input type="text" id="profileName" placeholder="Name" required>
+        <input type="email" id="profileEmail" placeholder="Email" required>
+        <input type="text" id="profilePhone" placeholder="Phone" required>
+        <input type="text" id="profileCountry" placeholder="Country" required>
+        <input type="text" id="profileZip" placeholder="Zip" required>
+        <input type="file" id="profilePicture" accept="image/*" required>
+        <button type="submit">Update Profile</button>
+    </form>
+
+    <!-- Product Form -->
+    <form id="product-form">
+        <input type="text" id="productName" placeholder="Product Name" required>
+        <input type="text" id="productPrice" placeholder="Product Price" required>
+        <textarea id="productDescription" placeholder="Product Description" required></textarea>
+        <input type="text" id="productCategory" placeholder="Product Category" required>
+        <input type="file" id="productImage" accept="image/*" required>
+        <button type="submit">Post Product</button>
+    </form>
+
+    <!-- Product List -->
+    <div id="product-list"></div>
     <!-- Main content sections -->
     <main class="containerforprofilepage">
         <!-- Profile form section -->
@@ -129,13 +163,6 @@
                 <!-- Products will be dynamically added here -->
             </div>
         </section>
-
-    <!-- Firebase JavaScript SDK -->
-    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-storage.js"></script>
-    <!-- Your custom JavaScript file -->
     <script src="script.js"></script>
     <footer>
         <div class="footer-top">
