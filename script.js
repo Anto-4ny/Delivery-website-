@@ -18,32 +18,6 @@ function navigateToCategory(category) {
     window.location.href = `category-${category}.html`;
 }
 
-// Menu icon toggle
-document.addEventListener("DOMContentLoaded", () => {
-    const menuIcon = document.getElementById("menu-icon");
-    const navLinks = document.getElementById("nav-links");
-    const slides = document.querySelectorAll(".slide");
-    let currentSlide = 0;
-
-    menuIcon.addEventListener("click", () => {
-        navLinks.classList.toggle("active");
-    });
-
-    function showSlide(index) {
-        slides.forEach((slide, i) => {
-            slide.classList.toggle("active", i === index);
-        });
-    }
-
-    function nextSlide() {
-        currentSlide = (currentSlide + 1) % slides.length;
-        showSlide(currentSlide);
-    }
-
-    setInterval(nextSlide, 6000); // Change slide every 6 seconds
-    showSlide(currentSlide); // Initialize the first slide
-});
-
 // Authentication and user management
 document.addEventListener("DOMContentLoaded", () => {
     const username = localStorage.getItem("username");
@@ -197,76 +171,112 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Handle profile form submission
-    const profileForm = document.getElementById('profile-form');
-    profileForm.addEventListener('submit', function(event) {
-        event.preventDefault();
+    // Initialize Firebase
+const firebaseConfig = {
+    apiKey: "YOUR_API_KEY",
+    authDomain: "YOUR_AUTH_DOMAIN",
+    databaseURL: "YOUR_DATABASE_URL",
+    projectId: "YOUR_PROJECT_ID",
+    storageBucket: "YOUR_STORAGE_BUCKET",
+    messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+    appId: "YOUR_APP_ID"
+};
 
-        const profileName = profileForm.querySelector('#profileName').value;
-        const profileEmail = profileForm.querySelector('#profileEmail').value;
-        const profilePhone = profileForm.querySelector('#profilePhone').value;
-        const profileCountry = profileForm.querySelector('#profileCountry').value;
-        const profileZip = profileForm.querySelector('#profileZip').value;
-        const profilePicture = profileForm.querySelector('#profilePicture').files[0]; // Get the file
+firebase.initializeApp(firebaseConfig);
 
-        // Upload profile picture to Firebase Storage
-        const profileImageRef = storage.child(`profilePictures/${profilePicture.name}`);
-        profileImageRef.put(profilePicture).then(() => {
-            console.log('Profile picture uploaded successfully.');
-            // Get download URL for the profile picture
-            profileImageRef.getDownloadURL().then((profileImageUrl) => {
-                // Save profile details to Realtime Database
-                database.ref('profiles/' + profileEmail).set({
-                    profileName: profileName,
-                    profileEmail: profileEmail,
-                    profilePhone: profilePhone,
-                    profileCountry: profileCountry,
-                    profileZip: profileZip,
-                    profilePicture: profileImageUrl
-                }).then(() => {
-                    alert('Profile updated successfully!');
-                    // Clear form fields after submission
-                    profileForm.reset();
-                }).catch(error => {
-                    console.error('Error updating profile:', error);
-                });
+// Reference to Firebase Realtime Database and Storage
+const database = firebase.database();
+const storage = firebase.storage().ref();
+
+// Handle profile form submission
+const profileForm = document.getElementById('profile-form');
+profileForm.addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    const profileName = profileForm.querySelector('#profileName').value;
+    const profileEmail = profileForm.querySelector('#profileEmail').value;
+    const profilePhone = profileForm.querySelector('#profilePhone').value;
+    const profileCountry = profileForm.querySelector('#profileCountry').value;
+    const profileZip = profileForm.querySelector('#profileZip').value;
+    const profilePicture = profileForm.querySelector('#profilePicture').files[0]; // Get the file
+
+    // Upload profile picture to Firebase Storage
+    const profileImageRef = storage.child(`profilePictures/${profilePicture.name}`);
+    profileImageRef.put(profilePicture).then(() => {
+        console.log('Profile picture uploaded successfully.');
+        // Get download URL for the profile picture
+        profileImageRef.getDownloadURL().then((profileImageUrl) => {
+            // Save profile details to Realtime Database
+            database.ref('profiles/' + profileEmail).set({
+                profileName: profileName,
+                profileEmail: profileEmail,
+                profilePhone: profilePhone,
+                profileCountry: profileCountry,
+                profileZip: profileZip,
+                profilePicture: profileImageUrl
+            }).then(() => {
+                alert('Profile updated successfully!');
+                // Clear form fields after submission
+                profileForm.reset();
+            }).catch(error => {
+                console.error('Error updating profile:', error);
+                alert('Failed to update profile. Please try again.');
             });
         });
+    }).catch(error => {
+        console.error('Error uploading profile picture:', error);
+        alert('Failed to update profile. Please try again.');
     });
-
-    // Display products from Realtime Database
-    const productList = document.getElementById('product-list');
-    database.ref('products').once('value').then((snapshot) => {
-        snapshot.forEach((childSnapshot) => {
-            const productData = childSnapshot.val();
-            const productCard = document.createElement('div');
-            productCard.classList.add('product-card');
-            productCard.innerHTML = `
-                <h3>${productData.productName}</h3>
-                <p><strong>Price:</strong> ${productData.productPrice}</p>
-                <p><strong>Description:</strong> ${productData.productDescription}</p>
-                <p><strong>Category:</strong> ${productData.productCategory}</p>
-                <img src="${productData.productImage}" alt="Product Image" style="max-width: 100%; margin-bottom: 10px;">
-                <button onclick="addToCart('${childSnapshot.key}')">Add to Cart</button>
-            `;
-            productList.appendChild(productCard);
-        });
-    });
-
-    // Add product to cart
-    window.addToCart = function(productId) {
-        const user = firebase.auth().currentUser;
-        if (user) {
-            const userId = user.uid;
-            database.ref('carts/' + userId + '/' + productId).set(true)
-                .then(() => {
-                    alert('Product added to cart!');
-                }).catch(error => {
-                    console.error('Error adding to cart:', error);
-                });
-        } else {
-            alert('Please log in to add items to your cart.');
-        }
-    };
 });
-                          
+
+// Display products from Realtime Database
+const productList = document.getElementById('product-list');
+database.ref('products').once('value').then((snapshot) => {
+    snapshot.forEach((childSnapshot) => {
+        const productData = childSnapshot.val();
+        const productCard = document.createElement('div');
+        productCard.classList.add('product-card');
+        productCard.innerHTML = `
+            <h3>${productData.productName}</h3>
+            <p><strong>Price:</strong> $${productData.productPrice}</p>
+            <p><strong>Description:</strong> ${productData.productDescription}</p>
+            <p><strong>Category:</strong> ${productData.productCategory}</p>
+            <img src="${productData.productImage}" alt="Product Image">
+            <button onclick="addToCart('${childSnapshot.key}')">Add to Cart</button>
+        `;
+        productList.appendChild(productCard);
+    });
+});
+
+// Add product to cart
+function addToCart(productId) {
+    const user = firebase.auth().currentUser;
+    if (user) {
+        const userId = user.uid;
+        database.ref('carts/' + userId + '/' + productId).set(true)
+            .then(() => {
+                alert('Product added to cart!');
+            }).catch(error => {
+                console.error('Error adding to cart:', error);
+                alert('Failed to add product to cart. Please try again.');
+            });
+    } else {
+        alert('Please log in to add items to your cart.');
+    }
+}
+
+// Firebase Authentication State Change Listener
+firebase.auth().onAuthStateChanged(function(user) {
+    if (user) {
+        // User is signed in.
+        console.log('User is signed in:', user.email);
+        // Show logged-in user specific content or perform actions
+        // Example: Display user's profile information, etc.
+    } else {
+        // No user is signed in.
+        console.log('No user signed in.');
+        // Redirect or show login form
+        // Example: window.location.href = 'login.html';
+    }
+});
+                
