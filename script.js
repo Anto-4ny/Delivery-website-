@@ -1,12 +1,12 @@
 // Firebase configuration and initialization
 const firebaseConfig = {
-    apiKey: "YOUR_API_KEY",
-    authDomain: "YOUR_AUTH_DOMAIN",
-    projectId: "YOUR_PROJECT_ID",
-    storageBucket: "YOUR_STORAGE_BUCKET",
-    messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-    appId: "YOUR_APP_ID",
-    databaseURL: "YOUR_DATABASE_URL"
+    apiKey: "AIzaSyDJ1g4qrix-xtkJN1dtEWXZ6SSUUHt04Cw",
+    authDomain: "ele-max-delivery.firebaseapp.com",
+    projectId: "ele-max-delivery",
+    storageBucket: "ele-max-delivery.appspot.com",
+    messagingSenderId: "385223965783",
+    appId: "1:385223965783:web:5dc0c0b03ddd9666fb7712",
+    databaseURL: "https://ele-max-delivery-default-rtdb.firebaseio.com"
 };
 
 firebase.initializeApp(firebaseConfig);
