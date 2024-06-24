@@ -1250,46 +1250,56 @@ bodyforcontactus {
     background-color: #1ebf55;
     }
 /* profile page styles */
-.alibaba-navigation ul {
-    list-style: none;
+/* Basic styles, adjust as needed */
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    margin: 0;
     padding: 0;
+}
+
+header {
+    background-color: #f0f0f0;
+    padding: 10px 0;
+}
+
+.alibaba-navigation {
     display: flex;
     justify-content: center;
+    align-items: center;
+}
+
+.alibaba-navigation ul {
+    list-style-type: none;
+    display: flex;
+    gap: 20px;
 }
 
 .alibaba-navigation ul li {
-    margin: 0 10px;
+    padding: 0 10px;
 }
 
-.alibaba-navigation ul li a {
-    text-decoration: none;
-    color: white;
-    padding: 10px 15px;
-    border-radius: 3px;
-    transition: background-color 0.3s;
-}
-
-.alibaba-navigation ul li a:hover {
-    background-color: #ff8c3d;
-}
-
-/* Content Sections */
-.content-section {
-    background-color: #fff;
+.main {
     padding: 20px;
-    margin-bottom: 20px;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.content-section h2 {
-    color: #ff6a00;
-    margin-bottom: 15px;
+section {
+    margin-bottom: 40px;
 }
 
-/* Form Styling */
-form {
-    margin-top: 15px;
+h2 {
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 10px;
+}
+
+/* Hide all content sections by default */
+.content-section {
+    display: none;
+}
+
+/* Show content section when active */
+.content-section.active {
+    display: block;
 }
 
 form div {
@@ -1301,50 +1311,15 @@ form label {
     margin-bottom: 5px;
 }
 
-form input[type="text"],
-form input[type="number"],
-form input[type="email"],
-form input[type="file"],
-form select {
-    width: calc(100% - 20px);
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 3px;
-    font-size: 14px;
+form input, form select, form button {
+    padding: 5px;
+    width: 100%;
+    max-width: 300px;
 }
 
 form button {
-    background-color: #ff6a00;
-    color: #fff;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 3px;
-    cursor: pointer;
-    transition: background-color 0.3s;
+    margin-top: 10px;
 }
-
-form button:hover {
-    background-color: #ff8c3d;
-}
-
-/* Responsive Design */
-@media only screen and (max-width: 600px) {
-    .alibaba-navigation ul {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .alibaba-navigation ul li {
-        margin: 5px 0;
-    }
-
-    .content-section {
-        padding: 15px;
-    }
-}
-
-    
-
 
 
 
