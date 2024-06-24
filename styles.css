@@ -1158,7 +1158,7 @@ button[type="submit"]:hover {
 }
 
 
-bodyforcontactus {
+body{
     font-family: Arial, sans-serif;
     background-color: #f5f5f5;
     display: flex;
@@ -1341,43 +1341,91 @@ body {
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     gap: 20px;
 }
-
+/* Styling for product cards */
 .product-card {
-    background-color: #fff;
-    padding: 20px;
-    border: 1px solid #ccc;
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
     border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 }
 
 .product-card h3 {
     margin-top: 0;
+    font-size: 18px;
 }
 
 .product-card p {
-    margin-bottom: 10px;
+    margin: 10px 0;
+    font-size: 14px;
 }
 
 .product-card img {
     max-width: 100%;
+    height: auto;
     margin-bottom: 10px;
 }
 
 .product-card button {
     background-color: #4CAF50;
     color: white;
-    padding: 8px 16px;
+    padding: 8px 15px;
     border: none;
     cursor: pointer;
-    border-radius: 4px;
+    border-radius: 3px;
+    font-size: 14px;
 }
 
 .product-card button:hover {
     background-color: #45a049;
-    }
+}
+/* Form for posting products/services */
+#post-product-form {
+    margin-bottom: 20px;
+    padding: 20px;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
 
+#post-product-form div {
+    margin-bottom: 10px;
+}
 
+#post-product-form label {
+    display: block;
+    margin-bottom: 5px;
+}
 
+#post-product-form input[type="text"],
+#post-product-form textarea,
+#post-product-form select,
+#post-product-form input[type="number"],
+#post-product-form input[type="file"] {
+    width: 100%;
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-top: 5px;
+}
 
+#post-product-form button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+    margin-top: 10px;
+}
+
+#post-product-form button:hover {
+    background-color: #45a049;
+}
 
 .social-media {
     display: flex;
