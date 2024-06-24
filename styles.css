@@ -1250,166 +1250,99 @@ bodyforcontactus {
     background-color: #1ebf55;
     }
 /* profile page styles */
-/* Forms */
-.post-product-form, .profile-form {
-    background-color: #fff;
-    padding: 20px;
-    margin: 20px auto;
-    max-width: 600px;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-.post-product-form h2, .profile-form h2 {
-    margin-bottom: 20px;
-    color: #ff6a00;
-}
-
-.post-product-form label, .profile-form label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
-}
-
-.post-product-form input, .post-product-form textarea,
-.profile-form input {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 3px;
-}
-
-.post-product-form select {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 3px;
-    background-color: #fff;
-}
-
-.post-product-form button, .profile-form button {
-    background-color: #ff6a00;
-    color: #fff;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 3px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.post-product-form button:hover, .profile-form button:hover {
-    background-color: #ff8c3d;
-}
-
-/* Product Listing */
-.product-listing {
-    margin-top: 40px;
-}
-
-.product-card {
-    background-color: #fff;
-    padding: 20px;
-    margin-bottom: 20px;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-.product-card h3 {
-    color: #ff6a00;
-    margin-bottom: 10px;
-}
-
-.product-card p {
-    margin-bottom: 10px;
-}
-
-.product-card img {
-    max-width: 100%;
-    margin-bottom: 10px;
-}
-
-.product-card .icon-buttons {
-    display: flex;
-    justify-content: space-between;
-}
-
-.product-card .icon-buttons button {
-    background-color: #ff6a00;
-    color: #fff;
-    padding: 5px 10px;
-    border: none;
-    border-radius: 3px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.product-card .icon-buttons button:hover {
-    background-color: #ff8c3d;
-}
-
-/* Shopping Cart */
-.shopping-cart-form {
-    margin-top: 40px;
-}
-
-.shopping-cart-form h2 {
-    margin-bottom: 20px;
-    color: #ff6a00;
-}
-
-.shopping-cart-item {
-    background-color: #fff;
-    padding: 10px;
-    margin-bottom: 10px;
-    border-radius: 3px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-}
-
-.shopping-cart-item p {
-    margin-bottom: 5px;
-}
-
-.shopping-cart-form button {
-    background-color: #ff6a00;
-    color: #fff;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 3px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.shopping-cart-form button:hover {
-    background-color: #ff8c3d;
-}
-
-/* Alibaba Navigation */
 .alibaba-navigation ul {
     list-style: none;
-    background-color: #ff6a00;
-    padding: 10px;
-    border-radius: 5px;
+    padding: 0;
+    display: flex;
+    justify-content: center;
 }
 
 .alibaba-navigation ul li {
-    display: inline;
-    margin-right: 10px;
+    margin: 0 10px;
 }
 
 .alibaba-navigation ul li a {
     text-decoration: none;
-    color: #fff;
+    color: white;
     padding: 10px 15px;
-    background-color: #ff6a00;
     border-radius: 3px;
     transition: background-color 0.3s;
 }
 
 .alibaba-navigation ul li a:hover {
     background-color: #ff8c3d;
+}
+
+/* Content Sections */
+.content-section {
+    background-color: #fff;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.content-section h2 {
+    color: #ff6a00;
+    margin-bottom: 15px;
+}
+
+/* Form Styling */
+form {
+    margin-top: 15px;
+}
+
+form div {
+    margin-bottom: 10px;
+}
+
+form label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+form input[type="text"],
+form input[type="number"],
+form input[type="email"],
+form input[type="file"],
+form select {
+    width: calc(100% - 20px);
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    font-size: 14px;
+}
+
+form button {
+    background-color: #ff6a00;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+form button:hover {
+    background-color: #ff8c3d;
+}
+
+/* Responsive Design */
+@media only screen and (max-width: 600px) {
+    .alibaba-navigation ul {
+        flex-direction: column;
+        align-items: center;
     }
+
+    .alibaba-navigation ul li {
+        margin: 5px 0;
+    }
+
+    .content-section {
+        padding: 15px;
+    }
+}
+
     
 
 
