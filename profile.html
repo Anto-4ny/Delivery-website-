@@ -48,61 +48,64 @@
                 <li><a href="#shopping-cart">Shopping Cart</a></li>
                 <li><a href="#favorites">My Favorites</a></li>
                 <li><a href="#coupons">My Coupons</a></li>
-                <li><a href="#sell-on-alibaba">Sell on Alibaba</a></li>
+                <li><a href="#sell-on-alibaba">How to sell on Ele Max</a></li>
                 <li><a href="#help-center">Help Center</a></li>
                 <li><a href="#settings">Settings</a></li>
-                <li><a href="#country-region">Country/Region</a></li>
+                <li><a href="#country-region">Country/Region, Currency & Language</a></li>
+                <li><a href="#ele-max-app">ELE MAX App</a></li>
+                <li><a href="#post-product">Post Product/Service</a></li> <!-- Added link for product posting -->
             </ul>
         </nav>
     </header>
 
+    <!-- Main content sections -->
     <main>
         <section id="manage-orders" class="content-section">
             <h2>Manage Orders</h2>
             <div id="order-list">
-                <!-- Orders will be dynamically loaded here -->
+                <!-- Orders content -->
             </div>
         </section>
 
         <section id="messenger" class="content-section">
             <h2>Messenger</h2>
             <div id="messenger-content">
-                <!-- Messenger content here -->
+                <!-- Messenger content -->
             </div>
         </section>
 
         <section id="shopping-cart" class="content-section">
             <h2>Shopping Cart</h2>
             <div id="cart-content">
-                <!-- Shopping cart items will be dynamically loaded here -->
+                <!-- Shopping cart content -->
             </div>
         </section>
 
         <section id="favorites" class="content-section">
             <h2>My Favorites</h2>
             <div id="favorites-content">
-                <!-- Favorites will be dynamically loaded here -->
+                <!-- Favorites content -->
             </div>
         </section>
 
         <section id="coupons" class="content-section">
             <h2>My Coupons</h2>
             <div id="coupons-content">
-                <!-- Coupons will be dynamically loaded here -->
+                <!-- Coupons content -->
             </div>
         </section>
 
         <section id="sell-on-alibaba" class="content-section">
-            <h2>Sell on Alibaba</h2>
+            <h2>How to sell on Ele Max</h2>
             <div id="sell-content">
-                <!-- Sell on Alibaba content here -->
+                <!-- Sell on Ele Max content -->
             </div>
         </section>
 
         <section id="help-center" class="content-section">
             <h2>Help Center</h2>
             <div id="help-content">
-                <!-- Help center content here -->
+                <!-- Help center content -->
             </div>
         </section>
 
@@ -126,12 +129,11 @@
         </section>
 
         <section id="country-region" class="content-section">
-            <h2>Country/Region</h2>
+            <h2>Country/Region, Currency & Language</h2>
             <form id="country-region-form">
                 <div>
                     <label for="country-region-select">Select Country/Region:</label>
                     <select id="country-region-select" name="country-region">
-                        <!-- Populate with actual country/region options -->
                         <option value="USA">USA</option>
                         <option value="Canada">Canada</option>
                         <!-- Add more options as needed -->
@@ -140,8 +142,46 @@
                 <button type="submit">Save Country/Region</button>
             </form>
         </section>
-    </main>
 
+        <!-- Form for posting product/service -->
+        <section id="post-product" class="content-section">
+            <h2>Post Product/Service</h2>
+            <form id="post-product-form">
+                <div>
+                    <label for="product-name">Product Name:</label>
+                    <input type="text" id="product-name" name="product-name" required>
+                </div>
+                <div>
+                    <label for="description">Description:</label>
+                    <textarea id="description" name="description" rows="4" required></textarea>
+                </div>
+                <div>
+                    <label for="price">Price ($):</label>
+                    <input type="number" id="price" name="price" step="0.01" required>
+                </div>
+                <div>
+                    <label for="category">Category:</label>
+                    <select id="category" name="category" required>
+                        <option value="">Select Category</option>
+                        <option value="Electronics">Electronics</option>
+                        <option value="Apparel">Apparel</option>
+                        <option value="Home & Garden">Home & Garden</option>
+                        <option value="Machinery">Machinery</option>
+                        <option value="Beauty & Personal Care">Beauty & Personal Care</option>
+                        <option value="Automobiles & Motorcycles">Automobiles & Motorcycles</option>
+                        <option value="Toys & Hobbies">Toys & Hobbies</option>
+                        <option value="Sports & Entertainment">Sports & Entertainment</option>
+                        <option value="Office & School Supplies">Office & School Supplies</option>
+                        <option value="Health & Medical">Health & Medical</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="media">Media (Image/Video):</label>
+                    <input type="file" id="media" name="media" accept="image/*, video/*" required>
+                </div>
+                <button type="submit">Post Product/Service</button>
+            </form>
+        </section>
     <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database.js"></script>
