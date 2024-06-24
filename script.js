@@ -24,64 +24,75 @@ const auth = getAuth();
 const db = getDatabase();
 const storage = getStorage();
 
-// Authentication and user management
-document.addEventListener("DOMContentLoaded", () => {
-    const username = localStorage.getItem("username");
-    if (username) {
-        displayWelcomeMessage(username);
-    }
+// Handle registration
+document.getElementById('signupForm').addEventListener('submit', function(event) {
+    event.preventDefault();
 
-    const googleProvider = new GoogleAuthProvider();
-    const facebookProvider = new FacebookAuthProvider();
+    const username = document.getElementById('signup-username').value;
+    const email = document.getElementById('signup-email').value;
+    const password = document.getElementById('signup-password').value;
 
-    document.getElementById("google-login").addEventListener("click", () => {
-        signInWithPopup(auth, googleProvider)
-            .then((result) => {
-                const user = result.user;
-                localStorage.setItem("username", user.displayName);
-                displayWelcomeMessage(user.displayName);
-            })
-            .catch((error) => {
-                console.error("Google login error:", error);
+    createUserWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+            const user = userCredential.user;
+
+            // Save user data to the database
+            set(ref(db, 'users/' + user.uid), {
+                username: username,
+                email: email,
+                profilePicture: user.photoURL || 'default_profile_picture_url'  // Replace with default picture URL
             });
-    });
 
-    document.getElementById("facebook-login").addEventListener("click", () => {
-        signInWithPopup(auth, facebookProvider)
-            .then((result) => {
-                const user = result.user;
-                localStorage.setItem("username", user.displayName);
-                displayWelcomeMessage(user.displayName);
-            })
-            .catch((error) => {
-                console.error("Facebook login error:", error);
-            });
-    });
-
-    document.getElementById("google-signup").addEventListener("click", () => {
-        signInWithPopup(auth, googleProvider)
-            .then((result) => {
-                const user = result.user;
-                localStorage.setItem("username", user.displayName);
-                displayWelcomeMessage(user.displayName);
-            })
-            .catch((error) => {
-                console.error("Google sign-up error:", error);
-            });
-    });
-
-    document.getElementById("facebook-signup").addEventListener("click", () => {
-        signInWithPopup(auth, facebookProvider)
-            .then((result) => {
-                const user = result.user;
-                localStorage.setItem("username", user.displayName);
-                displayWelcomeMessage(user.displayName);
-            })
-            .catch((error) => {
-                console.error("Facebook sign-up error:", error);
-            });
-    });
+            // Display the profile icon
+            displayProfileIcon(user);
+        })
+        .catch((error) => {
+            console.error('Error signing up:', error);
+        });
 });
+
+// Social sign-up handlers
+document.getElementById('google-signup').addEventListener('click', () => {
+    const provider = new GoogleAuthProvider();
+    signInWithPopup(auth, provider)
+        .then((result) => {
+            const user = result.user;
+            set(ref(db, 'users/' + user.uid), {
+                username: user.displayName,
+                email: user.email,
+                profilePicture: user.photoURL
+            });
+            displayProfileIcon(user);
+        })
+        .catch((error) => {
+            console.error('Google sign-up error:', error);
+        });
+});
+
+document.getElementById('facebook-signup').addEventListener('click', () => {
+    const provider = new FacebookAuthProvider();
+    signInWithPopup(auth, provider)
+        .then((result) => {
+            const user = result.user;
+            set(ref(db, 'users/' + user.uid), {
+                username: user.displayName,
+                email: user.email,
+                profilePicture: user.photoURL
+            });
+            displayProfileIcon(user);
+        })
+        .catch((error) => {
+            console.error('Facebook sign-up error:', error);
+        });
+});
+
+function displayProfileIcon(user) {
+    const accountLinks = document.querySelector('.account-links');
+    accountLinks.innerHTML = `
+        <img src="${user.photoURL || 'default_profile_picture_url'}" alt="${user.displayName}" class="profile-icon">
+        <span>${user.displayName}</span>
+    `;
+}
 
 function displayWelcomeMessage(username) {
     const loginBoxContent = document.querySelector("#login-box-content");
