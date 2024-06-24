@@ -1,25 +1,31 @@
-{
-  "rules": {
-    ".read": false,
-    ".write": false
-  }
-}
-        // Firebase configuration and initialization
-        const firebaseConfig = {
-            apiKey: "AIzaSyDJ1g4qrix-xtkJN1dtEWXZ6SSUUHt04Cw",
-            authDomain: "ele-max-delivery.firebaseapp.com",
-            projectId: "ele-max-delivery",
-            storageBucket: "ele-max-delivery.appspot.com",
-            messagingSenderId: "385223965783",
-            appId: "1:385223965783:web:5dc0c0b03ddd9666fb7712",
-            databaseURL: "https://ele-max-delivery-default-rtdb.firebaseio.com"
-        };
 
-        // Initialize Firebase
-        const app = firebase.initializeApp(firebaseConfig);
-        const auth = firebase.auth();
-        const db = firebase.database();
-        const storage = firebase.storage().ref();
+        // Firebase configuration and initialization
+      
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-analytics.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  const firebaseConfig = {
+    apiKey: "AIzaSyDJ1g4qrix-xtkJN1dtEWXZ6SSUUHt04Cw",
+    authDomain: "ele-max-delivery.firebaseapp.com",
+    databaseURL: "https://ele-max-delivery-default-rtdb.firebaseio.com",
+    projectId: "ele-max-delivery",
+    storageBucket: "ele-max-delivery.appspot.com",
+    messagingSenderId: "385223965783",
+    appId: "1:385223965783:web:5dc0c0b03ddd9666fb7712",
+    measurementId: "G-KBJX1CEYL8"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+  const auth = firebase.auth();
+  const db = firebase.database();
+  const storage = firebase.storage().ref();
 
         // Authentication and user management
         document.addEventListener("DOMContentLoaded", () => {
@@ -127,71 +133,60 @@
                         };
                         db.ref().update(updates).then(() => {
                             alert('Product posted successfully!');
-                            // Clear form fields after submission
                             productForm.reset();
-                            // Refresh product list
-                            displayProducts();
                         }).catch(error => {
                             console.error('Error posting product:', error);
                         });
                     }).catch(error => {
-                        console.error('Error getting download URL:', error);
+                        console.error('Error getting image URL:', error);
                     });
                 }).catch(error => {
                     console.error('Error uploading image:', error);
                 });
             });
 
-            // Function to display products
-            function displayProducts() {
-                const productList = document.getElementById('product-list');
-                productList.innerHTML = ''; // Clear current product list
-                db.ref('products').once('value').then((snapshot) => {
-                    if (!snapshot.exists()) {
-                        productList.innerHTML = '<p>No products available.</p>';
-                        return;
-                    }
-                    snapshot.forEach((childSnapshot) => {
-                        const productData = childSnapshot.val();
-                        const productCard = document.createElement('div');
-                        productCard.classList.add('product-card');
-                        productCard.innerHTML = `
-                            <h3>${productData.productName}</h3>
-                            <p><strong>Price:</strong> $${productData.productPrice}</p>
-                            <p><strong>Description:</strong> ${productData.productDescription}</p>
-                            <p><strong>Category:</strong> ${productData.productCategory}</p>
-                            <img src="${productData.productImage}" alt="Product Image">
-                            <button onclick="addToCart('${childSnapshot.key}')">Add to Cart</button>
+            // Fetch and display products
+            const productList = document.getElementById('product-list');
+            db.ref('products').on('value', (snapshot) => {
+                const products = snapshot.val();
+                productList.innerHTML = '';
+                if (products) {
+                    Object.keys(products).forEach((key) => {
+                        const product = products[key];
+                        const productItem = document.createElement('div');
+                        productItem.className = 'product-item';
+                        productItem.innerHTML = `
+                            <h3>${product.productName}</h3>
+                            <p>Price: ${product.productPrice}</p>
+                            <p>Description: ${product.productDescription}</p>
+                            <p>Category: ${product.productCategory}</p>
+                            <img src="${product.productImage}" alt="${product.productName}">
+                            <button onclick="addToCart('${key}')">Add to Cart</button>
                         `;
-                        productList.appendChild(productCard);
+                        productList.appendChild(productItem);
                     });
-                }).catch(error => {
-                    console.error('Error fetching products:', error);
-                });
-            }
-
-            // Initial call to display products
-            displayProducts();
-
-            // Add product to cart
-            window.addToCart = function(productId) {
-                const user = auth.currentUser;
-                if (user) {
-                    const userId = user.uid;
-                    db.ref('carts/' + userId + '/' + productId).set(true)
-                        .then(() => {
-                            alert('Product added to cart!');
-                        }).catch(error => {
-                            console.error('Error adding to cart:', error);
-                            alert('Failed to add product to cart. Please try again.');
-                        });
                 } else {
-                    alert('Please log in to add items to your cart.');
+                    productList.innerHTML = '<p>No products available.</p>';
                 }
-            }
+            });
 
-            // Firebase Authentication State Change Listener
-            auth.onAuthStateChanged(function(user) {
+            // Add to cart functionality
+            window.addToCart = function(productId) {
+                if (!auth.currentUser) {
+                    alert('Please log in to add products to the cart.');
+                    return;
+                }
+                const userId = auth.currentUser.uid;
+                const cartRef = db.ref('carts/' + userId + '/' + productId);
+                cartRef.set(true).then(() => {
+                    alert('Product added to cart!');
+                }).catch(error => {
+                    console.error('Error adding product to cart:', error);
+                });
+            };
+
+            // Authentication state change listener
+            auth.onAuthStateChanged((user) => {
                 if (user) {
                     console.log('User is signed in:', user.email);
                 } else {
@@ -244,3 +239,4 @@
             });
         });
     
+  
