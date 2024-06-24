@@ -3,11 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign Up Page</title>
+    <title>Sign Up / Login Page</title>
     <link rel="stylesheet" href="styles.css">
     <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-auth.js"></script>
-    <script src="script.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"></script>
+    <script src="script.js" defer></script>
 </head>
 <body>
     <header>
@@ -20,8 +21,8 @@
                     <a href="Pages/help.html">Help</a>
                 </div>
                 <div class="account-links">
-                    <a href="login.html">Sign In</a>
-                    <a href="#">Join Free</a>
+                    <a href="#" id="sign-in-link">Sign In</a>
+                    <a href="#" id="join-free-link">Join Free</a>
                 </div>
             </div>
         </div>
@@ -45,9 +46,9 @@
     <div class="containerforlogin">
         <div class="login-box">
             <div class="login-box-content">
-                <div class="login-form">
+                <div class="login-form" id="signup-form">
                     <h2>Sign Up</h2>
-                    <form id="signupForm" onsubmit="return registerUser()">
+                    <form onsubmit="return registerUser()">
                         <input type="text" id="signup-username" placeholder="Username" required>
                         <input type="email" id="signup-email" placeholder="Email" required>
                         <input type="password" id="signup-password" placeholder="Password" required>
@@ -57,16 +58,29 @@
                         <button id="google-signup">Sign Up with Google</button>
                         <button id="facebook-signup">Sign Up with Facebook</button>
                     </div>
+                    <p>Already have an account? <a href="#" id="switch-to-login">Login here</a></p>
+                </div>
+                <div class="login-form" id="login-form" style="display: none;">
+                    <h2>Login</h2>
+                    <form onsubmit="return loginUser()">
+                        <input type="email" id="login-email" placeholder="Email" required>
+                        <input type="password" id="login-password" placeholder="Password" required>
+                        <button type="submit">Login</button>
+                    </form>
+                    <div class="social-login">
+                        <button id="google-login">Login with Google</button>
+                        <button id="facebook-login">Login with Facebook</button>
+                    </div>
+                    <p>Don't have an account? <a href="#" id="switch-to-signup">Sign up here</a></p>
                 </div>
                 <div class="welcome-message">
                     <h2>Welcome!</h2>
-                    <p>Please sign up to create an account.</p>
+                    <p>Please sign up or login to continue.</p>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Footer -->
     <footer>
         <div class="footer-top">
             <div class="container">
@@ -117,4 +131,5 @@
         </div>
     </footer>
 </body>
-</html>
+                </html>
+                            
