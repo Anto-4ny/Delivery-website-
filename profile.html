@@ -87,6 +87,40 @@
                 <button type="submit">Save Profile</button>
             </form>
         </section>
+        <section id="post-product" class="content-section">
+    <h2>Post Product/Service</h2>
+    <form id="post-product-form">
+        <div>
+            <label for="product-name">Product Name:</label>
+            <input type="text" id="product-name" name="product-name" placeholder="Enter product name" required>
+        </div>
+        <div>
+            <label for="description">Description:</label>
+            <textarea id="description" name="description" rows="4" placeholder="Enter product description" required></textarea>
+        </div>
+        <div>
+            <label for="price">Price ($):</label>
+            <input type="number" id="price" name="price" step="0.01" placeholder="Enter product price" required>
+        </div>
+        <div>
+            <label for="category">Category:</label>
+            <select id="category" name="category" required>
+                <option value="" selected disabled>Select Category</option>
+                <option value="Electronics">Electronics</option>
+                <option value="Apparel">Apparel</option>
+                <option value="Home & Garden">Home & Garden</option>
+                <option value="Machinery">Machinery</option>
+                <!-- Add more options as needed -->
+            </select>
+        </div>
+        <div>
+            <label for="media">Media (Image/Video):</label>
+            <input type="file" id="media" name="media" accept="image/*, video/*" required>
+        </div>
+        <button type="submit">Post Product/Service</button>
+    </form>
+        </section>
+        
 
         <!-- Product display section -->
         <section id="product-section">
