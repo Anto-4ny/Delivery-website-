@@ -1413,6 +1413,15 @@ h1, h2 {
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
+.career-image {
+            width: 100%;
+            max-width: 600px;
+            display: block;
+            margin: auto;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        
 
 .overview-image {
             width: 100%;
