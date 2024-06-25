@@ -1121,50 +1121,7 @@ button[type="submit"]:hover {
         padding: 8px; /* Adjust padding for smaller screens */
     }
 }
-
-
-/*Reviews section*/
-.reviews-section {
-  padding: 20px;
-  background-color: #f9f9f9;
-}
-
-.reviews-container {
-  display: flex;
-  overflow-x: auto;
-  padding: 10px;
-  border: 1px solid #ddd;
-  background-color: #fff;
-}
-
-.review-box {
-  flex: 0 0 auto;
-  width: 250px;
-  margin-right: 15px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  padding: 15px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  background-color: #fff;
-}
-
-.review-box img {
-  border-radius: 50%;
-  width: 50px;
-  height: 50px;
-  object-fit: cover;
-}
-
-.review-box .name {
-  font-weight: bold;
-  margin-top: 10px;
-}
-
-.review-box .review-text {
-  margin-top: 10px;
-}
-
-
+/*contactus*/
 bodyforcontactus{
     font-family: Arial, sans-serif;
     background-color: #f5f5f5;
@@ -1457,6 +1414,14 @@ h1, h2 {
             box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
 
+.overview-image {
+            width: 100%;
+            max-width: 600px;
+            display: block;
+            margin: auto;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
 .social-media {
     display: flex;
     flex-wrap: wrap; /* Allow icons to wrap onto new lines */
