@@ -1,5 +1,4 @@
-
-// Import the functions you need from the SDKs you need
+// Import Firebase SDK modules
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-analytics.js";
 import { getAuth, createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, FacebookAuthProvider, onAuthStateChanged, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
@@ -17,13 +16,13 @@ const firebaseConfig = {
   appId: "1:385223965783:web:5dc0c0b03ddd9666fb7712",
   measurementId: "G-KBJX1CEYL8"
 };
+
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+const analytics = getAnalytics(app); // Optional if you are using Firebase Analytics
 const auth = getAuth();
 const db = getDatabase();
 const storage = getStorage();
-
 
 // Handle registration
 window.registerUser = function () {
