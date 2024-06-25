@@ -56,19 +56,21 @@
         </nav>
     </header>
 <!-- Login and Signup Forms -->
+<main class="containerforprofilepage">
+        <!-- Product Form -->
+        <form id="product-form">
+            <input type="text" id="productName" placeholder="Product Name" required>
+            <input type="text" id="productPrice" placeholder="Product Price" required>
+            <textarea id="productDescription" placeholder="Product Description" required></textarea>
+            <input type="text" id="productCategory" placeholder="Product Category" required>
+            <input type="file" id="productImage" accept="image/*" required>
+            <button type="submit">Post Product</button>
+        </form>
 
-    <!-- Product Form -->
-    <form id="product-form">
-        <input type="text" id="productName" placeholder="Product Name" required>
-        <input type="text" id="productPrice" placeholder="Product Price" required>
-        <textarea id="productDescription" placeholder="Product Description" required></textarea>
-        <input type="text" id="productCategory" placeholder="Product Category" required>
-        <input type="file" id="productImage" accept="image/*" required>
-        <button type="submit">Post Product</button>
-    </form>
-
-    <!-- Product List -->
-    <div id="product-list"></div>
+        <!-- Product List -->
+        <div id="product-list"></div>
+</main>
+    
     <!-- Main content sections -->
     <main class="containerforprofilepage">
         <!-- Profile form section -->
