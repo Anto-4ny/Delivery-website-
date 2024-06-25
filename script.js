@@ -203,3 +203,12 @@ window.checkout = function() {
     // Implement checkout process, including displaying shipping options and prices
     // Redirect or display checkout page with selected products
 };
+
+document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+        });
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'F12' || (e.ctrlKey && (e.key === 'I' || e.key === 'J' || e.key === 'U'))) {
+                e.preventDefault();
+            }
+        });
