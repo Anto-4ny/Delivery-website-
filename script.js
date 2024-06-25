@@ -8,7 +8,7 @@ import { getStorage, ref as storageRef, uploadBytes, getDownloadURL } from "http
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-    apiKey: "AIzaSyDJ1g4qrix-xtkJN1dtEWXZ6SSUUHt04Cw",
+  apiKey: "AIzaSyDJ1g4qrix-xtkJN1dtEWXZ6SSUUHt04Cw",
   authDomain: "ele-max-delivery.firebaseapp.com",
   databaseURL: "https://ele-max-delivery-default-rtdb.firebaseio.com",
   projectId: "ele-max-delivery",
@@ -17,7 +17,6 @@ const firebaseConfig = {
   appId: "1:385223965783:web:5dc0c0b03ddd9666fb7712",
   measurementId: "G-KBJX1CEYL8"
 };
-
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
