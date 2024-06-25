@@ -1,6 +1,9 @@
+
+// Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getAuth, signInWithPopup, GoogleAuthProvider, FacebookAuthProvider } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-import { getDatabase, ref, set, push, onValue, update } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-analytics.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, FacebookAuthProvider, onAuthStateChanged, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { getDatabase, ref, set, onValue } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 import { getStorage, ref as storageRef, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js";
 
 // Your web app's Firebase configuration
@@ -17,224 +20,267 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
 const auth = getAuth();
 const db = getDatabase();
 const storage = getStorage();
 
 // Handle registration
-function registerUser() {
+window.registerUser = function () {
     const username = document.getElementById('signup-username').value;
     const email = document.getElementById('signup-email').value;
     const password = document.getElementById('signup-password').value;
 
-    auth.createUserWithEmailAndPassword(email, password)
+    createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
             const user = userCredential.user;
-            db.ref('users/' + user.uid).set({
+            set(ref(db, 'users/' + user.uid), {
                 username: username,
-                email: email
+                email: email,
             });
             displayProfileIcon(user);
+            return false;
         })
         .catch((error) => {
             console.error('Error signing up:', error);
+            return false;
         });
 
-    return false; // Prevent form submission
-}
+    return false; // Prevent default form submission
+};
 
-function loginUser() {
+// Handle login
+window.loginUser = function () {
     const email = document.getElementById('login-email').value;
     const password = document.getElementById('login-password').value;
 
-    auth.signInWithEmailAndPassword(email, password)
+    signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
             const user = userCredential.user;
             displayProfileIcon(user);
+            return false;
         })
         .catch((error) => {
             console.error('Error logging in:', error);
+            return false;
         });
 
-    return false; // Prevent form submission
-}
+    return false; // Prevent default form submission
+};
 
-document.getElementById('google-signup').addEventListener('click', () => {
-    const provider = new firebase.auth.GoogleAuthProvider();
-    auth.signInWithPopup(provider)
-        .then((result) => {
-            const user = result.user;
-            db.ref('users/' + user.uid).set({
-                username: user.displayName,
-                email: user.email,
-                profilePicture: user.photoURL
+// Handle profile form submission
+document.getElementById('profile-form').addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    const user = auth.currentUser;
+    if (!user) return;
+
+    const name = document.getElementById('profileName').value;
+    const email = document.getElementById('profileEmail').value;
+    const phone = document.getElementById('profilePhone').value;
+    const country = document.getElementById('profileCountry').value;
+    const zip = document.getElementById('profileZip').value;
+    const file = document.getElementById('profilePicture').files[0];
+
+    if (file) {
+        const storageRefPath = storageRef(storage, 'profile_pictures/' + user.uid);
+        uploadBytes(storageRefPath, file).then((snapshot) => {
+            getDownloadURL(snapshot.ref).then((downloadURL) => {
+                saveProfileData(user.uid, name, email, phone, country, zip, downloadURL);
             });
-            displayProfileIcon(user);
-        })
-        .catch((error) => {
-            console.error('Error signing up with Google:', error);
         });
+    } else {
+        saveProfileData(user.uid, name, email, phone, country, zip, user.photoURL);
+    }
 });
 
-document.getElementById('facebook-signup').addEventListener('click', () => {
-    const provider = new firebase.auth.FacebookAuthProvider();
-    auth.signInWithPopup(provider)
-        .then((result) => {
-            const user = result.user;
-            db.ref('users/' + user.uid).set({
-                username: user.displayName,
-                email: user.email,
-                profilePicture: user.photoURL
+function saveProfileData(uid, name, email, phone, country, zip, photoURL) {
+    set(ref(db, 'users/' + uid), {
+        username: name,
+        email: email,
+        phone: phone,
+        country: country,
+        zip: zip,
+        photoURL: photoURL
+    }).then(() => {
+        alert('Profile updated successfully!');
+        displayProfileIcon(auth.currentUser);
+    }).catch((error) => {
+        console.error('Error updating profile:', error);
+    });
+}
+
+// Handle product posting
+document.getElementById('post-product-form').addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    const user = auth.currentUser;
+    if (!user) return;
+
+    const productName = document.getElementById('product-name').value;
+    const description = document.getElementById('description').value;
+    const price = document.getElementById('price').value;
+    const category = document.getElementById('category').value;
+    const file = document.getElementById('media').files[0];
+
+    if (file) {
+        const storageRefPath = storageRef(storage, 'products/' + user.uid + '/' + file.name);
+        uploadBytes(storageRefPath, file).then((snapshot) => {
+            getDownloadURL(snapshot.ref).then((downloadURL) => {
+                saveProductData(user.uid, productName, description, price, category, downloadURL);
             });
-            displayProfileIcon(user);
-        })
-        .catch((error) => {
-            console.error('Error signing up with Facebook:', error);
         });
+    } else {
+        alert('Please upload a media file.');
+    }
+});
+
+function saveProductData(uid, name, description, price, category, mediaURL) {
+    const newProductRef = ref(db, 'products').push();
+    set(newProductRef, {
+        userId: uid,
+        name: name,
+        description: description,
+        price: price,
+        category: category,
+        mediaURL: mediaURL
+    }).then(() => {
+        alert('Product posted successfully!');
+        document.getElementById('post-product-form').reset();
+        fetchProducts(); // Refresh product list
+    }).catch((error) => {
+        console.error('Error posting product:', error);
+    });
+}
+
+// Fetch and display products
+function fetchProducts() {
+    const productList = document.getElementById('product-list');
+    productList.innerHTML = ''; // Clear current products
+
+    onValue(ref(db, 'products'), (snapshot) => {
+        const products = snapshot.val();
+        for (let productId in products) {
+            const product = products[productId];
+            const productElement = createProductElement(product);
+            productList.appendChild(productElement);
+        }
+    });
+}
+
+function createProductElement(product) {
+    const productElement = document.createElement('div');
+    productElement.classList.add('product');
+
+    const mediaElement = document.createElement('img');
+    mediaElement.src = product.mediaURL;
+    mediaElement.alt = product.name;
+    productElement.appendChild(mediaElement);
+
+    const nameElement = document.createElement('h3');
+    nameElement.textContent = product.name;
+    productElement.appendChild(nameElement);
+
+    const descriptionElement = document.createElement('p');
+    descriptionElement.textContent = product.description;
+    productElement.appendChild(descriptionElement);
+
+    const priceElement = document.createElement('p');
+    priceElement.textContent = '$' + product.price;
+    productElement.appendChild(priceElement);
+
+    const categoryElement = document.createElement('p');
+    categoryElement.textContent = 'Category: ' + product.category;
+    productElement.appendChild(categoryElement);
+
+    return productElement;
+}
+
+// Initial call to fetch products
+fetchProducts();
+
+// Display profile icon
+function displayProfileIcon(user) {
+    const profileIconPlaceholder = document.getElementById('profile-icon-placeholder');
+    if (user && user.photoURL) {
+        profileIconPlaceholder.innerHTML = `<img src="${user.photoURL}" alt="Profile Picture" />`;
+    } else {
+        profileIconPlaceholder.innerHTML = '';
+    }
+}
+
+// Switch between login and signup forms
+document.getElementById('switch-to-login').addEventListener('click', () => {
+    document.getElementById('login-form').style.display = 'block';
+    document.getElementById('signup-form').style.display = 'none';
+});
+
+document.getElementById('switch-to-signup').addEventListener('click', () => {
+    document.getElementById('login-form').style.display = 'none';
+    document.getElementById('signup-form').style.display = 'block';
+});
+
+// Handle Google and Facebook authentication
+const googleProvider = new GoogleAuthProvider();
+const facebookProvider = new FacebookAuthProvider();
+
+document.getElementById('google-signup').addEventListener('click', () => {
+    signInWithPopup(auth, googleProvider).then((result) => {
+        const user = result.user;
+        set(ref(db, 'users/' + user.uid), {
+            username: user.displayName,
+            email: user.email,
+        });
+        displayProfileIcon(user);
+    }).catch((error) => {
+        console.error('Error signing up with Google:', error);
+    });
 });
 
 document.getElementById('google-login').addEventListener('click', () => {
-    const provider = new firebase.auth.GoogleAuthProvider();
-    auth.signInWithPopup(provider)
-        .then((result) => {
-            const user = result.user;
-            displayProfileIcon(user);
-        })
-        .catch((error) => {
-                       console.error('Error logging in with Google:', error);
+    signInWithPopup(auth, googleProvider).then((result) => {
+        const user = result.user;
+        displayProfileIcon(user);
+    }).catch((error) => {
+        console.error('Error logging in with Google:', error);
+    });
+});
+
+document.getElementById('facebook-signup').addEventListener('click', () => {
+    signInWithPopup(auth, facebookProvider).then((result) => {
+        const user = result.user;
+        set(ref(db, 'users/' + user.uid), {
+            username: user.displayName,
+            email: user.email,
         });
+        displayProfileIcon(user);
+    }).catch((error) => {
+        console.error('Error signing up with Facebook:', error);
+    });
 });
 
 document.getElementById('facebook-login').addEventListener('click', () => {
-    const provider = new firebase.auth.FacebookAuthProvider();
-    auth.signInWithPopup(provider)
-        .then((result) => {
-            const user = result.user;
-            displayProfileIcon(user);
-        })
-        .catch((error) => {
-            console.error('Error logging in with Facebook:', error);
-        });
+    signInWithPopup(auth, facebookProvider).then((result) => {
+        const user = result.user;
+        displayProfileIcon(user);
+    }).catch((error) => {
+        console.error('Error logging in with Facebook:', error);
+    });
 });
 
-// Function to display profile icon and hide login/signup forms
-function displayProfileIcon(user) {
-    const profileIcon = document.createElement('div');
-    profileIcon.classList.add('profile-icon');
-    const profileImage = document.createElement('img');
-    profileImage.src = user.photoURL;
-    profileIcon.appendChild(profileImage);
-    
-    const accountLinks = document.querySelector('.account-links');
-    accountLinks.innerHTML = ''; // Clear existing links
-    accountLinks.appendChild(profileIcon);
-
-    // Hide login/signup forms and welcome message
-    const signupForm = document.getElementById('signup-form');
-    signupForm.style.display = 'none';
-    const loginForm = document.getElementById('login-form');
-    loginForm.style.display = 'none';
-    const welcomeMessage = document.querySelector('.welcome-message');
-    welcomeMessage.style.display = 'none';
-}
-
-// Function to check user authentication state on page load
-function checkAuthState() {
-    auth.onAuthStateChanged((user) => {
-        if (user) {
-            displayProfileIcon(user);
-        } else {
-            // User is signed out
-            const accountLinks = document.querySelector('.account-links');
-            accountLinks.innerHTML = ''; // Clear existing profile icon
-            accountLinks.innerHTML = `<a href="#" id="sign-in-link">Sign In</a>
-                                      <a href="#" id="join-free-link">Join Free</a>`;
-        }
-    });
-}
-
-// Switching between sign up and login forms
-document.getElementById('switch-to-login').addEventListener('click', (e) => {
-    e.preventDefault();
-    document.getElementById('signup-form').style.display = 'none';
-    document.getElementById('login-form').style.display = 'block';
+// Handle user state change
+onAuthStateChanged(auth, (user) => {
+    if (user) {
+        displayProfileIcon(user);
+        document.querySelector('.containerforlogin').style.display = 'none';
+        document.querySelector('main').style.display = 'block';
+    } else {
+        document.querySelector('.containerforlogin').style.display = 'block';
+        document.querySelector('main').style.display = 'none';
+    }
 });
-
-document.getElementById('switch-to-signup').addEventListener('click', (e) => {
-    e.preventDefault();
-    document.getElementById('signup-form').style.display = 'block';
-    document.getElementById('login-form').style.display = 'none';
-});
-
-// Initial call to check authentication state
-checkAuthState();
-//profpage
-document.addEventListener('DOMContentLoaded', () => {
-    // Handle product form submission
-    const productForm = document.getElementById('product-form');
-    productForm.addEventListener('submit', async (event) => {
-        event.preventDefault();
-
-        const productName = productForm.querySelector('#productName').value;
-        const productPrice = productForm.querySelector('#productPrice').value;
-        const productDescription = productForm.querySelector('#productDescription').value;
-        const productCategory = productForm.querySelector('#productCategory').value;
-        const productImage = productForm.querySelector('#productImage').files[0]; // Get the file
-
-        if (!productImage) {
-            alert('Please upload a product image.');
-            return;
-        }
-
-        try {
-            // Upload image to Firebase Storage
-            const imageRef = storageRef(storage, `productImages/${productImage.name}`);
-            await uploadBytes(imageRef, productImage);
-            const imageUrl = await getDownloadURL(imageRef);
-            console.log('Image URL:', imageUrl);
-
-            // Save product details to Realtime Database
-            const newProductKey = push(ref(db, 'products')).key;
-            const updates = {};
-            updates['/products/' + newProductKey] = {
-                productName,
-                productPrice,
-                productDescription,
-                productCategory,
-                productImage: imageUrl
-            };
-            await update(ref(db), updates);
-            alert('Product posted successfully!');
-            productForm.reset();
-        } catch (error) {
-            console.error('Error posting product:', error);
-        }
-    });
-
-    // Fetch and display products
-    const productList = document.getElementById('product-list');
-    onValue(ref(db, 'products'), (snapshot) => {
-        const products = snapshot.val();
-        productList.innerHTML = '';
-        if (products) {
-            Object.keys(products).forEach((key) => {
-                const product = products[key];
-                const productItem = document.createElement('div');
-                productItem.className = 'product-item';
-                productItem.innerHTML = `
-                    <h3>${product.productName}</h3>
-                    <p>Price: ${product.productPrice}</p>
-                    <p>Description: ${product.productDescription}</p>
-                    <p>Category: ${product.productCategory}</p>
-                    <img src="${product.productImage}" alt="${product.productName}">
-                    <button onclick="addToCart('${key}')">Add to Cart</button>
-                `;
-                productList.appendChild(productItem);
-            });
-        } else {
-            productList.innerHTML = '<p>No products available.</p>';
-        }
-    });
+            
+            
 
     // Add to cart functionality
     window.addToCart = async function(productId) {
