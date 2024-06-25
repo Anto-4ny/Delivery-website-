@@ -1392,10 +1392,10 @@ bodyforprofilepage{
 }
 /*other pages styles*/
 h1, h2 {
-            color: #333;
+            color: white;
         }
         p {
-            color: #555;
+            color: white;
         }
         .terms-image {
             width: 100%;
