@@ -6,6 +6,8 @@
     <title>Profile page</title>
     <link rel="stylesheet" href="styles.css"> 
     <script type="module" src="script.js"></script>
+</head>
+<body>
     <header>
         <div class="top-bar">
             <div class="containerforprofilepage">
@@ -23,9 +25,10 @@
             </div>
         </div>
         <div class="navbar">
-    <div class="container">
-        <a href="#" class="logo">
-            <img src="src/Photo_1718910483224.png" alt="Logo"></a>
+            <div class="container">
+                <a href="#" class="logo">
+                    <img src="src/Photo_1718910483224.png" alt="Logo">
+                </a>
                 <nav>
                     <ul>
                         <li><a href="index.html">Home</a></li>
@@ -37,40 +40,46 @@
             </div>
         </div>
     </header>
-</head>
-<body>
-    <!-- Header navigation -->
-    <header>
-        <nav class="alibaba-navigation">
-            <ul>
-                <li><a href="#manage-orders">Manage Orders</a></li>
-                <li><a href="#messenger">Messenger</a></li>
-                <li><a href="#shopping-cart">Shopping Cart</a></li>
-                <li><a href="#favorites">My Favorites</a></li>
-                <li><a href="#coupons">My Coupons</a></li>
-                <li><a href="#sell-on-alibaba">How to sell on Ele Max</a></li>
-                <li><a href="#settings">Settings</a></li>
-                <li><a href="#country-region">Country/Region, Currency & Language</a></li>
-                <li><a href="#post-product">Post Product/Service</a></li>
-            </ul>
-        </nav>
-    </header>
-<!-- Login and Signup Forms -->
-<main class="containerforprofilepage">
-        <!-- Product Form -->
-        <form id="product-form">
-            <input type="text" id="productName" placeholder="Product Name" required>
-            <input type="text" id="productPrice" placeholder="Product Price" required>
-            <textarea id="productDescription" placeholder="Product Description" required></textarea>
-            <input type="text" id="productCategory" placeholder="Product Category" required>
-            <input type="file" id="productImage" accept="image/*" required>
-            <button type="submit">Post Product</button>
-        </form>
 
-        <!-- Product List -->
-        <div id="product-list"></div>
-</main>
-    
+    <!-- Login and Signup Forms -->
+    <div class="containerforlogin">
+        <div class="login-box">
+            <div class="login-box-content">
+                <div class="login-form" id="signup-form">
+                    <h2>Sign Up</h2>
+                    <form onsubmit="return registerUser()">
+                        <input type="text" id="signup-username" placeholder="Username" required>
+                        <input type="email" id="signup-email" placeholder="Email" required>
+                        <input type="password" id="signup-password" placeholder="Password" required>
+                        <button type="submit">Sign Up</button>
+                    </form>
+                    <div class="social-login">
+                        <button id="google-signup">Sign Up with Google</button>
+                        <button id="facebook-signup">Sign Up with Facebook</button>
+                    </div>
+                    <p>Already have an account? <a href="#" id="switch-to-login">Login here</a></p>
+                </div>
+                <div class="login-form" id="login-form" style="display: none;">
+                    <h2>Login</h2>
+                    <form onsubmit="return loginUser()">
+                        <input type="email" id="login-email" placeholder="Email" required>
+                        <input type="password" id="login-password" placeholder="Password" required>
+                        <button type="submit">Login</button>
+                    </form>
+                    <div class="social-login">
+                        <button id="google-login">Login with Google</button>
+                        <button id="facebook-login">Login with Facebook</button>
+                    </div>
+                    <p>Don't have an account? <a href="#" id="switch-to-signup">Sign up here</a></p>
+                </div>
+                <div class="welcome-message">
+                    <h2>Welcome!</h2>
+                    <p>Please sign up or login to continue.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Main content sections -->
     <main class="containerforprofilepage">
         <!-- Profile form section -->
@@ -105,39 +114,37 @@
             </form>
         </section>
         <section id="post-product" class="content-section">
-    <h2>Post Product/Service</h2>
-    <form id="post-product-form">
-        <div>
-            <label for="product-name">Product Name:</label>
-            <input type="text" id="product-name" name="product-name" placeholder="Enter product name" required>
-        </div>
-        <div>
-            <label for="description">Description:</label>
-            <textarea id="description" name="description" rows="4" placeholder="Enter product description" required></textarea>
-        </div>
-        <div>
-            <label for="price">Price ($):</label>
-            <input type="number" id="price" name="price" step="0.01" placeholder="Enter product price" required>
-        </div>
-        <div>
-            <label for="category">Category:</label>
-            <select id="category" name="category" required>
-                <option value="" selected disabled>Select Category</option>
-                <option value="Electronics">Electronics</option>
-                <option value="Apparel">Apparel</option>
-                <option value="Home & Garden">Home & Garden</option>
-                <option value="Machinery">Machinery</option>
-                <!-- Add more options as needed -->
-            </select>
-        </div>
-        <div>
-            <label for="media">Media (Image/Video):</label>
-            <input type="file" id="media" name="media" accept="image/*, video/*" required>
-        </div>
-        <button type="submit">Post Product/Service</button>
-    </form>
+            <h2>Post Product/Service</h2>
+            <form id="post-product-form">
+                <div>
+                    <label for="product-name">Product Name:</label>
+                    <input type="text" id="product-name" name="product-name" placeholder="Enter product name" required>
+                </div>
+                <div>
+                    <label for="description">Description:</label>
+                    <textarea id="description" name="description" rows="4" placeholder="Enter product description" required></textarea>
+                </div>
+                <div>
+                    <label for="price">Price ($):</label>
+                    <input type="number" id="price" name="price" step="0.01" placeholder="Enter product price" required>
+                </div>
+                <div>
+                    <label for="category">Category:</label>
+                    <select id="category" name="category" required>
+                        <option value="" selected disabled>Select Category</option>
+                        <option value="Electronics">Electronics</option>
+                        <option value="Apparel">Apparel</option>
+                        <option value="Home & Garden">Home & Garden</option>
+                        <option value="Machinery">Machinery</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="media">Media (Image/Video):</label>
+                    <input type="file" id="media" name="media" accept="image/*, video/*" required>
+                </div>
+                <button type="submit">Post Product/Service</button>
+            </form>
         </section>
-        
 
         <!-- Product display section -->
         <section id="product-section">
@@ -146,7 +153,8 @@
                 <!-- Products will be dynamically added here -->
             </div>
         </section>
-    <script src="script.js"></script>
+    </main>
+
     <footer>
         <div class="footer-top">
             <div class="container">
@@ -195,10 +203,9 @@
                 <p>&copy; 2024 ELE MAX. All rights reserved.</p>
             </div>
         </div>
-    </main>
     </footer>
-    <script src="script.js"></script>
-  </body>
-</html>
+
+    <script type="module" src="script.js"></script>
+</body>
+    </html>
     
-              
