@@ -55,52 +55,7 @@
     </div>
     </section>
 
-    <div class="reviews-section">
-  <h2>Customer Reviews</h2>
-  <div class="reviews-container">
-    <!-- Reviews will be dynamically inserted here -->
-  </div>
-    </div>
-    <form id="review-form">
-  <input type="text" id="name" placeholder="Your Name" required>
-  <input type="url" id="profilePic" placeholder="Profile Picture URL" required>
-  <textarea id="reviewText" placeholder="Your Review" required></textarea>
-  <button type="submit">Submit Review</button>
-</form>
-
-<script>
-document.getElementById('review-form').addEventListener('submit', async (event) => {
-  event.preventDefault();
-  const name = document.getElementById('name').value;
-  const profilePic = document.getElementById('profilePic').value;
-  const reviewText = document.getElementById('reviewText').value;
-
-  const response = await fetch('http://localhost:3000/api/reviews', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ name, profilePic, text: reviewText })
-  });
-
-  if (response.ok) {
-    fetchReviews();  // Refresh reviews
-  } else {
-    console.error('Error adding review');
-  }
-});
-</script>
-    
-<footer>
-    <div class="footer-logo">
-        <img src="src/Photo_1717591968948.png" alt="Antocap Technologies Logo">
-    </div>
-    <ul class="nav-linksforfooter">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="services.html">Services</a></li>
-        <li><a href="#">About Us</a></li>
-        <li><a href="contact us.html">Contact Us</a></li>
-        <li><a href="#">Sign Up</a></li>
-        <li><a href="login.html">Login</a></li>
-    </ul>
+    </section>
     <div class="social-media">
         <a href="#"><img src="src/Social media/facebook icon.jpg" alt="Facebook"></a>
         <a href="#"><img src="src/Social media/Twitter icon.png" alt="Twitter"></a>
@@ -108,13 +63,61 @@ document.getElementById('review-form').addEventListener('submit', async (event) 
         <a href="https://www.instagram.com/yourprofile" target="_blank"><img src="src/Social media/Instagram icon.jpeg" alt="Instagram"></a>
         <a href="https://api.whatsapp.com/send?phone=yourphonenumber" target="_blank"><img src="src/Social media/Whatsapp icon.jpeg" alt="WhatsApp"></a>
         <a href="https://www.youtube.com/c/yourchannel" target="_blank"><img src="src/Social media/YouTube icon.jpeg" alt="YouTube"></a>
-        <a href="https://www.snapchat.com/add/yourusername" target="_blank"><img src="src/Social media/Snapchat icon.jpeg.png" alt="Snapchat"></a>
-        <a href="https://www.tiktok.com/@yourusername" target="_blank"><img src="src/Social media/TikTok icon.jpeg.png" alt="TikTok"></a>
      </div>
-</footer>
-    <p class="copyright">2024 ELE MAX. All rights reserved.</p>
+       
+    <!-- Footer -->
+    <footer>
+        <div class="footer-top">
+            <div class="container">
+                <div class="footer-columns">
+                    <div class="footer-column">
+                        <h3>Customer Services</h3>
+                        <ul>
+                            <li><a href="contact us.html">Help Center</a></li>
+                            <li><a href="contact us.html">Contact Us</a></li>
+                            <li><a href="contact us.html">Report Abuse</a></li>
+                            <li><a href="contact us.html">Submit a Dispute</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h3>About Us</h3>
+                        <ul>
+                            <li><a href="company.html">Company Overview</a></li>
+                            <li><a href="careers.html">Careers</a></li>
+                            <li><a href="terms.html">Terms of Use</a></li>
+                            <li><a href="privacy.html">Privacy Policy</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h3>Buy on Our Site</h3>
+                        <ul>
+                            <li><a href="categories.html">All Categories</a></li>
+                            <li><a href="contact us.html">Request for Quotation</a></li>
+                            <li><a href="readytoship.html">Ready to Ship</a></li>
+                            <li><a href="services.html">Buyer Protection</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h3>Sell on Our Site</h3>
+                        <ul>
+                            <li><a href="suppliers.html">Supplier Membership</a></li>
+                            <li><a href="profile.html">Learning Center</a></li>
+                            <li><a href="profile.html">Partner Program</a></li>
+                            <li><a href="profile.html">Logistics Services</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <p>&copy; 2024 ELE MAX. All rights reserved.</p>
+            </div>
+        </div>
+    </main>
+    </footer>
     <script src="script.js"></script>
-</html>
 </body>
-              </html>
-              
+</html>
+                    
+            
