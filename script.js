@@ -19,10 +19,10 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app); 
-const auth = getAuth(app);
-const db = getDatabase(app);
-const storage = getStorage(app);
+const analytics = getAnalytics(app);
+const auth = getAuth(firebaseConfig);
+const db = getDatabase(firebaseConfig);
+const storage = getStorage(firebaseConfig);
 
 // Handle registration
 window.registerUser = function () {
