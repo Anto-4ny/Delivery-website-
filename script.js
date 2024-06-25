@@ -152,20 +152,25 @@ function saveProductData(uid, name, description, price, category, mediaURL) {
     .catch((error) => console.error('Error posting product:', error));
 }
 
-// Function to fetch and display products
-function fetchProducts() {
-    const productList = document.getElementById('product-list');
-    productList.innerHTML = ''; // Clear current products
-
-    onValue(ref(db, 'products'), (snapshot) => {
-        const products = snapshot.val();
-        for (let productId in products) {
-            const product = products[productId];
-            const productElement = createProductElement(product);
-            productList.appendChild(productElement);
-        }
-    });
+// Function to save product data
+function saveProductData(uid, name, description, price, category, mediaURL) {
+    const newProductRef = ref(db, 'products').push();
+    set(newProductRef, {
+        userId: uid,
+        name: name,
+        description: description,
+        price: price,
+        category: category,
+        mediaURL: mediaURL
+    })
+    .then(() => {
+        alert('Product posted successfully!');
+        document.getElementById('post-product-form').reset();
+        fetchProducts(); // Refresh product list
+    })
+    .catch((error) => console.error('Error posting product:', error));
 }
+
 
 // Function to create product HTML element
 function createProductElement(product) {
