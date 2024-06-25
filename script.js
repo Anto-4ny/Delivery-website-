@@ -1,6 +1,4 @@
-// Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-analytics.js";
 import { getAuth, signInWithPopup, GoogleAuthProvider, FacebookAuthProvider } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 import { getDatabase, ref, set, push, onValue, update } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 import { getStorage, ref as storageRef, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js";
@@ -19,7 +17,6 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
 const auth = getAuth();
 const db = getDatabase();
 const storage = getStorage();
@@ -171,12 +168,11 @@ document.getElementById('switch-to-signup').addEventListener('click', (e) => {
 
 // Initial call to check authentication state
 checkAuthState();
-    
-// Profile page functionality
-document.addEventListener('DOMContentLoaded', function() {
+//profpage
+document.addEventListener('DOMContentLoaded', () => {
     // Handle product form submission
     const productForm = document.getElementById('product-form');
-    productForm.addEventListener('submit', function(event) {
+    productForm.addEventListener('submit', async (event) => {
         event.preventDefault();
 
         const productName = productForm.querySelector('#productName').value;
@@ -190,35 +186,29 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
 
-        // Upload image to Firebase Storage
-        const imageRef = storageRef(storage, `productImages/${productImage.name}`);
-        uploadBytes(imageRef, productImage).then(() => {
-            console.log('Image uploaded successfully.');
-            // Get download URL for the image
-            getDownloadURL(imageRef).then((imageUrl) => {
-                console.log('Image URL:', imageUrl);
-                // Save product details to Realtime Database
-                const newProductKey = push(ref(db, 'products')).key;
-                const updates = {};
-                updates['/products/' + newProductKey] = {
-                    productName: productName,
-                    productPrice: productPrice,
-                    productDescription: productDescription,
-                    productCategory: productCategory,
-                    productImage: imageUrl
-                };
-                update(ref(db), updates).then(() => {
-                    alert('Product posted successfully!');
-                    productForm.reset();
-                }).catch(error => {
-                    console.error('Error posting product:', error);
-                });
-            }).catch(error => {
-                console.error('Error getting image URL:', error);
-            });
-        }).catch(error => {
-            console.error('Error uploading image:', error);
-        });
+        try {
+            // Upload image to Firebase Storage
+            const imageRef = storageRef(storage, `productImages/${productImage.name}`);
+            await uploadBytes(imageRef, productImage);
+            const imageUrl = await getDownloadURL(imageRef);
+            console.log('Image URL:', imageUrl);
+
+            // Save product details to Realtime Database
+            const newProductKey = push(ref(db, 'products')).key;
+            const updates = {};
+            updates['/products/' + newProductKey] = {
+                productName,
+                productPrice,
+                productDescription,
+                productCategory,
+                productImage: imageUrl
+            };
+            await update(ref(db), updates);
+            alert('Product posted successfully!');
+            productForm.reset();
+        } catch (error) {
+            console.error('Error posting product:', error);
+        }
     });
 
     // Fetch and display products
@@ -247,18 +237,20 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Add to cart functionality
-    window.addToCart = function(productId) {
+    window.addToCart = async function(productId) {
         if (!auth.currentUser) {
             alert('Please log in to add products to the cart.');
             return;
         }
         const userId = auth.currentUser.uid;
         const cartRef = ref(db, 'carts/' + userId + '/' + productId);
-        set(cartRef, true).then(() => {
+        try {
+            await set(cartRef, true);
             alert('Product added to cart successfully!');
-        }).catch(error => {
+        } catch (error) {
             console.error('Error adding product to cart:', error);
-        });
-    }
+        }
+    };
 });
-                                          
+        
+
