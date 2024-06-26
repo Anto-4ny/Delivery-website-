@@ -75,11 +75,47 @@ function logoutUser() {
   signOut(auth)
     .then(() => {
       alert('User logged out successfully');
+      updateUIForLoggedOutUser();
     })
     .catch((error) => {
       console.error(error);
       alert(error.message);
     });
+}
+
+// Update UI functions
+function updateUIForLoggedInUser(user) {
+  const userDisplay = document.getElementById('user-display');
+  if (userDisplay) {
+    userDisplay.textContent = `Welcome, ${user.email}`;
+  }
+
+  const loginLink = document.getElementById('login-link');
+  if (loginLink) {
+    loginLink.style.display = 'none';
+  }
+
+  const logoutLink = document.getElementById('logout-link');
+  if (logoutLink) {
+    logoutLink.style.display = 'inline';
+  }
+}
+
+function updateUIForLoggedOutUser() {
+  const userDisplay = document.getElementById('user-display');
+  if (userDisplay) {
+    userDisplay.textContent = '';
+  }
+
+  const loginLink = document.getElementById('login-link');
+  if (loginLink) {
+    loginLink.style.display = 'inline';
+  }
+
+  const logoutLink = document.getElementById('logout-link');
+  if (logoutLink) {
+    logoutLink.style.display = 'none';
+  }
 }
 
 // Validation functions
