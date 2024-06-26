@@ -1,3 +1,4 @@
+
 // Import Firebase modules
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-analytics.js";
@@ -24,9 +25,11 @@ const database = getDatabase(app);
 // Monitor auth state
 onAuthStateChanged(auth, user => {
   if (user) {
+    // User is signed in
     localStorage.setItem('user', JSON.stringify(user));
     updateUIForLoggedInUser(user);
   } else {
+    // User is signed out
     localStorage.removeItem('user');
     updateUIForLoggedOutUser();
   }
@@ -164,5 +167,5 @@ function loginUser(event) {
     });
 
   return false;
-  }
-  
+}
+      
