@@ -23,84 +23,111 @@ const db = getDatabase(app);
 const storage = getStorage(app);
 
 // Handle registration
-window.registerUser = function () {
-    const username = document.getElementById('signup-username').value;
-    const email = document.getElementById('signup-email').value;
-    const password = document.getElementById('signup-password').value;
 
-    // Validate password strength (6-8 characters including letters, underscores, and numbers)
-    if (!isValidPassword(password)) {
-        alert('Password must be 6-8 characters long and include letters, underscores, and numbers.');
-        return false;
-    }
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+const database = firebase.database();
 
-    // Check if email or username already exists
-    checkEmailAndUsernameExists(email, username)
-        .then((exists) => {
-            if (exists) {
-                alert('Email or username already exists. Please choose another.');
-                return false;
-            } else {
-                // Create user with email and password
-                createUserWithEmailAndPassword(auth, email, password)
-                    .then((userCredential) => {
-                        const user = userCredential.user;
-                        set(ref(db, 'users/' + user.uid), {
-                            username: username,
-                            email: email,
-                        });
-                        displayWelcomeMessage(user.displayName || username);
-                        return false;
-                    })
-                    .catch((error) => {
-                        console.error('Error signing up:', error);
-                        alert('Error signing up: ' + error.message);
-                        return false;
-                    });
-            }
-        })
-        .catch((error) => {
-            console.error('Error checking email and username:', error);
-            alert('Error checking email and username: ' + error.message);
-            return false;
-        });
-
-    return false; // Prevent default form submission
-};
-
-// Function to validate password strength
-function isValidPassword(password) {
-    const passwordRegex = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[_])[A-Za-z\d_]{6,8}$/;
-    return passwordRegex.test(password);
+// Validation functions
+function isUsernameValid(username) {
+  const usernameRegex = /^[a-zA-Z0-9_]+$/;
+  return usernameRegex.test(username);
 }
 
-// Function to check if email or username exists
-function checkEmailAndUsernameExists(email, username) {
-    return new Promise((resolve, reject) => {
-        const usersRef = ref(db, 'users');
-        onValue(usersRef, (snapshot) => {
-            const users = snapshot.val();
-            for (let userId in users) {
-                const user = users[userId];
-                if (user.email === email || user.username === username) {
-                    resolve(true); // Email or username exists
-                    return;
-                }
-            }
-            resolve(false); // Email and username are unique
-        }, {
-            onlyOnce: true // To retrieve data once
-        });
+function isPasswordStrong(password) {
+  const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d_]{6,8}$/;
+  return passwordRegex.test(password);
+}
+
+function validateForm(username, email, password) {
+  if (!isUsernameValid(username)) {
+    alert('Username must contain only letters, numbers, and underscores.');
+    return false;
+  }
+  
+  if (password.length < 6 || password.length > 8) {
+    alert('Password must be 6-8 characters long.');
+    return false;
+  }
+
+  if (!isPasswordStrong(password)) {
+    alert('Password must contain at least one uppercase letter, one lowercase letter, and one number.');
+    return false;
+  }
+
+  if (username === password) {
+    alert('Username cannot be the same as the password.');
+    return false;
+  }
+
+  if (email === password) {
+    alert('Email cannot be the same as the password.');
+    return false;
+  }
+
+  return true;
+}
+
+// User registration function
+function registerUser(event) {
+  event.preventDefault();
+  const username = document.getElementById('signup-username').value;
+  const email = document.getElementById('signup-email').value;
+  const password = document.getElementById('signup-password').value;
+
+  if (!validateForm(username, email, password)) {
+    return false;
+  }
+
+  auth.createUserWithEmailAndPassword(email, password)
+    .then((userCredential) => {
+      const user = userCredential.user;
+      // Save additional user data in the database
+      database.ref('users/' + user.uid).set({
+        username: username,
+        email: email,
+      });
+      alert('User registered successfully');
+    })
+    .catch((error) => {
+      console.error(error);
+      alert(error.message);
     });
+
+  return false;
 }
 
-// Function to display welcome message
-function displayWelcomeMessage(username) {
-    const welcomeMessage = document.querySelector('.welcome-message');
-    welcomeMessage.innerHTML = `<h2>Welcome, ${username}!</h2><p>You are now registered and logged in.</p>`;
-    // Optionally, hide the signup/login forms or redirect to another page
+// User login function
+function loginUser(event) {
+  event.preventDefault();
+  const email = document.getElementById('login-email').value;
+  const password = document.getElementById('login-password').value;
+
+  auth.signInWithEmailAndPassword(email, password)
+    .then((userCredential) => {
+      alert('User logged in successfully');
+    })
+    .catch((error) => {
+      console.error(error);
+      alert(error.message);
+    });
+
+  return false;
 }
 
+// Toggle between login and signup forms
+document.getElementById('switch-to-login').addEventListener('click', () => {
+  document.getElementById('signup-form').style.display = 'none';
+  document.getElementById('login-form').style.display = 'block';
+});
+
+document.getElementById('switch-to-signup').addEventListener('click', () => {
+  document.getElementById('login-form').style.display = 'none';
+  document.getElementById('signup-form').style.display = 'block';
+});
+
+// Social login functions can be added similarly
+      
 // Handle product posting
 document.getElementById('post-product-form').addEventListener('submit', (e) => {
     e.preventDefault();
