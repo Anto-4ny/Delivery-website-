@@ -1,6 +1,9 @@
-// firebase-init.js
+// Import Firebase modules
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-analytics.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
-// Your Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyDJ1g4qrix-xtkJN1dtEWXZ6SSUUHt04Cw",
   authDomain: "ele-max-delivery.firebaseapp.com",
@@ -13,13 +16,13 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-
-firebase.initializeApp(firebaseConfig);
-const auth = firebase.auth();
-const database = firebase.database();
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+const auth = getAuth(app);
+const database = getDatabase(app);
 
 // Monitor auth state
-auth.onAuthStateChanged(user => {
+onAuthStateChanged(auth, user => {
   if (user) {
     localStorage.setItem('user', JSON.stringify(user));
     updateUIForLoggedInUser(user);
@@ -29,9 +32,8 @@ auth.onAuthStateChanged(user => {
   }
 });
 
-// Update UI functions (to be defined in each HTML page)
+// Update UI functions
 function updateUIForLoggedInUser(user) {
-  // Update the UI to show user info
   const userDisplay = document.getElementById('user-display');
   if (userDisplay) {
     userDisplay.textContent = `Welcome, ${user.email}`;
@@ -67,7 +69,7 @@ function updateUIForLoggedOutUser() {
 
 // Logout function
 function logoutUser() {
-  auth.signOut()
+  signOut(auth)
     .then(() => {
       alert('User logged out successfully');
     })
@@ -76,4 +78,91 @@ function logoutUser() {
       alert(error.message);
     });
 }
+
+// Validation functions
+function isUsernameValid(username) {
+  const usernameRegex = /^[a-zA-Z0-9_]+$/;
+  return usernameRegex.test(username);
+}
+
+function isPasswordStrong(password) {
+  const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d_]{6,8}$/;
+  return passwordRegex.test(password);
+}
+
+function validateForm(username, email, password) {
+  if (!isUsernameValid(username)) {
+    alert('Username must contain only letters, numbers, and underscores.');
+    return false;
+  }
+  
+  if (password.length < 6 || password.length > 8) {
+    alert('Password must be 6-8 characters long.');
+    return false;
+  }
+
+  if (!isPasswordStrong(password)) {
+    alert('Password must contain at least one uppercase letter, one lowercase letter, and one number.');
+    return false;
+  }
+
+  if (username === password) {
+    alert('Username cannot be the same as the password.');
+    return false;
+  }
+
+  if (email === password) {
+    alert('Email cannot be the same as the password.');
+    return false;
+  }
+
+  return true;
+}
+
+// User registration function
+function registerUser(event) {
+  event.preventDefault();
+  const username = document.getElementById('signup-username').value;
+  const email = document.getElementById('signup-email').value;
+  const password = document.getElementById('signup-password').value;
+
+  if (!validateForm(username, email, password)) {
+    return false;
+  }
+
+  createUserWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+      const user = userCredential.user;
+      // Save additional user data in the database
+      set(ref(database, 'users/' + user.uid), {
+        username: username,
+        email: email,
+      });
+      alert('User registered successfully');
+    })
+    .catch((error) => {
+      console.error(error);
+      alert(error.message);
+    });
+
+  return false;
+}
+
+// User login function
+function loginUser(event) {
+  event.preventDefault();
+  const email = document.getElementById('login-email').value;
+  const password = document.getElementById('login-password').value;
+
+  signInWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+      alert('User logged in successfully');
+    })
+    .catch((error) => {
+      console.error(error);
+      alert(error.message);
+    });
+
+  return false;
+  }
   
