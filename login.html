@@ -25,7 +25,7 @@
         </div>
         <div class="navbar">
     <div class="container">
-        <a href="#" class="logo">
+        <a href="index.html" class="logo">
             <img src="src/Photo_1718910483224.png" alt="Logo"></a>
                 <nav>
                     <ul>
@@ -39,24 +39,27 @@
         </div>
     </header>
     <body>
+        
     <div class="containerforlogin">
         <div class="login-box">
             <div class="login-box-content">
                 <div class="login-form">
+                    <div class="login-form" id="login-form" style="display: none;">
                     <h2>Login</h2>
-                    <form id="loginForm" onsubmit="return loginUser()">
-                        <input type="text" id="username" placeholder="Username" required>
-                        <input type="password" id="password" placeholder="Password" required>
+                    <form onsubmit="return loginUser(event)">
+                        <input type="email" id="login-email" placeholder="Email" required>
+                        <input type="password" id="login-password" placeholder="Password" required>
                         <button type="submit">Login</button>
                     </form>
                     <div class="social-login">
                         <button id="google-login">Login with Google</button>
                         <button id="facebook-login">Login with Facebook</button>
                     </div>
+                    <p>Don't have an account? <a href="#" id="switch-to-signup">Sign up here</a></p>
                 </div>
-                <div class="welcome-message">
+                <div class="welcome-message" style="display: none;">
                     <h2>Welcome!</h2>
-                    <p>Please log in to continue.</p>
+                    <p>Please sign up or login to continue.</p>
                 </div>
             </div>
         </div>
