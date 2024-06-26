@@ -45,7 +45,7 @@
             <div class="login-box-content">
                 <div class="login-form" id="signup-form">
                     <h2>Sign Up</h2>
-                    <form onsubmit="return registerUser()">
+                    <form onsubmit="return registerUser(event)">
                         <input type="text" id="signup-username" placeholder="Username" required>
                         <input type="email" id="signup-email" placeholder="Email" required>
                         <input type="password" id="signup-password" placeholder="Password" required>
@@ -59,7 +59,7 @@
                 </div>
                 <div class="login-form" id="login-form" style="display: none;">
                     <h2>Login</h2>
-                    <form onsubmit="return loginUser()">
+                    <form onsubmit="return loginUser(event)">
                         <input type="email" id="login-email" placeholder="Email" required>
                         <input type="password" id="login-password" placeholder="Password" required>
                         <button type="submit">Login</button>
@@ -70,13 +70,14 @@
                     </div>
                     <p>Don't have an account? <a href="#" id="switch-to-signup">Sign up here</a></p>
                 </div>
-                <div class="welcome-message">
+                <div class="welcome-message" style="display: none;">
                     <h2>Welcome!</h2>
                     <p>Please sign up or login to continue.</p>
                 </div>
             </div>
         </div>
     </div>
+    
 
     <!-- Main content sections -->
     <main class="containerforprofilepage">
