@@ -22,6 +22,7 @@ const auth = getAuth(app);
 const db = getDatabase(app);
 const storage = getStorage(app);
 const database = firebase.database();
+const auth = firebase.auth();
 
 //paypal and stripe payments 
 document.addEventListener('DOMContentLoaded', function () {
@@ -31,47 +32,54 @@ document.addEventListener('DOMContentLoaded', function () {
     const errorMessage = document.getElementById('error-message');
     
     const stripe = Stripe('YOUR_STRIPE_PUBLISHABLE_KEY');
-    
-    stripeButton.addEventListener('click', function () {
-        if (validateForm()) {
-            const userData = {
-                name: checkoutForm.name.value,
-                email: checkoutForm.email.value,
-                paymentMethod: 'stripe'
-            };
 
-            saveUserData(userData)
-                .then((sessionId) => {
-                    return stripe.redirectToCheckout({ sessionId: sessionId });
-                })
-                .catch(error => showError(error.message));
+    // Monitor auth state
+    auth.onAuthStateChanged(user => {
+        if (user) {
+            stripeButton.addEventListener('click', function () {
+                if (validateForm()) {
+                    const userData = {
+                        name: checkoutForm.name.value,
+                        email: checkoutForm.email.value,
+                        paymentMethod: 'stripe'
+                    };
+
+                    saveUserData(user.uid, userData)
+                        .then((sessionId) => {
+                            return stripe.redirectToCheckout({ sessionId: sessionId });
+                        })
+                        .catch(error => showError(error.message));
+                }
+            });
+
+            paypal.Buttons({
+                createOrder: function (data, actions) {
+                    if (validateForm()) {
+                        const userData = {
+                            name: checkoutForm.name.value,
+                            email: checkoutForm.email.value,
+                            paymentMethod: 'paypal'
+                        };
+
+                        return saveUserData(user.uid, userData)
+                            .then((orderId) => orderId)
+                            .catch(error => showError(error.message));
+                    }
+                },
+                onApprove: function (data, actions) {
+                    return actions.order.capture().then(function (details) {
+                        alert('Transaction completed by ' + details.payer.name.given_name);
+                    });
+                },
+                onError: function (err) {
+                    showError('An error occurred with PayPal. Please try again.');
+                }
+            }).render('#paypal-button');
+        } else {
+            showError('User is not authenticated.');
         }
     });
 
-    paypal.Buttons({
-        createOrder: function (data, actions) {
-            if (validateForm()) {
-                const userData = {
-                    name: checkoutForm.name.value,
-                    email: checkoutForm.email.value,
-                    paymentMethod: 'paypal'
-                };
-
-                return saveUserData(userData)
-                    .then((orderId) => orderId)
-                    .catch(error => showError(error.message));
-            }
-        },
-        onApprove: function (data, actions) {
-            return actions.order.capture().then(function (details) {
-                alert('Transaction completed by ' + details.payer.name.given_name);
-            });
-        },
-        onError: function (err) {
-            showError('An error occurred with PayPal. Please try again.');
-        }
-    }).render('#paypal-button');
-    
     function validateForm() {
         if (!checkoutForm.name.value.trim() || !checkoutForm.email.value.trim()) {
             showError('Please fill in all required fields.');
@@ -84,10 +92,8 @@ document.addEventListener('DOMContentLoaded', function () {
         errorMessage.textContent = message;
     }
 
-    function saveUserData(userData) {
+    function saveUserData(userId, userData) {
         return new Promise((resolve, reject) => {
-            const userId = database.ref().child('users').push().key;
-
             database.ref('users/' + userId).set(userData, (error) => {
                 if (error) {
                     reject(new Error('Failed to save user data.'));
