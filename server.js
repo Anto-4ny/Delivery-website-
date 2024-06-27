@@ -14,6 +14,14 @@ app.post('/create-payment-session', async (req, res) => {
     const { userId, paymentMethod } = req.body;
 
     try {
+        const userRef = admin.database().ref(`users/${userId}`);
+        const userSnapshot = await userRef.once('value');
+        const user = userSnapshot.val();
+
+        if (!user) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
         if (paymentMethod === 'stripe') {
             const session = await stripe.checkout.sessions.create({
                 payment_method_types: ['card'],
@@ -30,7 +38,7 @@ app.post('/create-payment-session', async (req, res) => {
                 mode: 'payment',
                 success_url: 'https://yourdomain.com/success',
                 cancel_url: 'https://yourdomain.com/cancel',
-                customer_email: user.email, // Assuming user email is saved in Firebase
+                customer_email: user.email,
             });
             res.json({ sessionId: session.id });
         } else if (paymentMethod === 'paypal') {
@@ -47,4 +55,3 @@ app.post('/create-payment-session', async (req, res) => {
 app.listen(3000, () => {
     console.log('Server is running on port 3000');
 });
-              
