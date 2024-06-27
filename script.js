@@ -21,8 +21,102 @@ const analytics = getAnalytics(app);
 const auth = getAuth(app);
 const db = getDatabase(app);
 const storage = getStorage(app);
+const database = firebase.database();
 
+//paypal and stripe payments 
+document.addEventListener('DOMContentLoaded', function () {
+    const checkoutForm = document.getElementById('checkout-form');
+    const stripeButton = document.getElementById('stripe-button');
+    const paypalButton = document.getElementById('paypal-button');
+    const errorMessage = document.getElementById('error-message');
+    
+    const stripe = Stripe('YOUR_STRIPE_PUBLISHABLE_KEY');
+    
+    stripeButton.addEventListener('click', function () {
+        if (validateForm()) {
+            const userData = {
+                name: checkoutForm.name.value,
+                email: checkoutForm.email.value,
+                paymentMethod: 'stripe'
+            };
 
+            saveUserData(userData)
+                .then((sessionId) => {
+                    return stripe.redirectToCheckout({ sessionId: sessionId });
+                })
+                .catch(error => showError(error.message));
+        }
+    });
+
+    paypal.Buttons({
+        createOrder: function (data, actions) {
+            if (validateForm()) {
+                const userData = {
+                    name: checkoutForm.name.value,
+                    email: checkoutForm.email.value,
+                    paymentMethod: 'paypal'
+                };
+
+                return saveUserData(userData)
+                    .then((orderId) => orderId)
+                    .catch(error => showError(error.message));
+            }
+        },
+        onApprove: function (data, actions) {
+            return actions.order.capture().then(function (details) {
+                alert('Transaction completed by ' + details.payer.name.given_name);
+            });
+        },
+        onError: function (err) {
+            showError('An error occurred with PayPal. Please try again.');
+        }
+    }).render('#paypal-button');
+    
+    function validateForm() {
+        if (!checkoutForm.name.value.trim() || !checkoutForm.email.value.trim()) {
+            showError('Please fill in all required fields.');
+            return false;
+        }
+        return true;
+    }
+
+    function showError(message) {
+        errorMessage.textContent = message;
+    }
+
+    function saveUserData(userData) {
+        return new Promise((resolve, reject) => {
+            const userId = database.ref().child('users').push().key;
+
+            database.ref('users/' + userId).set(userData, (error) => {
+                if (error) {
+                    reject(new Error('Failed to save user data.'));
+                } else {
+                    // Assuming your backend endpoint returns a session/order ID
+                    fetch('/create-payment-session', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            userId: userId,
+                            paymentMethod: userData.paymentMethod
+                        }),
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.error) {
+                            reject(new Error(data.error));
+                        } else {
+                            resolve(data.sessionId || data.orderId);
+                        }
+                    })
+                    .catch(error => reject(new Error('An error occurred. Please try again.')));
+                }
+            });
+        });
+    }
+});
       
 // Handle product posting
 document.getElementById('post-product-form').addEventListener('submit', (e) => {
