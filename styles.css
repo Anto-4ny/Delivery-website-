@@ -1431,6 +1431,64 @@ h1, h2 {
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
+
+/*check out page*/
+h1 {
+    text-align: center;
+    padding: 20px 0;
+}
+
+.checkout-form {
+    background: #fff;
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.field {
+    margin-bottom: 15px;
+}
+
+.field label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.field input {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+}
+
+.payment-options h2 {
+    text-align: center;
+}
+
+.payment-options button {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    margin: 10px 0;
+    background: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.payment-options button:hover {
+    background: #0056b3;
+}
+
+.error-message {
+    color: red;
+    margin-top: 20px;
+    text-align: center;
+    }
+    
+
 .social-media {
     display: flex;
     flex-wrap: wrap; /* Allow icons to wrap onto new lines */
