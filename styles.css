@@ -597,7 +597,6 @@ button:hover {
     }
 }
 /* Just For You Section */
-/* Just For You Section */
 .just-for-you {
     padding: 20px 0;
 }
@@ -646,6 +645,7 @@ button:hover {
 
 .carousel-inner img {
     width: 100%;
+    height: auto;
     flex-shrink: 0;
     transition: transform 0.5s ease;
 }
@@ -658,6 +658,25 @@ button:hover {
         transform: translateX(calc(-100% * 4)); /* Adjust for number of items */
     }
 }
+
+/* Media query for responsiveness */
+@media screen and (max-width: 768px) {
+    .major-box {
+        flex: 1 1 auto; /* Allow boxes to flexibly adjust width */
+        margin: 10px 5px; /* Adjust margins for better spacing */
+    }
+
+    .carousel {
+        width: 100%; /* Take full width on smaller screens */
+        max-width: none; /* Remove maximum width restriction */
+        height: auto; /* Allow height to adjust based on content */
+    }
+
+    .carousel-inner {
+        animation: scroll 15s linear infinite; /* Ensure animation continues */
+    }
+}
+
 
 .other-products {
     display: flex;
