@@ -2,8 +2,45 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self';">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trade Assurance - ELE MAX</title>
+    <title>Ele Max Delivery checkout page</title>
+    <link rel="stylesheet" href="styles.css">
+    <script type="module" src="firebase-init.js"></script>
+    <script src="script.js"></script>
+</head>
+<body>
+    <header>
+        <div class="top-bar">
+            <div class="container">
+                <div class="top-links">
+                    <a href="suppliers.html">Suppliers</a>
+                    <a href="servicesmrkt.html">Services</a>
+                    <a href="profile.html">Sell on Your Marketplace</a>
+                    <a href="help.html">Help</a>
+                </div>
+                <div class="account-links">
+                    <div id="user-display"></div>
+      <a href="login.html" id="login-link" style="display: inline;">Login</a>
+      <a href="javascript:void(0);" id="logout-link" style="display: none;" onclick="logoutUser()">Logout</a>
+                </div>
+            </div>
+        </div>
+        <div class="navbar">
+    <div class="container">
+        <a href="index.html" class="logo">
+            <img src="src/Photo_1718910483224.png" alt="Logo"></a>
+                <nav>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="categories.html">Categories</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="contact us.html">Contact</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
     <style>
         body {
             font-family: Arial, sans-serif;
