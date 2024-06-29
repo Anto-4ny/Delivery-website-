@@ -582,12 +582,13 @@ button:hover {
 
 .major-boxes {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-around;
     margin-bottom: 20px;
 }
 
 .major-box {
-    flex: 1;
+    flex: 1 1 300px; /* Adjust width as needed */
     margin: 0 10px;
     background: #f4f4f4;
     padding: 10px;
@@ -595,15 +596,23 @@ button:hover {
     box-sizing: border-box;
 }
 
+.carousel-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px; /* Add margin for separation */
+}
+
 .carousel {
     position: relative;
     overflow: hidden;
+    width: 50%; /* Adjust width as needed */
+    max-width: 600px; /* Limit maximum width if necessary */
     height: 200px; /* Adjust the height as needed */
 }
 
 .carousel-inner {
     display: flex;
-    animation: scroll 15s linear infinite;
+    animation: scroll 15s linear infinite; /* Adjust timing as needed */
 }
 
 .carousel-inner img {
@@ -613,12 +622,21 @@ button:hover {
 }
 
 @keyframes scroll {
-    0% { transform: translateX(0); }
-    25% { transform: translateX(-100%); }
-    50% { transform: translateX(-200%); }
-    75% { transform: translateX(-100%); }
-    100% { transform: translateX(0); }
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(calc(-100% * 4)); /* Adjust for number of items */
+    }
 }
+
+.other-products {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+
 
 .other-products {
     display: flex;
