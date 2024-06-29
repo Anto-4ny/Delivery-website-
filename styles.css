@@ -630,6 +630,11 @@ button:hover {
     max-width: calc(50% - 20px); /* Two boxes per row on larger screens */
 }
 
+.major-box img {
+    max-width: 100%; /* Ensure images don't exceed their container */
+    height: auto; /* Maintain aspect ratio */
+}
+
 .carousel-wrapper {
     display: flex;
     justify-content: center;
@@ -678,14 +683,11 @@ button:hover {
     }
 }
 
-
 .other-products {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
 }
-
-
 
 .other-products {
     display: flex;
