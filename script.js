@@ -279,31 +279,105 @@ function viewProduct(productId, category) {
     productDetail.scrollIntoView();
 }
 
-const cart = [];
+// Initialize cart count
+let cartCount = 0;
 
-function addToCart(productId, category) {
-    const product = products[category].find(p => p.id === productId);
-    cart.push(product);
-    alert(`${product.name} added to cart`);
-    displayCart();
+// Update the cart count displayed on the cart icon
+function updateCartCount() {
+    const cartCountElement = document.getElementById('cart-count');
+    cartCountElement.textContent = cartCount;
 }
 
-function displayCart() {
-    const cartList = document.getElementById('cart-list');
-    cartList.innerHTML = '';
-    cart.forEach(product => {
-        const cartItem = document.createElement('div');
-        cartItem.classList.add('cart-item');
-        cartItem.innerHTML = `
-            <img src="${product.image}" alt="${product.name}">
-            <h3>${product.name}</h3>
-            <p>$${product.price}</p>
-        `;
-        cartList.appendChild(cartItem);
-    });
+// Add product to cart
+function addToCart(productId) {
+    const user = auth.currentUser;
+    if (user) {
+        const cartRef = ref(db, 'carts/' + user.uid);
+        set(ref(cartRef, productId), {
+            productId: productId
+        }).then(() => {
+            // Increment cart count and update the display
+            cartCount++;
+            updateCartCount();
+
+            // Optionally: Show a message or animation that item was added to cart
+        });
+    } else {
+        alert('You need to be signed in to add items to your cart.');
+    }
 }
 
+// Redirect to cart page
+function redirectToCart() {
+    window.location.href = 'cart.html';
+}
+
+// Load cart count on page load
+window.onload = function() {
+    const user = auth.currentUser;
+    if (user) {
+        const cartRef = ref(db, 'carts/' + user.uid);
+        onValue(cartRef, (snapshot) => {
+            cartCount = snapshot.size();
+            updateCartCount();
+        });
+    }
+};
+
+// Function to calculate total and display cart items
+function loadCart() {
+    const user = auth.currentUser;
+    if (user) {
+        const cartRef = ref(db, 'carts/' + user.uid);
+        onValue(cartRef, (snapshot) => {
+            const cartList = document.getElementById('cart-list');
+            cartList.innerHTML = '';
+            let total = 0;
+
+            snapshot.forEach((childSnapshot) => {
+                const productId = childSnapshot.val().productId;
+                const productRef = ref(db, 'products/' + productId);
+                onValue(productRef, (productSnapshot) => {
+                    const product = productSnapshot.val();
+                    const productDiv = document.createElement('div');
+                    productDiv.classList.add('product');
+                    productDiv.innerHTML = `
+                        <h3>${product.name}</h3>
+                        <p>${product.description}</p>
+                        <p>Price: $${product.price}</p>
+                        <p>Category: ${product.category}</p>
+                        <img src="${product.mediaURL}" alt="${product.name}">
+                    `;
+                    cartList.appendChild(productDiv);
+
+                    total += parseFloat(product.price);
+                    document.getElementById('cart-total').textContent = `Total: $${total.toFixed(2)}`;
+                });
+            });
+        });
+    }
+}
+
+// Call loadCart function when on cart.html
+if (window.location.pathname.endsWith('cart.html')) {
+    window.onload = function() {
+        const user = auth.currentUser;
+        if (user) {
+            loadCart();
+        }
+    };
+}
+
+// Handle checkout button click
 function checkout() {
-    // Implement checkout functionality here
-    alert('Proceeding to checkout');
+    // Calculate total and proceed to payment
+    const user = auth.currentUser;
+    if (user) {
+        calculateTotal();
+        // Proceed to the payment process
+        // You can redirect to a payment page or open a payment modal here
+    } else {
+        alert('You need to be signed in to checkout.');
+    }
 }
+    
