@@ -789,7 +789,7 @@ p {
     margin-bottom: 15px; /* Space below paragraphs */
 }
 
-a {
+service-link {
     text-decoration: none; /* Remove underline from links */
     color: #3498db; /* Link color */
     display: inline-block; /* Display as block with padding */
@@ -799,7 +799,7 @@ a {
     transition: background-color 0.3s, color 0.3s; /* Smooth transition effect */
 }
 
-a:hover {
+.service-link:hover {
     background-color: #3498db; /* Background color on hover */
     color: #fff; /* Text color on hover */
 }
