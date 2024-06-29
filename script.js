@@ -13,7 +13,7 @@ const firebaseConfig = {
     messagingSenderId: "385223965783",
     appId: "1:385223965783:web:5dc0c0b03ddd9666fb7712",
     measurementId: "G-KBJX1CEYL8"
-  };
+};
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
@@ -21,11 +21,8 @@ const analytics = getAnalytics(app);
 const auth = getAuth(app);
 const db = getDatabase(app);
 const storage = getStorage(app);
-const database = firebase.database();
-const auth = firebase.auth();
-const storage = firebase.storage();
 
-//paypal and stripe payments 
+// PayPal and Stripe payments
 document.addEventListener('DOMContentLoaded', function () {
     const checkoutForm = document.getElementById('checkout-form');
     const stripeButton = document.getElementById('stripe-button');
@@ -35,7 +32,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const stripe = Stripe('YOUR_STRIPE_PUBLISHABLE_KEY');
 
     // Monitor auth state
-    auth.onAuthStateChanged(user => {
+    onAuthStateChanged(auth, user => {
         if (user) {
             stripeButton.addEventListener('click', function () {
                 if (validateForm()) {
@@ -95,10 +92,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function saveUserData(userId, userData) {
         return new Promise((resolve, reject) => {
-            database.ref('users/' + userId).set(userData, (error) => {
-                if (error) {
-                    reject(new Error('Failed to save user data.'));
-                } else {
+            set(ref(db, 'users/' + userId), userData)
+                .then(() => {
                     // Assuming your backend endpoint returns a session/order ID
                     fetch('/create-payment-session', {
                         method: 'POST',
@@ -119,116 +114,118 @@ document.addEventListener('DOMContentLoaded', function () {
                         }
                     })
                     .catch(error => reject(new Error('An error occurred. Please try again.')));
-                }
-            });
+                })
+                .catch(error => reject(new Error('Failed to save user data.')));
         });
     }
 });
 
-  // Get form and product list elements
-  const postProductForm = document.getElementById('post-product-form');
-  const productList = document.getElementById('product-list');
+// Get form and product list elements
+const postProductForm = document.getElementById('post-product-form');
+const productList = document.getElementById('product-list');
 
-  // Listen for form submission
-  postProductForm.addEventListener('submit', (e) => {
+// Listen for form submission
+postProductForm.addEventListener('submit', (e) => {
     e.preventDefault();
 
     const user = auth.currentUser;
     if (user) {
-      // Get form values
-      const productName = document.getElementById('product-name').value;
-      const description = document.getElementById('description').value;
-      const price = document.getElementById('price').value;
-      const category = document.getElementById('category').value;
-      const mediaFile = document.getElementById('media').files[0];
+        // Get form values
+        const productName = document.getElementById('product-name').value;
+        const description = document.getElementById('description').value;
+        const price = document.getElementById('price').value;
+        const category = document.getElementById('category').value;
+        const mediaFile = document.getElementById('media').files[0];
 
-      // Create a reference to store media file
-      const mediaRef = storage.ref('media/' + mediaFile.name);
+        // Create a reference to store media file
+        const mediaRef = storageRef(storage, 'media/' + mediaFile.name);
 
-      // Upload media file
-      mediaRef.put(mediaFile).then((snapshot) => {
-        snapshot.ref.getDownloadURL().then((downloadURL) => {
-          // Save product data to Firebase Realtime Database
-          const productRef = database.ref('products').push();
-          productRef.set({
-            name: productName,
-            description: description,
-            price: price,
-            category: category,
-            mediaURL: downloadURL,
-            userId: user.uid
-          });
+        // Upload media file
+        uploadBytes(mediaRef, mediaFile).then((snapshot) => {
+            getDownloadURL(snapshot.ref).then((downloadURL) => {
+                // Save product data to Firebase Realtime Database
+                const productRef = ref(db, 'products').push();
+                set(productRef, {
+                    name: productName,
+                    description: description,
+                    price: price,
+                    category: category,
+                    mediaURL: downloadURL,
+                    userId: user.uid
+                });
 
-          // Clear form
-          postProductForm.reset();
+                // Clear form
+                postProductForm.reset();
+            });
         });
-      });
     } else {
-      alert('You need to be signed in to post a product.');
+        alert('You need to be signed in to post a product.');
     }
-  });
+});
 
-  // Load products from Firebase Realtime Database
-  database.ref('products').on('value', (snapshot) => {
+// Load products from Firebase Realtime Database
+onValue(ref(db, 'products'), (snapshot) => {
     productList.innerHTML = '';
     snapshot.forEach((childSnapshot) => {
-      const product = childSnapshot.val();
-      const productDiv = document.createElement('div');
-      productDiv.classList.add('product');
-      productDiv.innerHTML = `
-        <h3>${product.name}</h3>
-        <p>${product.description}</p>
-        <p>Price: $${product.price}</p>
-        <p>Category: ${product.category}</p>
-        <img src="${product.mediaURL}" alt="${product.name}">
-        <button onclick="addToCart('${childSnapshot.key}')">Add to Cart</button>
-      `;
-      productList.appendChild(productDiv);
+        const product = childSnapshot.val();
+        const productDiv = document.createElement('div');
+        productDiv.classList.add('product');
+        productDiv.innerHTML = `
+            <h3>${product.name}</h3>
+            <p>${product.description}</p>
+            <p>Price: $${product.price}</p>
+            <p>Category: ${product.category}</p>
+            <img src="${product.mediaURL}" alt="${product.name}">
+            <button onclick="addToCart('${childSnapshot.key}')">Add to Cart</button>
+        `;
+        productList.appendChild(productDiv);
     });
-  });
+});
 
-  function addToCart(productId) {
+function addToCart(productId) {
     const user = auth.currentUser;
     if (user) {
-      const cartRef = database.ref('carts/' + user.uid);
-      cartRef.push({
-        productId: productId
-      }).then(() => {
-        // Redirect to shopping cart with product ID
-        window.location.href = 'shopping_cart.html';
-      });
+        const cartRef = ref(db, 'carts/' + user.uid);
+        set(ref(cartRef, productId), {
+            productId: productId
+        }).then(() => {
+            // Redirect to shopping cart with product ID
+            window.location.href = 'shopping_cart.html';
+        });
     } else {
-      alert('You need to be signed in to add items to your cart.');
+        alert('You need to be signed in to add items to your cart.');
     }
-  }
+}
 
-  // Example authentication handling
-  auth.onAuthStateChanged((user) => {
+// Example authentication handling
+onAuthStateChanged(auth, (user) => {
     if (user) {
-      console.log('User signed in:', user);
+        console.log('User signed in:', user);
     } else {
-      console.log('No user signed in.');
+        console.log('No user signed in.');
     }
-  });
+});
 
-  // Sign in function (add your own sign-in method here)
-  function signIn() {
-    auth.signInWithEmailAndPassword('email@example.com', 'password').catch((error) => {
-      console.error('Sign-in error:', error);
-    });
-  }
+// Sign in function (add your own sign-in method here)
+function signIn() {
+    signInWithEmailAndPassword(auth, 'email@example.com', 'password')
+        .catch((error) => {
+            console.error('Sign-in error:', error);
+        });
+}
 
-  // Sign out function
-  function signOut() {
-    auth.signOut().then(() => {
-      console.log('User signed out.');
-    }).catch((error) => {
-      console.error('Sign-out error:', error);
-    });
-  }
-</script>
-              
+// Sign out function
+function signOut() {
+    auth.signOut()
+        .then(() => {
+            console.log('User signed out.');
+        })
+        .catch((error) => {
+            console.error('Sign-out error:', error);
+        });
+}
 
+// Disable right-click and certain keyboard shortcuts
 document.addEventListener('contextmenu', function(e) {
     e.preventDefault();
 });
@@ -237,4 +234,76 @@ document.addEventListener('keydown', function(e) {
         e.preventDefault();
     }
 });
-    
+
+
+const products = {
+    electronics: [
+        { id: 1, name: "iPhone Charger", image: "src/Images/product.jpg", price: 42.56, description: "Original 20W iPhone 14 Pro Max USB-C to Lightning Charger + 2m Cable" },
+        // Add more electronics products here
+    ],
+    apparel: [
+        { id: 2, name: "Garments", image: "src/Images/apparelproduct.jpg", price: 17.00, description: "High quality garments" },
+        // Add more apparel products here
+    ],
+    // Add more categories and products as needed
+};
+
+function navigateToCategory(category) {
+    const productSection = document.getElementById('products-section');
+    const productList = document.getElementById('product-list');
+    productList.innerHTML = '';
+    products[category].forEach(product => {
+        const productItem = document.createElement('div');
+        productItem.classList.add('product-item');
+        productItem.innerHTML = `
+            <img src="${product.image}" alt="${product.name}">
+            <h3>${product.name}</h3>
+            <p>$${product.price}</p>
+            <button onclick="viewProduct(${product.id}, '${category}')">View Details</button>
+        `;
+        productList.appendChild(productItem);
+    });
+    productSection.scrollIntoView();
+}
+
+function viewProduct(productId, category) {
+    const product = products[category].find(p => p.id === productId);
+    const productDetail = document.getElementById('product-detail');
+    productDetail.innerHTML = `
+        <img src="${product.image}" alt="${product.name}">
+        <h2>${product.name}</h2>
+        <p>$${product.price}</p>
+        <p>${product.description}</p>
+        <button onclick="addToCart(${product.id}, '${category}')">Add to Cart</button>
+    `;
+    productDetail.scrollIntoView();
+}
+
+const cart = [];
+
+function addToCart(productId, category) {
+    const product = products[category].find(p => p.id === productId);
+    cart.push(product);
+    alert(`${product.name} added to cart`);
+    displayCart();
+}
+
+function displayCart() {
+    const cartList = document.getElementById('cart-list');
+    cartList.innerHTML = '';
+    cart.forEach(product => {
+        const cartItem = document.createElement('div');
+        cartItem.classList.add('cart-item');
+        cartItem.innerHTML = `
+            <img src="${product.image}" alt="${product.name}">
+            <h3>${product.name}</h3>
+            <p>$${product.price}</p>
+        `;
+        cartList.appendChild(cartItem);
+    });
+}
+
+function checkout() {
+    // Implement checkout functionality here
+    alert('Proceeding to checkout');
+}
