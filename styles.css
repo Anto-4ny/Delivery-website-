@@ -743,6 +743,79 @@ button:hover {
     }
  }
 
+/* Basic styling for the services section */
+.services {
+    padding: 50px 0; /* Adjust padding as needed */
+    background-color: #f9f9f9; /* Background color for the section */
+}
+
+.container {
+    max-width: 1200px; /* Set maximum width for the container */
+    margin: 0 auto; /* Center the container horizontally */
+    padding: 0 20px; /* Padding inside the container */
+}
+
+h2 {
+    text-align: center; /* Center align the heading */
+    margin-bottom: 30px; /* Space below the heading */
+}
+
+.service-list {
+    display: flex; /* Display items in a row */
+    justify-content: space-around; /* Distribute items evenly */
+    flex-wrap: wrap; /* Wrap items to next line if needed */
+}
+
+.service-item {
+    width: 30%; /* Adjust width of service items */
+    margin-bottom: 30px; /* Space between items */
+    text-align: center; /* Center align text */
+}
+
+.service-item img {
+    width: 100%; /* Ensure images fill their container */
+    max-width: 100%; /* Ensure images don't exceed container width */
+    height: auto; /* Maintain aspect ratio */
+    border-radius: 8px; /* Rounded corners for images */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Optional: Box shadow for images */
+}
+
+h3 {
+    margin-top: 15px; /* Space above heading */
+}
+
+p {
+    color: #666; /* Text color for paragraphs */
+    margin-bottom: 15px; /* Space below paragraphs */
+}
+
+a {
+    text-decoration: none; /* Remove underline from links */
+    color: #3498db; /* Link color */
+    display: inline-block; /* Display as block with padding */
+    padding: 5px 10px; /* Padding around links */
+    border: 1px solid #3498db; /* Border around links */
+    border-radius: 4px; /* Rounded corners for links */
+    transition: background-color 0.3s, color 0.3s; /* Smooth transition effect */
+}
+
+a:hover {
+    background-color: #3498db; /* Background color on hover */
+    color: #fff; /* Text color on hover */
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+    .service-item {
+        width: 45%; /* Adjust width for medium screens */
+    }
+}
+
+@media (max-width: 768px) {
+    .service-item {
+        width: 100%; /* Full width for small screens */
+    }
+    }
 
     
 
