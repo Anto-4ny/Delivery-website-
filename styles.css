@@ -12,12 +12,12 @@
     margin-right: 10px;
 }
 .cart-icon {
-    position: relative;
+    position: fixed;
     display: inline-block;
     cursor: pointer;
     /* Adjust width and height as needed */
-    width: 40px;
-    height: 40px;
+    width: 50px;
+    height: 50px;
     /* Center the content */
     display: flex;
     align-items: center;
@@ -1576,15 +1576,6 @@ h1 {
     margin-top: 20px;
     text-align: center;
     }
-
-body {
-    background: url('path/to/your/background-image.jpg') no-repeat center center fixed; 
-    background-size: cover;
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-}
-
 
 .social-media {
     display: flex;
