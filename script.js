@@ -1,26 +1,3 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-analytics.js";
-import { getAuth, createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, FacebookAuthProvider, onAuthStateChanged, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-import { getDatabase, ref, set, onValue } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
-import { getStorage, ref as storageRef, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js";
-
-const firebaseConfig = {
-    apiKey: "AIzaSyDJ1g4qrix-xtkJN1dtEWXZ6SSUUHt04Cw",
-    authDomain: "ele-max-delivery.firebaseapp.com",
-    databaseURL: "https://ele-max-delivery-default-rtdb.firebaseio.com",
-    projectId: "ele-max-delivery",
-    storageBucket: "ele-max-delivery.appspot.com",
-    messagingSenderId: "385223965783",
-    appId: "1:385223965783:web:5dc0c0b03ddd9666fb7712",
-    measurementId: "G-KBJX1CEYL8"
-};
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
-const auth = getAuth(app);
-const db = getDatabase(app);
-const storage = getStorage(app);
 
 // PayPal and Stripe payments
 document.addEventListener('DOMContentLoaded', function () {
