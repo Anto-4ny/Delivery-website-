@@ -1,4 +1,4 @@
-
+<script type="module"></script>
 // PayPal and Stripe payments
 document.addEventListener('DOMContentLoaded', function () {
     const checkoutForm = document.getElementById('checkout-form');
